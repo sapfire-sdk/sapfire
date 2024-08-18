@@ -1,3 +1,5 @@
+# THIS IS A JOKE REPOSITIORY. USE [GEODE](https://geode-sdk.org) IF YOU WANT TO USE MODS. 
+
 <p align="center">
 	<img src="/title.png" />
 	<h3 align="center">
