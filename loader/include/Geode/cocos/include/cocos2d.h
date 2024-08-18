@@ -33,7 +33,7 @@ THE SOFTWARE.
 #define COCOS2D_VERSION 0x00020100
 
 
-// Geode macros
+// Sapfire macros
 #include "../../DefaultInclude.hpp"
 
 //
@@ -156,7 +156,7 @@ THE SOFTWARE.
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_BLACKBERRY)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
     // #include "../platform/blackberry/CCAccelerometer.h"
     // #include "../platform/blackberry/CCApplication.h"
     // #include "../platform/blackberry/CCEGLView.h"
@@ -173,7 +173,7 @@ THE SOFTWARE.
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
 	// #include "../platform/winrt/CCApplication.h"
 	// #include "../platform/winrt/CCEGLView.h"
 	// #include "../platform/winrt/CCGL.h"
@@ -183,7 +183,7 @@ THE SOFTWARE.
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
 	// #include "../platform/winrt/CCApplication.h"
 	// #include "../platform/wp8/CCEGLView.h"
 	// #include "../platform/winrt/CCGL.h"
@@ -205,7 +205,7 @@ THE SOFTWARE.
 
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
 	// #include "../platform/linux/CCAccelerometer.h"
 	// #include "../platform/linux/CCApplication.h"
 	// #include "../platform/linux/CCEGLView.h"
@@ -216,7 +216,7 @@ THE SOFTWARE.
 // MARMALADE CHANGE
 // Added for Marmalade support
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
 	// #include "../platform/Marmalade/CCAccelerometer.h"
 	// #include "../platform/Marmalade/CCApplication.h"
 	// #include "../platform/Marmalade/CCEGLView.h"
@@ -225,7 +225,7 @@ THE SOFTWARE.
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_NACL)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
     // #include "../platform/nacl/CCAccelerometer.h"
     // #include "../platform/nacl/CCApplication.h"
     // #include "../platform/nacl/CCEGLView.h"
@@ -234,7 +234,7 @@ THE SOFTWARE.
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
     // #include "../platform/emscripten/CCAccelerometer.h"
     // #include "../platform/emscripten/CCApplication.h"
     // #include "../platform/emscripten/CCEGLView.h"
@@ -243,7 +243,7 @@ THE SOFTWARE.
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-	#error "Unsupported platform with Geode!"
+	#error "Unsupported platform with Sapfire!"
     // #include "../platform/tizen/CCAccelerometer.h"
     // #include "../platform/tizen/CCApplication.h"
     // #include "../platform/tizen/CCEGLView.h"

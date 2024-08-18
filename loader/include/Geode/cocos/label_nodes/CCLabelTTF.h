@@ -57,13 +57,13 @@ NS_CC_BEGIN
 
 class CC_DLL CCLabelTTF : public CCSprite, public CCLabelProtocol
 {
-	GEODE_FRIEND_MODIFY
+	SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor
      */
     CCLabelTTF();
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCLabelTTF, CCSprite)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCLabelTTF, CCSprite)
     /**
      *  @js NA
      *  @lua NA

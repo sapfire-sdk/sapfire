@@ -1,6 +1,6 @@
-#include <Geode/ui/TextArea.hpp>
+#include <Sapfire/ui/TextArea.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 SimpleTextArea* SimpleTextArea::create(const std::string& text, const std::string& font, const float scale) {
     return SimpleTextArea::create(font, text, scale, CCDirector::sharedDirector()->getWinSize().width / 2, false);

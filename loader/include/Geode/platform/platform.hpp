@@ -5,102 +5,102 @@
 #include <functional>
 
 #if !defined(__PRETTY_FUNCTION__) && !defined(__GNUC__)
-    #define GEODE_PRETTY_FUNCTION std::string(__FUNCSIG__)
+    #define SAPFIRE_PRETTY_FUNCTION std::string(__FUNCSIG__)
 #else
-    #define GEODE_PRETTY_FUNCTION std::string(__PRETTY_FUNCTION__)
+    #define SAPFIRE_PRETTY_FUNCTION std::string(__PRETTY_FUNCTION__)
 #endif
 
 // Windows
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 
-    #define GEODE_HIDDEN
-    #define GEODE_INLINE __forceinline
-    #define GEODE_VIRTUAL_CONSTEXPR
-    #define GEODE_NOINLINE __declspec(noinline)
+    #define SAPFIRE_HIDDEN
+    #define SAPFIRE_INLINE __forceinline
+    #define SAPFIRE_VIRTUAL_CONSTEXPR
+    #define SAPFIRE_NOINLINE __declspec(noinline)
 
-    #ifdef GEODE_EXPORTING
-        #define GEODE_DLL __declspec(dllexport)
+    #ifdef SAPFIRE_EXPORTING
+        #define SAPFIRE_DLL __declspec(dllexport)
     #else
-        #define GEODE_DLL __declspec(dllimport)
+        #define SAPFIRE_DLL __declspec(dllimport)
     #endif
 
-    #define GEODE_API extern "C" __declspec(dllexport)
-    #define GEODE_EXPORT __declspec(dllexport)
+    #define SAPFIRE_API extern "C" __declspec(dllexport)
+    #define SAPFIRE_EXPORT __declspec(dllexport)
 
-    #if defined(GEODE_IS_WINDOWS64)
-        #define GEODE_IS_X64
-        #define GEODE_CDECL_CALL
+    #if defined(SAPFIRE_IS_WINDOWS64)
+        #define SAPFIRE_IS_X64
+        #define SAPFIRE_CDECL_CALL
     #else 
-        #define GEODE_IS_X86
-        #define GEODE_CDECL_CALL __cdecl
+        #define SAPFIRE_IS_X86
+        #define SAPFIRE_CDECL_CALL __cdecl
 	#endif
 
     #include "windows.hpp"
 
-#elif defined(GEODE_IS_MACOS)
+#elif defined(SAPFIRE_IS_MACOS)
 
-    #define GEODE_HIDDEN __attribute__((visibility("hidden")))
-    #define GEODE_INLINE inline __attribute__((always_inline))
-    #define GEODE_VIRTUAL_CONSTEXPR constexpr
-    #define GEODE_NOINLINE __attribute__((noinline))
+    #define SAPFIRE_HIDDEN __attribute__((visibility("hidden")))
+    #define SAPFIRE_INLINE inline __attribute__((always_inline))
+    #define SAPFIRE_VIRTUAL_CONSTEXPR constexpr
+    #define SAPFIRE_NOINLINE __attribute__((noinline))
 
-    #ifdef GEODE_EXPORTING
-        #define GEODE_DLL __attribute__((visibility("default")))
+    #ifdef SAPFIRE_EXPORTING
+        #define SAPFIRE_DLL __attribute__((visibility("default")))
     #else
-        #define GEODE_DLL
+        #define SAPFIRE_DLL
     #endif
 
-    #define GEODE_API extern "C" __attribute__((visibility("default")))
-    #define GEODE_EXPORT __attribute__((visibility("default")))
+    #define SAPFIRE_API extern "C" __attribute__((visibility("default")))
+    #define SAPFIRE_EXPORT __attribute__((visibility("default")))
 
-    #define GEODE_IS_X64
-    #define GEODE_CDECL_CALL
+    #define SAPFIRE_IS_X64
+    #define SAPFIRE_CDECL_CALL
 
     #include "macos.hpp"
 
-#elif defined(GEODE_IS_IOS)
+#elif defined(SAPFIRE_IS_IOS)
 
-    #define GEODE_HIDDEN __attribute__((visibility("hidden")))
-    #define GEODE_INLINE inline __attribute__((always_inline))
-    #define GEODE_VIRTUAL_CONSTEXPR constexpr
-    #define GEODE_NOINLINE __attribute__((noinline))
+    #define SAPFIRE_HIDDEN __attribute__((visibility("hidden")))
+    #define SAPFIRE_INLINE inline __attribute__((always_inline))
+    #define SAPFIRE_VIRTUAL_CONSTEXPR constexpr
+    #define SAPFIRE_NOINLINE __attribute__((noinline))
 
-    #ifdef GEODE_EXPORTING
-        #define GEODE_DLL __attribute__((visibility("default")))
+    #ifdef SAPFIRE_EXPORTING
+        #define SAPFIRE_DLL __attribute__((visibility("default")))
     #else
-        #define GEODE_DLL
+        #define SAPFIRE_DLL
     #endif
 
-    #define GEODE_API extern "C" __attribute__((visibility("default")))
-    #define GEODE_EXPORT __attribute__((visibility("default")))
+    #define SAPFIRE_API extern "C" __attribute__((visibility("default")))
+    #define SAPFIRE_EXPORT __attribute__((visibility("default")))
 
-    #define GEODE_IS_X64
-    #define GEODE_CDECL_CALL
+    #define SAPFIRE_IS_X64
+    #define SAPFIRE_CDECL_CALL
 
     #include "ios.hpp"
 
-#elif defined(GEODE_IS_ANDROID)
+#elif defined(SAPFIRE_IS_ANDROID)
 
-    #define GEODE_HIDDEN __attribute__((visibility("hidden")))
-    #define GEODE_INLINE inline __attribute__((always_inline))
-    #define GEODE_VIRTUAL_CONSTEXPR constexpr
-    #define GEODE_NOINLINE __attribute__((noinline))
+    #define SAPFIRE_HIDDEN __attribute__((visibility("hidden")))
+    #define SAPFIRE_INLINE inline __attribute__((always_inline))
+    #define SAPFIRE_VIRTUAL_CONSTEXPR constexpr
+    #define SAPFIRE_NOINLINE __attribute__((noinline))
 
-    #ifdef GEODE_EXPORTING
-        #define GEODE_DLL __attribute__((visibility("default")))
+    #ifdef SAPFIRE_EXPORTING
+        #define SAPFIRE_DLL __attribute__((visibility("default")))
     #else
-        #define GEODE_DLL
+        #define SAPFIRE_DLL
     #endif
 
-    #define GEODE_API extern "C" __attribute__((visibility("default")))
-    #define GEODE_EXPORT __attribute__((visibility("default")))
+    #define SAPFIRE_API extern "C" __attribute__((visibility("default")))
+    #define SAPFIRE_EXPORT __attribute__((visibility("default")))
 
-    #if defined(GEODE_IS_ANDROID64)
-        #define GEODE_IS_X64
+    #if defined(SAPFIRE_IS_ANDROID64)
+        #define SAPFIRE_IS_X64
     #else 
-        #define GEODE_IS_X86
+        #define SAPFIRE_IS_X86
     #endif
-    #define GEODE_CDECL_CALL
+    #define SAPFIRE_CDECL_CALL
 
     #include "android.hpp"
 
@@ -110,7 +110,7 @@
 
 #endif
 
-namespace geode {
+namespace sapfire {
     class PlatformID {
     public:
         enum {
@@ -161,16 +161,16 @@ namespace geode {
          * Parse string into PlatformID. String should be all-lowercase, for 
          * example "windows" or "linux"
          */
-        static GEODE_DLL PlatformID from(const char* str);
-        static GEODE_DLL PlatformID from(std::string const& str);
+        static SAPFIRE_DLL PlatformID from(const char* str);
+        static SAPFIRE_DLL PlatformID from(std::string const& str);
 
         /**
          * Determines if a given platform string "covers" the given platform.
          * For example, "android" is covered by Platform::Android32 and Platform::Android64.
          * Input string must follow the format in PlatformID::toShortString.
          */
-        static GEODE_DLL bool coveredBy(const char* str, PlatformID t);
-        static GEODE_DLL bool coveredBy(std::string const& str, PlatformID t);
+        static SAPFIRE_DLL bool coveredBy(const char* str, PlatformID t);
+        static SAPFIRE_DLL bool coveredBy(std::string const& str, PlatformID t);
 
         static constexpr char const* toString(Type lp) {
             switch (lp) {
@@ -222,23 +222,23 @@ namespace geode {
 
 namespace std {
     template <>
-    struct hash<geode::PlatformID> {
-        inline std::size_t operator()(geode::PlatformID const& id) const {
-            return std::hash<geode::PlatformID::Type>()(id.m_value);
+    struct hash<sapfire::PlatformID> {
+        inline std::size_t operator()(sapfire::PlatformID const& id) const {
+            return std::hash<sapfire::PlatformID::Type>()(id.m_value);
         }
     };
 }
 
-#ifdef GEODE_IS_WINDOWS
-    #define GEODE_PLATFORM_TARGET PlatformID::Windows
-#elif defined(GEODE_IS_ARM_MAC)
-    #define GEODE_PLATFORM_TARGET PlatformID::MacArm
-#elif defined(GEODE_IS_INTEL_MAC)
-    #define GEODE_PLATFORM_TARGET PlatformID::MacIntel
-#elif defined(GEODE_IS_IOS)
-    #define GEODE_PLATFORM_TARGET PlatformID::iOS
-#elif defined(GEODE_IS_ANDROID32)
-    #define GEODE_PLATFORM_TARGET PlatformID::Android32
-#elif defined(GEODE_IS_ANDROID64)
-    #define GEODE_PLATFORM_TARGET PlatformID::Android64
+#ifdef SAPFIRE_IS_WINDOWS
+    #define SAPFIRE_PLATFORM_TARGET PlatformID::Windows
+#elif defined(SAPFIRE_IS_ARM_MAC)
+    #define SAPFIRE_PLATFORM_TARGET PlatformID::MacArm
+#elif defined(SAPFIRE_IS_INTEL_MAC)
+    #define SAPFIRE_PLATFORM_TARGET PlatformID::MacIntel
+#elif defined(SAPFIRE_IS_IOS)
+    #define SAPFIRE_PLATFORM_TARGET PlatformID::iOS
+#elif defined(SAPFIRE_IS_ANDROID32)
+    #define SAPFIRE_PLATFORM_TARGET PlatformID::Android32
+#elif defined(SAPFIRE_IS_ANDROID64)
+    #define SAPFIRE_PLATFORM_TARGET PlatformID::Android64
 #endif

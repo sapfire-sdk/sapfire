@@ -1,7 +1,7 @@
 #pragma once
-#include <Geode/c++stl/gdstdlib.hpp>
+#include <Sapfire/c++stl/gdstdlib.hpp>
 
-namespace geode::stl {
+namespace sapfire::stl {
     struct StringImpl {
         StringData& data;
 

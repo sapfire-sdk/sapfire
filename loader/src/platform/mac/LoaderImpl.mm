@@ -1,5 +1,5 @@
-#include <Geode/loader/IPC.hpp>
-#include <Geode/loader/Log.hpp>
+#include <Sapfire/loader/IPC.hpp>
+#include <Sapfire/loader/Log.hpp>
 #include <iostream>
 #include <loader/LoaderImpl.hpp>
 #include <loader/console.hpp>
@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <loader/LogImpl.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 struct MacConsoleData {
     std::string logFile;
@@ -56,13 +56,13 @@ void console::openIfClosed() {
     auto script = outFile + ".command";
     auto scriptContent = fmt::format(R"(
         #!/bin/sh
-        echo -n -e "\033]0;Geode Console {}\007"
+        echo -n -e "\033]0;Sapfire Console {}\007"
         tail -f {} &
         trap "" SIGINT
         lsof -p {} +r 1 &>/dev/null
         pkill -P $$
         osascript -e 'tell application "Terminal"
-            close (every window whose name contains "Geode Console {}")
+            close (every window whose name contains "Sapfire Console {}")
             if (count windows) is 0 then quit
         end tell' &
         exit
@@ -97,13 +97,13 @@ CFDataRef msgPortCallback(CFMessagePortRef port, SInt32 messageID, CFDataRef dat
 
     std::string cdata(reinterpret_cast<char const*>(CFDataGetBytePtr(data)), CFDataGetLength(data));
 
-    std::string reply = geode::ipc::processRaw(port, cdata).dump();
+    std::string reply = sapfire::ipc::processRaw(port, cdata).dump();
     return CFDataCreate(NULL, (UInt8 const*)reply.data(), reply.size());
 }
 
-void geode::ipc::setup() {
+void sapfire::ipc::setup() {
     std::thread([]() {
-        thread::setName("Geode Main IPC");
+        thread::setName("Sapfire Main IPC");
 
         CFStringRef portName = CFStringCreateWithCString(NULL, IPC_PORT_NAME, kCFStringEncodingUTF8);
 

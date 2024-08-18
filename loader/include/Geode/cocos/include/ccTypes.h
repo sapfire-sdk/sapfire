@@ -28,7 +28,7 @@ THE SOFTWARE.
 #define __CCTYPES_H__
 
 #include <string>
-#include <Geode/c++stl/gdstdlib.hpp>
+#include <Sapfire/c++stl/gdstdlib.hpp>
 #include "../cocoa/CCGeometry.h"
 #include "../platform/CCGL.h"
 

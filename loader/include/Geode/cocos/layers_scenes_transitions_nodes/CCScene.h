@@ -36,7 +36,7 @@ NS_CC_BEGIN
  * @{
  */
 
-// geode should use the cocos2d-x-gd imo
+// sapfire should use the cocos2d-x-gd imo
 class CCScene;
 
 class CC_DLL CCSceneDelegate {
@@ -57,13 +57,13 @@ It is a good practice to use and CCScene as the parent of all your nodes.
 */
 class CC_DLL CCScene : public CCNode
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor
      */
     CCScene();
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCScene, CCNode)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCScene, CCNode)
     /**
      *  @js NA
      *  @lua NA
@@ -74,9 +74,9 @@ public:
     static CCScene* create(void);
     /**
      * Get the running scene
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    static GEODE_DLL CCScene* get();
+    static SAPFIRE_DLL CCScene* get();
 
     CCScene(const CCScene&);
     CCScene& operator=(const CCScene&);

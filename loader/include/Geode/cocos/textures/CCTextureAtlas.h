@@ -55,7 +55,7 @@ To render the quads using an interleaved vertex array list, you should modify th
 */
 class CC_DLL CCTextureAtlas : public CCObject 
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 protected:
 
 
@@ -81,7 +81,7 @@ public:
      * @js ctor
      */
     CCTextureAtlas();
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCTextureAtlas, CCObject)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCTextureAtlas, CCObject)
     /**
      *  @js NA
      *  @lua NA

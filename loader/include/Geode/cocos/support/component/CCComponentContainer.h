@@ -37,7 +37,7 @@ class CCNode;
  */
 class CC_DLL CCComponentContainer
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 protected:
 
 

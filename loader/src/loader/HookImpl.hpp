@@ -1,15 +1,15 @@
 #pragma once
 
-#include <Geode/loader/Hook.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/utils/casts.hpp>
-#include <Geode/utils/ranges.hpp>
+#include <Sapfire/loader/Hook.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/utils/casts.hpp>
+#include <Sapfire/utils/ranges.hpp>
 #include <vector>
 #include "ModImpl.hpp"
 #include "ModPatch.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class Hook::Impl final : ModPatch {
 public:

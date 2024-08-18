@@ -52,7 +52,7 @@ Result<> Hook::Impl::enable() {
     // During a transition between updates when it's important to get a
     // non-functional version that compiles, address 0x9999999 is used to mark
     // functions not yet RE'd but that would prevent compilation
-    if ((uintptr_t)m_address == (geode::base::get() + 0x9999999)) {
+    if ((uintptr_t)m_address == (sapfire::base::get() + 0x9999999)) {
         if (m_owner) {
             log::warn(
                 "Hook {} for {} uses placeholder address, refusing to hook",
@@ -65,7 +65,7 @@ Result<> Hook::Impl::enable() {
         return Ok();
     }
 
-    GEODE_UNWRAP_INTO(auto handler, LoaderImpl::get()->getOrCreateHandler(m_address, m_handlerMetadata));
+    SAPFIRE_UNWRAP_INTO(auto handler, LoaderImpl::get()->getOrCreateHandler(m_address, m_handlerMetadata));
     m_handle = tulip::hook::createHook(handler, m_detour, m_hookMetadata);
     m_enabled = true;
 
@@ -82,7 +82,7 @@ Result<> Hook::Impl::enable() {
 Result<> Hook::Impl::disable() {
     if (!m_enabled)
         return Ok();
-    GEODE_UNWRAP_INTO(auto handler, LoaderImpl::get()->getHandler(m_address));
+    SAPFIRE_UNWRAP_INTO(auto handler, LoaderImpl::get()->getHandler(m_address));
     tulip::hook::removeHook(handler, m_handle);
     m_enabled = false;
     log::debug("Disabled {} hook", m_displayName);
@@ -132,7 +132,7 @@ void Hook::Impl::setPriority(int32_t priority) {
 
 Result<> Hook::Impl::updateHookMetadata() {
     if (!m_enabled) return Ok();
-    GEODE_UNWRAP_INTO(auto handler, LoaderImpl::get()->getHandler(m_address));
+    SAPFIRE_UNWRAP_INTO(auto handler, LoaderImpl::get()->getHandler(m_address));
     tulip::hook::updateHookMetadata(handler, m_handle, m_hookMetadata);
     return Ok();
 }

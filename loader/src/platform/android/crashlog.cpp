@@ -2,7 +2,7 @@
 
 static bool s_lastLaunchCrashed = false;
 
-#ifdef GEODE_USE_BREAKPAD
+#ifdef SAPFIRE_USE_BREAKPAD
 
 #include <memory>
 #include <fmt/chrono.h>
@@ -26,7 +26,7 @@ namespace {
         sys_open(indicatorString.c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0);
 
         // another memory allocation!
-        geode::log::error("Geode crashed! Crash dump saved to {}", descriptor.path());
+        sapfire::log::error("Sapfire crashed! Crash dump saved to {}", descriptor.path());
 
         return succeeded;
     }
@@ -43,7 +43,7 @@ namespace {
 bool crashlog::setupPlatformHandler() {
     auto logDirectory = crashlog::getCrashLogDirectory();
 
-    (void)geode::utils::file::createDirectoryAll(logDirectory);
+    (void)sapfire::utils::file::createDirectoryAll(logDirectory);
 
     google_breakpad::MinidumpDescriptor descriptor(logDirectory.string(), crashdumpName());
 
@@ -64,9 +64,9 @@ void crashlog::setupPlatformHandlerPost() { }
 
 #else
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-#include <Geode/utils/string.hpp>
+#include <Sapfire/utils/string.hpp>
 #include <array>
 #include <thread>
 #include <filesystem>
@@ -79,7 +79,7 @@ using namespace geode::prelude;
 
 
 #include <jni.h>
-#include <Geode/cocos/platform/android/jni/JniHelper.h>
+#include <Sapfire/cocos/platform/android/jni/JniHelper.h>
 
 #include "backtrace/execinfo.hpp"
 
@@ -244,7 +244,7 @@ static void handlerThread() {
 
     auto text = crashlog::writeCrashlog(faultyMod, getInfo(signalAddress, faultyMod), getStacktrace(), getRegisters());
 
-    log::error("Geode crashed!\n{}", text);
+    log::error("Sapfire crashed!\n{}", text);
     
     s_signal = 0;
     s_cv.notify_all();
@@ -316,7 +316,7 @@ bool crashlog::setupPlatformHandler() {
     
     JniMethodInfo t;
     
-    if (JniHelper::getStaticMethodInfo(t, "com/geode/launcher/utils/GeodeUtils", "getLogcatCrashBuffer", "()Ljava/lang/String;")) {
+    if (JniHelper::getStaticMethodInfo(t, "com/sapfire/launcher/utils/SapfireUtils", "getLogcatCrashBuffer", "()Ljava/lang/String;")) {
         jstring stringResult = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
 
         s_result = JniHelper::jstring2string(stringResult);
@@ -347,10 +347,10 @@ void crashlog::setupPlatformHandlerPost() {
     if (s_result.empty()) return;
 
     std::stringstream ss;
-    ss << "Geode crashed!\n";
+    ss << "Sapfire crashed!\n";
     ss << "Please submit this crash report to the developer of the mod that caused it.\n";
-    ss << "\n== Geode Information ==\n";
-    crashlog::printGeodeInfo(ss);
+    ss << "\n== Sapfire Information ==\n";
+    crashlog::printSapfireInfo(ss);
 
     ss << "\n== Installed Mods ==\n";
     printModsAndroid(ss);
@@ -372,7 +372,7 @@ void crashlog::setupPlatformHandlerPost() {
 #endif
 
 std::filesystem::path crashlog::getCrashLogDirectory() {
-    return geode::dirs::getGeodeDir() / "crashlogs";
+    return sapfire::dirs::getSapfireDir() / "crashlogs";
 }
 
 bool crashlog::didLastLaunchCrash() {

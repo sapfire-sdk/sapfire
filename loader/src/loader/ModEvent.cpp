@@ -1,6 +1,6 @@
-#include <Geode/loader/ModEvent.hpp>
+#include <Sapfire/loader/ModEvent.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 ModStateEvent::ModStateEvent(Mod* mod, ModEventType type) : m_mod(mod), m_type(type) {}
 

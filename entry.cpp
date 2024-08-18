@@ -1,7 +1,7 @@
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Mod.hpp>
 
-namespace geode {
+namespace sapfire {
     /**
      * To bypass the need for cyclic dependencies,
      * this function does the exact same as Mod::get()
@@ -13,12 +13,12 @@ namespace geode {
     }
 }
 
-GEODE_API void geodeImplicitEntry() {
+SAPFIRE_API void sapfireImplicitEntry() {
     // to make sure the instance is set into the sharedMod<> in load time
-    (void)geode::getMod();
+    (void)sapfire::getMod();
 }
 
-#if defined(_DEBUG) && defined(GEODE_IS_WINDOWS)
+#if defined(_DEBUG) && defined(SAPFIRE_IS_WINDOWS)
 
 // This bypasses any of the heap validation measures that are injected when compiling in Debug.
 // Without these, the game will very likely crash when the mod tries to free memory allocated by the game (or another non-debug mod).

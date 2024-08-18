@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 #include <memory>
 #include <concepts>
 #include "terminate.hpp"
 
-namespace geode::utils {
+namespace sapfire::utils {
 
     template <class FunctionType>
     class MiniFunction;

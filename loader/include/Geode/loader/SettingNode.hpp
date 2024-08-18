@@ -4,7 +4,7 @@
 
 #include <cocos2d.h>
 
-namespace geode {
+namespace sapfire {
     class SettingNode;
 
     struct SettingNodeDelegate {
@@ -12,7 +12,7 @@ namespace geode {
         virtual void settingValueCommitted(SettingNode* node) {}
     };
 
-    class GEODE_DLL SettingNode : public cocos2d::CCNode {
+    class SAPFIRE_DLL SettingNode : public cocos2d::CCNode {
     protected:
         SettingValue* m_value;
         SettingNodeDelegate* m_delegate = nullptr;

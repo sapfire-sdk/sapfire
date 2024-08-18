@@ -1,9 +1,9 @@
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include <loader/ModImpl.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 template <typename T>
 T findSymbolOrMangled(void* so, char const* name, char const* mangled) {
@@ -23,14 +23,14 @@ Result<> Mod::Impl::loadPlatformBinary() {
         }
         m_platformInfo = new PlatformInfo{so};
 
-        auto geodeImplicitEntry = findSymbolOrMangled<void(*)()>(so, "geodeImplicitEntry", "_Z17geodeImplicitEntryv");
-        if (geodeImplicitEntry) {
-            geodeImplicitEntry();
+        auto sapfireImplicitEntry = findSymbolOrMangled<void(*)()>(so, "sapfireImplicitEntry", "_Z17sapfireImplicitEntryv");
+        if (sapfireImplicitEntry) {
+            sapfireImplicitEntry();
         }
 
-        auto geodeCustomEntry = findSymbolOrMangled<void(*)()>(so, "geodeCustomEntry", "_Z15geodeCustomEntryv");
-        if (geodeCustomEntry) {
-            geodeCustomEntry();
+        auto sapfireCustomEntry = findSymbolOrMangled<void(*)()>(so, "sapfireCustomEntry", "_Z15sapfireCustomEntryv");
+        if (sapfireCustomEntry) {
+            sapfireCustomEntry();
         }
 
         return Ok();

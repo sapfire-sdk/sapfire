@@ -1,14 +1,14 @@
-// #define GEODE_UI_TEST
-#ifdef GEODE_UI_TEST
+// #define SAPFIRE_UI_TEST
+#ifdef SAPFIRE_UI_TEST
 
-#include <Geode/modify/MenuLayer.hpp>
-#include <Geode/ui/Popup.hpp>
-#include <Geode/ui/BasedButtonSprite.hpp>
-#include <Geode/utils/web.hpp>
+#include <Sapfire/modify/MenuLayer.hpp>
+#include <Sapfire/ui/Popup.hpp>
+#include <Sapfire/ui/BasedButtonSprite.hpp>
+#include <Sapfire/utils/web.hpp>
 #include <server/Server.hpp>
 #include "../sources/ModListSource.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 using StrTask = Task<std::string>;
 

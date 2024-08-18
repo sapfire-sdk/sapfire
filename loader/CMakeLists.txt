@@ -1,19 +1,19 @@
 cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
 cmake_policy(SET CMP0097 NEW)
 
-project(geode-loader VERSION ${GEODE_VERSION} LANGUAGES C CXX)
-if (GEODE_VERSION_TAG_TYPE)
-	if (GEODE_VERSION_TAG_NUMBER)
-		set(PROJECT_VERSION_TAG_CONSTR "geode::VersionTag(geode::VersionTag::${GEODE_VERSION_TAG_TYPE}, ${GEODE_VERSION_TAG_NUMBER})")
+project(sapfire-loader VERSION ${SAPFIRE_VERSION} LANGUAGES C CXX)
+if (SAPFIRE_VERSION_TAG_TYPE)
+	if (SAPFIRE_VERSION_TAG_NUMBER)
+		set(PROJECT_VERSION_TAG_CONSTR "sapfire::VersionTag(sapfire::VersionTag::${SAPFIRE_VERSION_TAG_TYPE}, ${SAPFIRE_VERSION_TAG_NUMBER})")
 	else()
-		set(PROJECT_VERSION_TAG_CONSTR "geode::VersionTag::${GEODE_VERSION_TAG_TYPE}")
+		set(PROJECT_VERSION_TAG_CONSTR "sapfire::VersionTag::${SAPFIRE_VERSION_TAG_TYPE}")
 	endif()
 else()
 	set(PROJECT_VERSION_TAG_CONSTR "std::nullopt")
 endif()
 
-if (GEODE_VERSION_TAG)
-	set(PROJECT_VERSION_SUFFIX "-${GEODE_VERSION_TAG}" CACHE INTERNAL "" )
+if (SAPFIRE_VERSION_TAG)
+	set(PROJECT_VERSION_SUFFIX "-${SAPFIRE_VERSION_TAG}" CACHE INTERNAL "" )
 else()
 	set(PROJECT_VERSION_SUFFIX "" CACHE INTERNAL "" )
 endif()
@@ -29,35 +29,35 @@ endif()
 execute_process(
 	COMMAND git describe --always --dirty
 	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-	OUTPUT_VARIABLE GEODE_COMMIT_HASH
+	OUTPUT_VARIABLE SAPFIRE_COMMIT_HASH
 	OUTPUT_STRIP_TRAILING_WHITESPACE
 	ERROR_QUIET
 )
 
-if (NOT GEODE_COMMIT_HASH)
-	set(GEODE_COMMIT_HASH "(?)")
+if (NOT SAPFIRE_COMMIT_HASH)
+	set(SAPFIRE_COMMIT_HASH "(?)")
 endif()
 
 execute_process(
 	COMMAND git describe --always --dirty
-	WORKING_DIRECTORY ${GEODE_BINDINGS_REPO_PATH}
-	OUTPUT_VARIABLE GEODE_BINDINGS_COMMIT_HASH
+	WORKING_DIRECTORY ${SAPFIRE_BINDINGS_REPO_PATH}
+	OUTPUT_VARIABLE SAPFIRE_BINDINGS_COMMIT_HASH
 	OUTPUT_STRIP_TRAILING_WHITESPACE
 	ERROR_QUIET
 )
 
-if (NOT GEODE_BINDINGS_COMMIT_HASH)
-	set(GEODE_BINDINGS_COMMIT_HASH "(?)")
+if (NOT SAPFIRE_BINDINGS_COMMIT_HASH)
+	set(SAPFIRE_BINDINGS_COMMIT_HASH "(?)")
 endif()
 
 # Package info file for internal representation
-set(GEODE_RESOURCES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/resources)
+set(SAPFIRE_RESOURCES_PATH ${CMAKE_CURRENT_SOURCE_DIR}/resources)
 configure_file(resources/mod.json.in ${CMAKE_CURRENT_SOURCE_DIR}/resources/mod.json)
 file(READ resources/mod.json LOADER_MOD_JSON)
-configure_file(${GEODE_ROOT_PATH}/VERSION ${GEODE_RESOURCES_PATH}/version COPYONLY)
-configure_file(${GEODE_RESOURCES_PATH}/about.md.in ${GEODE_RESOURCES_PATH}/about.md NEWLINE_STYLE LF)
-configure_file(${GEODE_ROOT_PATH}/CHANGELOG.md ${GEODE_RESOURCES_PATH}/changelog.md NEWLINE_STYLE LF)
-configure_file(${GEODE_RESOURCES_PATH}/support.md.in ${GEODE_RESOURCES_PATH}/support.md NEWLINE_STYLE LF)
+configure_file(${SAPFIRE_ROOT_PATH}/VERSION ${SAPFIRE_RESOURCES_PATH}/version COPYONLY)
+configure_file(${SAPFIRE_RESOURCES_PATH}/about.md.in ${SAPFIRE_RESOURCES_PATH}/about.md NEWLINE_STYLE LF)
+configure_file(${SAPFIRE_ROOT_PATH}/CHANGELOG.md ${SAPFIRE_RESOURCES_PATH}/changelog.md NEWLINE_STYLE LF)
+configure_file(${SAPFIRE_RESOURCES_PATH}/support.md.in ${SAPFIRE_RESOURCES_PATH}/support.md NEWLINE_STYLE LF)
 configure_file(src/internal/about.cpp.in ${CMAKE_CURRENT_SOURCE_DIR}/src/internal/about.cpp)
 
 # Source files
@@ -140,7 +140,7 @@ if (WIN32)
 endif()
 
 
-if (ANDROID AND GEODE_USE_BREAKPAD)
+if (ANDROID AND SAPFIRE_USE_BREAKPAD)
 	CPMAddPackage("gh:qimiko/breakpad#161e908")
 endif()
 
@@ -148,34 +148,34 @@ add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
-file(MAKE_DIRECTORY "${GEODE_BIN_PATH}/nightly")
+file(MAKE_DIRECTORY "${SAPFIRE_BIN_PATH}/nightly")
 
 # Prevent SDK from activating a loader build
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	PREFIX ""
-	OUTPUT_NAME ${GEODE_OUTPUT_NAME}
+	OUTPUT_NAME ${SAPFIRE_OUTPUT_NAME}
 	# i'm going to say a slur that not a single soul has uttered in the last 200 years
-	LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO "${GEODE_BIN_PATH}/nightly"
-	RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${GEODE_BIN_PATH}/nightly"
-	ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO "${GEODE_BIN_PATH}/nightly"
-	LIBRARY_OUTPUT_DIRECTORY_RELEASE "${GEODE_BIN_PATH}/nightly"
-	RUNTIME_OUTPUT_DIRECTORY_RELEASE "${GEODE_BIN_PATH}/nightly"
-	ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${GEODE_BIN_PATH}/nightly"
-	LIBRARY_OUTPUT_DIRECTORY_MINSIZEREL "${GEODE_BIN_PATH}/nightly"
-	RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL "${GEODE_BIN_PATH}/nightly"
-	ARCHIVE_OUTPUT_DIRECTORY_MINSIZEREL "${GEODE_BIN_PATH}/nightly"
-	LIBRARY_OUTPUT_DIRECTORY "${GEODE_BIN_PATH}/nightly"
-	RUNTIME_OUTPUT_DIRECTORY "${GEODE_BIN_PATH}/nightly"
-	ARCHIVE_OUTPUT_DIRECTORY "${GEODE_BIN_PATH}/nightly"
+	LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO "${SAPFIRE_BIN_PATH}/nightly"
+	RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${SAPFIRE_BIN_PATH}/nightly"
+	ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO "${SAPFIRE_BIN_PATH}/nightly"
+	LIBRARY_OUTPUT_DIRECTORY_RELEASE "${SAPFIRE_BIN_PATH}/nightly"
+	RUNTIME_OUTPUT_DIRECTORY_RELEASE "${SAPFIRE_BIN_PATH}/nightly"
+	ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${SAPFIRE_BIN_PATH}/nightly"
+	LIBRARY_OUTPUT_DIRECTORY_MINSIZEREL "${SAPFIRE_BIN_PATH}/nightly"
+	RUNTIME_OUTPUT_DIRECTORY_MINSIZEREL "${SAPFIRE_BIN_PATH}/nightly"
+	ARCHIVE_OUTPUT_DIRECTORY_MINSIZEREL "${SAPFIRE_BIN_PATH}/nightly"
+	LIBRARY_OUTPUT_DIRECTORY "${SAPFIRE_BIN_PATH}/nightly"
+	RUNTIME_OUTPUT_DIRECTORY "${SAPFIRE_BIN_PATH}/nightly"
+	ARCHIVE_OUTPUT_DIRECTORY "${SAPFIRE_BIN_PATH}/nightly"
 )
 
-if (GEODE_NO_UNDEFINED_VIRTUALS)
-	target_compile_definitions(${PROJECT_NAME} PUBLIC GEODE_NO_UNDEFINED_VIRTUALS)
+if (SAPFIRE_NO_UNDEFINED_VIRTUALS)
+	target_compile_definitions(${PROJECT_NAME} PUBLIC SAPFIRE_NO_UNDEFINED_VIRTUALS)
 endif()
 
 # CA Bundle
 CPMAddPackage(
-	GITHUB_REPOSITORY geode-sdk/net_libs
+	GITHUB_REPOSITORY sapfire-sdk/net_libs
 	GIT_TAG 1f5ffb3
 # CPM is bugged and will not allow an empty string.
 # https://github.com/cpm-cmake/CPM.cmake/issues/467
@@ -186,24 +186,24 @@ CPMAddPackage(
 target_link_libraries(${PROJECT_NAME} ca-bundle)
 
 # Package resources for UI
-package_geode_resources_now(
+package_sapfire_resources_now(
 	${PROJECT_NAME}
 	${CMAKE_CURRENT_SOURCE_DIR}/resources
-	${GEODE_BIN_PATH}/nightly/resources
+	${SAPFIRE_BIN_PATH}/nightly/resources
 	${CMAKE_CURRENT_SOURCE_DIR}/src/internal/resources.hpp
 )
 
 if (APPLE) 
 	# I don't care a single bit where to put this
-	file(COPY ${GEODE_LOADER_PATH}/include/link/macos/libfmod.dylib DESTINATION ${GEODE_BIN_PATH}/nightly)
+	file(COPY ${SAPFIRE_LOADER_PATH}/include/link/macos/libfmod.dylib DESTINATION ${SAPFIRE_BIN_PATH}/nightly)
 endif()
 
 if (ANDROID)
 	# needed to define some opengl functions
 	target_link_libraries(${PROJECT_NAME} EGL)
 
-	if (GEODE_USE_BREAKPAD)
-		target_compile_definitions(${PROJECT_NAME} PRIVATE -DGEODE_USE_BREAKPAD)
+	if (SAPFIRE_USE_BREAKPAD)
+		target_compile_definitions(${PROJECT_NAME} PRIVATE -DSAPFIRE_USE_BREAKPAD)
 		target_link_libraries(${PROJECT_NAME} Breakpad)
 	endif()
 endif()
@@ -225,18 +225,18 @@ if (APPLE)
 	#set_property(TARGET ${PROJECT_NAME} PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 endif()
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC GEODE_EXPORTING MAT_JSON_EXPORTING)
+target_compile_definitions(${PROJECT_NAME} PUBLIC SAPFIRE_EXPORTING MAT_JSON_EXPORTING)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-	GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE
+	SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE
 	_CRT_SECURE_NO_WARNINGS
 )
 
-# set GEODE_MOD_ID for loader itself
-target_compile_definitions(${PROJECT_NAME} PRIVATE GEODE_MOD_ID="geode.loader")
+# set SAPFIRE_MOD_ID for loader itself
+target_compile_definitions(${PROJECT_NAME} PRIVATE SAPFIRE_MOD_ID="sapfire.loader")
 
 # These are only needed for building source :-)
-if (NOT GEODE_BUILDING_DOCS)
+if (NOT SAPFIRE_BUILDING_DOCS)
 	# Markdown support
 	CPMAddPackage("gh:mity/md4c#release-0.5.2")
 
@@ -249,7 +249,7 @@ if (NOT GEODE_BUILDING_DOCS)
 	set(MZ_FETCH_LIBS ON CACHE INTERNAL "" FORCE)
 	set(MZ_FORCE_FETCH_LIBS ${WIN32} CACHE INTERNAL "")
 	set(SKIP_INSTALL_ALL ON CACHE INTERNAL "")
-	CPMAddPackage("gh:geode-sdk/minizip-ng#43d9254")
+	CPMAddPackage("gh:sapfire-sdk/minizip-ng#43d9254")
 	if (WIN32)
 		set_target_properties(zlib PROPERTIES SUFFIX "1.dll")
 	endif()
@@ -280,7 +280,7 @@ if (NOT GEODE_BUILDING_DOCS)
 	target_link_libraries(${PROJECT_NAME} md4c minizip date)
 endif()
 
-target_link_libraries(${PROJECT_NAME} TulipHook geode-sdk mat-json-impl)
+target_link_libraries(${PROJECT_NAME} TulipHook sapfire-sdk mat-json-impl)
 
 # Required by curl for macos
 if (APPLE)
@@ -303,20 +303,20 @@ if (WIN32)
 	elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 		target_link_options(${PROJECT_NAME} PRIVATE "-Wl,/delayload:libcocos2d.dll" "-Wl,/delayload:libExtensions.dll")
 	else()
-		message(FATAL_ERROR "Unable to set DELAYLOAD! This is essential for Geode forward compatibility to work.")
+		message(FATAL_ERROR "Unable to set DELAYLOAD! This is essential for Sapfire forward compatibility to work.")
 	endif()
 endif()
 
 # Use precompiled headers for faster builds
-if (NOT GEODE_DISABLE_PRECOMPILED_HEADERS)
+if (NOT SAPFIRE_DISABLE_PRECOMPILED_HEADERS)
 	target_precompile_headers(${PROJECT_NAME} PRIVATE
-		"${CMAKE_CURRENT_SOURCE_DIR}/include/Geode/Geode.hpp"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/Sapfire/Sapfire.hpp"
 	)
 endif()
 
 # Create launcher
 if (APPLE)
-	set_target_properties(geode-loader PROPERTIES 
+	set_target_properties(sapfire-loader PROPERTIES 
 		SYSTEM_NAME MacOS
 		OSX_DEPLOYMENT_TARGET 10.15
 		APPLE_SILICON_PROCESSOR x86_64
@@ -324,14 +324,14 @@ if (APPLE)
 
 	add_subdirectory(launcher/mac)
 
-	if(GEODE_TARGET_PLATFORM STREQUAL "iOS")
-		add_custom_command(TARGET geode-loader
+	if(SAPFIRE_TARGET_PLATFORM STREQUAL "iOS")
+		add_custom_command(TARGET sapfire-loader
 			POST_BUILD COMMAND
-			${CMAKE_INSTALL_NAME_TOOL} -id \"/Library/MobileSubstrate/DynamicLibraries/Geode.dylib\"
-			$<TARGET_FILE:geode-loader>)
+			${CMAKE_INSTALL_NAME_TOOL} -id \"/Library/MobileSubstrate/DynamicLibraries/Sapfire.dylib\"
+			$<TARGET_FILE:sapfire-loader>)
 	endif()
 
-	set(LAUNCHER_TARGET GeodeBootstrapper)
+	set(LAUNCHER_TARGET SapfireBootstrapper)
 elseif (WIN32)
 	add_subdirectory(launcher/windows)
 
@@ -349,26 +349,26 @@ endif()
 
 add_subdirectory(test)
 
-# Add install target on CLI >= 2.10.0 (which adds `geode profile path`)
-if (NOT GEODE_BUILDING_DOCS)
-	# nest this because when building docs GEODE_CLI_VERSION is not defined
-	if (${GEODE_CLI_VERSION} VERSION_GREATER_EQUAL "2.10.0")
+# Add install target on CLI >= 2.10.0 (which adds `sapfire profile path`)
+if (NOT SAPFIRE_BUILDING_DOCS)
+	# nest this because when building docs SAPFIRE_CLI_VERSION is not defined
+	if (${SAPFIRE_CLI_VERSION} VERSION_GREATER_EQUAL "2.10.0")
 		execute_process(
-			COMMAND ${GEODE_CLI} profile path -d
-			OUTPUT_VARIABLE GEODE_PROFILE_GD_PATH
-			RESULT_VARIABLE GEODE_PROFILE_GD_PATH_RESULT
+			COMMAND ${SAPFIRE_CLI} profile path -d
+			OUTPUT_VARIABLE SAPFIRE_PROFILE_GD_PATH
+			RESULT_VARIABLE SAPFIRE_PROFILE_GD_PATH_RESULT
 		)
-		if (${GEODE_PROFILE_GD_PATH_RESULT} EQUAL 0)
-			string(STRIP ${GEODE_PROFILE_GD_PATH} GEODE_PROFILE_GD_PATH)
+		if (${SAPFIRE_PROFILE_GD_PATH_RESULT} EQUAL 0)
+			string(STRIP ${SAPFIRE_PROFILE_GD_PATH} SAPFIRE_PROFILE_GD_PATH)
 			install(
-				TARGETS geode-loader ${LAUNCHER_TARGET}
+				TARGETS sapfire-loader ${LAUNCHER_TARGET}
 				RUNTIME
-				DESTINATION "${GEODE_PROFILE_GD_PATH}"
+				DESTINATION "${SAPFIRE_PROFILE_GD_PATH}"
 			)
-			file(GLOB RESOURCE_FILES ${GEODE_BIN_PATH}/nightly/resources/*.*)
+			file(GLOB RESOURCE_FILES ${SAPFIRE_BIN_PATH}/nightly/resources/*.*)
 			install(
 				FILES ${RESOURCE_FILES}
-				DESTINATION "${GEODE_PROFILE_GD_PATH}/geode/resources/geode.loader"
+				DESTINATION "${SAPFIRE_PROFILE_GD_PATH}/sapfire/resources/sapfire.loader"
 			)
 		endif()
 	endif()

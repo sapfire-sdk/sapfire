@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Geode/ui/GeodeUI.hpp>
+#include <Sapfire/ui/SapfireUI.hpp>
 #include "mods/popups/ModPopup.hpp"
 #include "mods/list/ModItem.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class ModPopupUIEvent::Impl {
 public:

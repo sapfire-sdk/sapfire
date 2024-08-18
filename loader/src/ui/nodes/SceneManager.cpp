@@ -1,7 +1,7 @@
-#include <Geode/ui/SceneManager.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/ui/SceneManager.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 bool SceneManager::setup() {
     m_persistedNodes = CCArray::create();

@@ -1,8 +1,8 @@
-#include <Geode/ui/Popup.hpp>
-#include <Geode/binding/FLAlertLayer.hpp>
-#include <Geode/binding/FLAlertLayerProtocol.hpp>
+#include <Sapfire/ui/Popup.hpp>
+#include <Sapfire/binding/FLAlertLayer.hpp>
+#include <Sapfire/binding/FLAlertLayerProtocol.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // static void fixChildPositions(CCNode* in, CCSize const& size) {
 //     auto winSize = CCDirector::get()->getWinSize();
@@ -58,7 +58,7 @@ using namespace geode::prelude;
 //     in->ignoreAnchorPointForPosition(false);
 // }
 
-// void geode::enableDynamicLayoutForPopup(FLAlertLayer* alert, CCNode* bg) {
+// void sapfire::enableDynamicLayoutForPopup(FLAlertLayer* alert, CCNode* bg) {
 //     auto winSize = CCDirector::get()->getWinSize();
 
 //     auto size = bg->getContentSize();
@@ -107,7 +107,7 @@ public:
     }
 };
 
-FLAlertLayer* geode::createQuickPopup(
+FLAlertLayer* sapfire::createQuickPopup(
     char const* title, std::string const& content, char const* btn1, char const* btn2, float width,
     MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow
 ) {
@@ -118,14 +118,14 @@ FLAlertLayer* geode::createQuickPopup(
     return ret;
 }
 
-FLAlertLayer* geode::createQuickPopup(
+FLAlertLayer* sapfire::createQuickPopup(
     char const* title, std::string const& content, char const* btn1, char const* btn2,
     MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow
 ) {
     return createQuickPopup(title, content, btn1, btn2, 350.f, selected, doShow);
 }
 
-FLAlertLayer* geode::createQuickPopup(
+FLAlertLayer* sapfire::createQuickPopup(
     char const* title, std::string const& content, char const* btn1, char const* btn2, float width,
     MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow, bool cancelledByEscape
 ) {
@@ -136,7 +136,7 @@ FLAlertLayer* geode::createQuickPopup(
     return ret;
 }
 
-FLAlertLayer* geode::createQuickPopup(
+FLAlertLayer* sapfire::createQuickPopup(
     char const* title, std::string const& content, char const* btn1, char const* btn2,
     MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow, bool cancelledByEscape
 ) {

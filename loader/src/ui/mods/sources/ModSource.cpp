@@ -1,9 +1,9 @@
 #include "ModSource.hpp"
 
-#include <Geode/loader/ModMetadata.hpp>
-#include <Geode/ui/GeodeUI.hpp>
+#include <Sapfire/loader/ModMetadata.hpp>
+#include <Sapfire/ui/SapfireUI.hpp>
 #include <server/DownloadManager.hpp>
-#include <Geode/binding/GameObject.hpp>
+#include <Sapfire/binding/GameObject.hpp>
 
 LoadModSuggestionTask loadModSuggestion(LoadProblem const& problem) {
     // Recommended / suggested are essentially the same thing for the purposes of this
@@ -88,7 +88,7 @@ std::string ModSource::formatDevelopers() const {
 CCNode* ModSource::createModLogo() const {
     return std::visit(makeVisitor {
         [](Mod* mod) {
-            return geode::createModLogo(mod);
+            return sapfire::createModLogo(mod);
         },
         [](server::ServerModMetadata const& metadata) {
             return createServerModLogo(metadata.id);

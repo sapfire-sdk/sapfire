@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Geode/utils/VersionInfo.hpp"
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/utils/web.hpp>
-#include <Geode/loader/SettingEvent.hpp>
+#include "Sapfire/utils/VersionInfo.hpp"
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/utils/web.hpp>
+#include <Sapfire/loader/SettingEvent.hpp>
 #include <chrono>
 #include <matjson.hpp>
 #include <vector>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 namespace server {
     struct ServerDateTime final {
@@ -95,7 +95,7 @@ namespace server {
 
     struct ModsQuery final {
         std::optional<std::string> query;
-        std::unordered_set<PlatformID> platforms = { GEODE_PLATFORM_TARGET };
+        std::unordered_set<PlatformID> platforms = { SAPFIRE_PLATFORM_TARGET };
         std::unordered_set<std::string> tags;
         std::optional<bool> featured;
         ModsSort sorting = ModsSort::Downloads;

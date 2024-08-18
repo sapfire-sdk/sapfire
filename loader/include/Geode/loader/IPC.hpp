@@ -5,27 +5,27 @@
 #include "Mod.hpp"
 #include <matjson.hpp>
 
-namespace geode::ipc {
-    #ifdef GEODE_IS_WINDOWS
-    constexpr char const* IPC_PIPE_NAME = R"(\\.\pipe\GeodeIPCPipe)";
+namespace sapfire::ipc {
+    #ifdef SAPFIRE_IS_WINDOWS
+    constexpr char const* IPC_PIPE_NAME = R"(\\.\pipe\SapfireIPCPipe)";
     #endif
 
-    #ifdef GEODE_IS_MACOS
-    constexpr char const* IPC_PORT_NAME = "GeodeIPCPipe";
+    #ifdef SAPFIRE_IS_MACOS
+    constexpr char const* IPC_PORT_NAME = "SapfireIPCPipe";
     #endif
 
     class IPCFilter;
 
-    // IPC (Inter-Process Communication) provides a way for Geode mods to talk
+    // IPC (Inter-Process Communication) provides a way for Sapfire mods to talk
     // to other programs on the user's computer. If you have, for example, a
     // debugger, or an external modding UI, that application can open up the
     // platform-specific pipe and start sending messages to mods. Mods can
     // listen for messages using the listenForIPC function, and reply to
     // messages the get by using the reply method on the event provided. For
-    // example, an external application can query what mods are loaded in Geode
-    // by sending the `list-mods` message to `geode.loader`.
+    // example, an external application can query what mods are loaded in Sapfire
+    // by sending the `list-mods` message to `sapfire.loader`.
 
-    class GEODE_DLL IPCEvent final : public Event {
+    class SAPFIRE_DLL IPCEvent final : public Event {
     protected:
         void* m_rawPipeHandle;
         bool m_replied = false;
@@ -48,7 +48,7 @@ namespace geode::ipc {
         virtual ~IPCEvent();
     };
 
-    class GEODE_DLL IPCFilter final : public EventFilter<IPCEvent> {
+    class SAPFIRE_DLL IPCFilter final : public EventFilter<IPCEvent> {
     public:
         using Callback = matjson::Value(IPCEvent*);
 

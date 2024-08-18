@@ -36,7 +36,7 @@ NS_CC_BEGIN
  */
 class CC_DLL CCTextureETC : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     CCTextureETC();
     virtual ~CCTextureETC();

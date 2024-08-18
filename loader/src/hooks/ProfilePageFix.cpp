@@ -1,11 +1,11 @@
-#include <Geode/modify/ProfilePage.hpp>
-#include <Geode/binding/GJUserScore.hpp>
+#include <Sapfire/modify/ProfilePage.hpp>
+#include <Sapfire/binding/GJUserScore.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // Fixes the names not showing up on profile links
 struct CustomProfilePage : Modify<CustomProfilePage, ProfilePage> {
-    GEODE_FORWARD_COMPAT_DISABLE_HOOKS("ProfilePage fix")
+    SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS("ProfilePage fix")
 
     virtual void getUserInfoFinished(GJUserScore* info) {
         m_usernameLabel->setString(info->m_userName.c_str());

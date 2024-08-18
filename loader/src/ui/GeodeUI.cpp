@@ -1,14 +1,14 @@
 #include "mods/ModsLayer.hpp"
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/ui/GeodeUI.hpp>
-#include <Geode/ui/MDPopup.hpp>
-#include <Geode/ui/LoadingSpinner.hpp>
-#include <Geode/utils/web.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/ui/SapfireUI.hpp>
+#include <Sapfire/ui/MDPopup.hpp>
+#include <Sapfire/ui/LoadingSpinner.hpp>
+#include <Sapfire/utils/web.hpp>
 #include <server/Server.hpp>
-#include "mods/GeodeStyle.hpp"
+#include "mods/SapfireStyle.hpp"
 #include "mods/settings/ModSettingsPopup.hpp"
 #include "mods/popups/ModPopup.hpp"
-#include "GeodeUIEvent.hpp"
+#include "SapfireUIEvent.hpp"
 
 class LoadServerModLayer : public Popup<std::string const&> {
 protected:
@@ -75,11 +75,11 @@ public:
     }
 };
 
-void geode::openModsList() {
+void sapfire::openModsList() {
     ModsLayer::scene();
 }
 
-void geode::openIssueReportPopup(Mod* mod) {
+void sapfire::openIssueReportPopup(Mod* mod) {
     if (mod->getMetadata().getIssues()) {
         MDPopup::create(
             "Issue Report",
@@ -107,7 +107,7 @@ void geode::openIssueReportPopup(Mod* mod) {
             "Issue Report",
             "Please report your issue on the "
             "[#support](https://discord.com/channels/911701438269386882/979352389985390603) "
-            "channnel in the [Geode Discord Server](https://discord.gg/9e43WMKzhp)\n\n"
+            "channnel in the [Sapfire Discord Server](https://discord.gg/9e43WMKzhp)\n\n"
             "If your issue relates to a <cr>game crash</c>, <cb>please include</c> the "
             "latest crash log(s) from `" +
                 dirs::getCrashlogsDir().string() + "`",
@@ -116,11 +116,11 @@ void geode::openIssueReportPopup(Mod* mod) {
     }
 }
 
-void geode::openSupportPopup(Mod* mod) {
+void sapfire::openSupportPopup(Mod* mod) {
     openSupportPopup(mod->getMetadata());
 }
 
-void geode::openSupportPopup(ModMetadata const& metadata) {
+void sapfire::openSupportPopup(ModMetadata const& metadata) {
     MDPopup::create(
         "Support " + metadata.getName(),
         metadata.getSupportInfo().value_or(
@@ -132,10 +132,10 @@ void geode::openSupportPopup(ModMetadata const& metadata) {
     )->show();
 }
 
-void geode::openInfoPopup(Mod* mod) {
+void sapfire::openInfoPopup(Mod* mod) {
     ModPopup::create(mod)->show();
 }
-Task<bool> geode::openInfoPopup(std::string const& modID) {
+Task<bool> sapfire::openInfoPopup(std::string const& modID) {
     if (auto mod = Loader::get()->getInstalledMod(modID)) {
         openInfoPopup(mod);
         return Task<bool>::immediate(true);
@@ -147,18 +147,18 @@ Task<bool> geode::openInfoPopup(std::string const& modID) {
         return task;
     }
 }
-void geode::openIndexPopup(Mod* mod) {
+void sapfire::openIndexPopup(Mod* mod) {
     // deprecated func
     openInfoPopup(mod);
 }
 
-void geode::openChangelogPopup(Mod* mod) {
+void sapfire::openChangelogPopup(Mod* mod) {
     auto popup = ModPopup::create(mod);
     popup->loadTab(ModPopup::Tab::Changelog);
     popup->show();
 }
 
-void geode::openSettingsPopup(Mod* mod) {
+void sapfire::openSettingsPopup(Mod* mod) {
     if (mod->hasSettings()) {
         ModSettingsPopup::create(mod)->show();
     }
@@ -185,8 +185,8 @@ protected:
 
         // Load from Resources
         if (!fetch) {
-            this->setSprite(id == "geode.loader" ? 
-                CCSprite::createWithSpriteFrameName("geode-logo.png"_spr) : 
+            this->setSprite(id == "sapfire.loader" ? 
+                CCSprite::createWithSpriteFrameName("sapfire-logo.png"_spr) : 
                 CCSprite::create(fmt::format("{}/logo.png", id).c_str()),
                 false
             );
@@ -208,7 +208,7 @@ protected:
             m_sprite->removeFromParent();
         }
         // Fallback to default logo if the sprite is null
-        if (!sprite || sprite->getUserObject("geode.texture-loader/fallback")) {
+        if (!sprite || sprite->getUserObject("sapfire.texture-loader/fallback")) {
             sprite = CCLabelBMFont::create("N/A", "bigFont.fnt");
             static_cast<CCLabelBMFont*>(sprite)->setOpacity(90);
         }
@@ -256,14 +256,14 @@ public:
     }
 };
 
-CCNode* geode::createDefaultLogo() {
+CCNode* sapfire::createDefaultLogo() {
     return ModLogoSprite::create("");
 }
 
-CCNode* geode::createModLogo(Mod* mod) {
+CCNode* sapfire::createModLogo(Mod* mod) {
     return ModLogoSprite::create(mod->getID());
 }
 
-CCNode* geode::createServerModLogo(std::string const& id) {
+CCNode* sapfire::createServerModLogo(std::string const& id) {
     return ModLogoSprite::create(id, true);
 }

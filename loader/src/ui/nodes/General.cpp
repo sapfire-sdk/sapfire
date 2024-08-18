@@ -1,10 +1,10 @@
-#include "Geode/utils/ColorProvider.hpp"
-#include <Geode/ui/General.hpp>
+#include "Sapfire/utils/ColorProvider.hpp"
+#include <Sapfire/ui/General.hpp>
 #include <cocos-ext.h>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-CCSprite* geode::createLayerBG() {
+CCSprite* sapfire::createLayerBG() {
     auto winSize = CCDirector::get()->getWinSize();
 
     auto bg = CCSprite::create("GJ_gradientBG.png");
@@ -20,7 +20,7 @@ CCSprite* geode::createLayerBG() {
     return bg;
 }
 
-void geode::addSideArt(CCNode* to, SideArt sides, SideArtStyle style, bool useAnchorLayout) {
+void sapfire::addSideArt(CCNode* to, SideArt sides, SideArtStyle style, bool useAnchorLayout) {
     const char* sprite;
     float offset;
     switch (style) {
@@ -55,11 +55,11 @@ void geode::addSideArt(CCNode* to, SideArt sides, SideArtStyle style, bool useAn
         to->addChildAtPosition(spr, Anchor::TopRight, ccp(-offset, -offset), useAnchorLayout);
     }
 }
-void geode::addSideArt(CCNode* to, SideArt sides, bool useAnchorLayout) {
+void sapfire::addSideArt(CCNode* to, SideArt sides, bool useAnchorLayout) {
     return addSideArt(to, sides, SideArtStyle::Layer, useAnchorLayout);
 }
 
-void geode::addListBorders(CCNode* to, CCPoint const& center, CCSize const& size) {
+void sapfire::addListBorders(CCNode* to, CCPoint const& center, CCSize const& size) {
     // if the size is 346.f, the top aligns perfectly by default :3
     if (size.width == 346.f) {
         auto layerTopSpr = CCSprite::createWithSpriteFrameName("GJ_commentTop_001.png");

@@ -1,24 +1,24 @@
 #include "ModProblemItem.hpp"
 
-#include <Geode/cocos/base_nodes/CCNode.h>
-#include <Geode/cocos/base_nodes/Layout.hpp>
-#include <Geode/cocos/cocoa/CCGeometry.h>
-#include <Geode/cocos/label_nodes/CCLabelBMFont.h>
-#include <Geode/cocos/platform/CCPlatformMacros.h>
-#include <Geode/cocos/sprite_nodes/CCSprite.h>
-#include <Geode/binding/FLAlertLayer.hpp>
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/ui/TextArea.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/ColorProvider.hpp>
+#include <Sapfire/cocos/base_nodes/CCNode.h>
+#include <Sapfire/cocos/base_nodes/Layout.hpp>
+#include <Sapfire/cocos/cocoa/CCGeometry.h>
+#include <Sapfire/cocos/label_nodes/CCLabelBMFont.h>
+#include <Sapfire/cocos/platform/CCPlatformMacros.h>
+#include <Sapfire/cocos/sprite_nodes/CCSprite.h>
+#include <Sapfire/binding/FLAlertLayer.hpp>
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/ui/TextArea.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/ColorProvider.hpp>
 #include <GUI/CCControlExtension/CCScale9Sprite.h>
 #include <ccTypes.h>
 #include <fmt/core.h>
 #include <sstream>
-#include "../GeodeStyle.hpp"
+#include "../SapfireStyle.hpp"
 
 bool ModProblemItem::init(Mod* source, LoadProblem problem, CCSize const& size) {
     if (!CCNode::init()) {
@@ -71,7 +71,7 @@ bool ModProblemItem::init(Mod* source, LoadProblem problem, CCSize const& size) 
         helpMenu->setAnchorPoint({ 1.0f, 0.5f });
 
         if (this->showInfoButton()) {
-            auto infoSpr = createGeodeButton("More");
+            auto infoSpr = createSapfireButton("More");
             infoSpr->setScale(0.6f);
 
             auto infoBtn = CCMenuItemSpriteExtra::create(infoSpr, this, menu_selector(ModProblemItem::onInfo));
@@ -217,7 +217,7 @@ std::string ModProblemItem::createProblemMessage() {
             return ss.str();
         }
         case LoadProblem::Type::InvalidFile: {
-            ss << "has an invalid .geode file.";
+            ss << "has an invalid .sapfire file.";
             return ss.str();
         }
         case LoadProblem::Type::Duplicate: {
@@ -244,11 +244,11 @@ std::string ModProblemItem::createProblemMessage() {
         case LoadProblem::Type::UnsupportedVersion: {
             return m_problem.message;
         }
-        case LoadProblem::Type::NeedsNewerGeodeVersion:
-        case LoadProblem::Type::UnsupportedGeodeVersion: {
+        case LoadProblem::Type::NeedsNewerSapfireVersion:
+        case LoadProblem::Type::UnsupportedSapfireVersion: {
             ss << fmt::format(
-                "requires Geode {} to run (installed: {})",
-                m_source->getMetadata().getGeodeVersion(),
+                "requires Sapfire {} to run (installed: {})",
+                m_source->getMetadata().getSapfireVersion(),
                 Loader::get()->getVersion().toNonVString()
             );
             return ss.str();

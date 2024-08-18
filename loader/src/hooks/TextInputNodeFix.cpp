@@ -1,8 +1,8 @@
-#include <Geode/modify/CCTextInputNode.hpp>
+#include <Sapfire/modify/CCTextInputNode.hpp>
 
-#ifdef GEODE_IS_ANDROID
+#ifdef SAPFIRE_IS_ANDROID
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // TODO: commenting cause cctextinputnode is changed enough that i'm not sure how it works now
 

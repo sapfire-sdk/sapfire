@@ -1,14 +1,14 @@
 #include "ModPopup.hpp"
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/ui/MDTextArea.hpp>
-#include <Geode/utils/web.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/ui/GeodeUI.hpp>
-#include <Geode/utils/ColorProvider.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/ui/MDTextArea.hpp>
+#include <Sapfire/utils/web.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/ui/SapfireUI.hpp>
+#include <Sapfire/utils/ColorProvider.hpp>
 #include "ConfirmUninstallPopup.hpp"
 #include "../settings/ModSettingsPopup.hpp"
 #include "../../../internal/about.hpp"
-#include "../../GeodeUIEvent.hpp"
+#include "../../SapfireUIEvent.hpp"
 
 class FetchTextArea : public CCNode {
 public:
@@ -299,7 +299,7 @@ bool ModPopup::setup(ModSource&& src) {
     manageTitle->setOpacity(195);
     manageContainer->addChildAtPosition(manageTitle, Anchor::Left, ccp(0, 0), ccp(0, .5f));
 
-    m_restartRequiredLabel = createGeodeTagLabel(
+    m_restartRequiredLabel = createSapfireTagLabel(
         "Restart Required",
         {{
             to3B(ColorProvider::get()->color("mod-list-restart-required-label"_spr)),
@@ -330,10 +330,10 @@ bool ModPopup::setup(ModSource&& src) {
     m_installMenu->setContentSize(installContainer->getContentSize() - ccp(10, 10));
     m_installMenu->setAnchorPoint({ .5f, .5f });
 
-    auto updateModSpr = createGeodeButton(
+    auto updateModSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("update.png"_spr),
         "Update",
-        GeodeButtonSprite::Install
+        SapfireButtonSprite::Install
     );
     updateModSpr->setScale(.5f);
     m_updateBtn = CCMenuItemSpriteExtra::create(
@@ -341,16 +341,16 @@ bool ModPopup::setup(ModSource&& src) {
     );
     m_installMenu->addChild(m_updateBtn);
 
-    auto enableModOffSpr = createGeodeButton(
+    auto enableModOffSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("GJ_completesIcon_001.png"),
         "Enable",
-        GeodeButtonSprite::Enable
+        SapfireButtonSprite::Enable
     );
     enableModOffSpr->setScale(.5f);
-    auto enableModOnSpr = createGeodeButton(
+    auto enableModOnSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"),
         "Disable",
-        GeodeButtonSprite::Delete
+        SapfireButtonSprite::Delete
     );
     enableModOnSpr->setScale(.5f);
     m_enableBtn = CCMenuItemToggler::create(
@@ -360,16 +360,16 @@ bool ModPopup::setup(ModSource&& src) {
     m_enableBtn->m_notClickable = true;
     m_installMenu->addChild(m_enableBtn);
 
-    auto reenableModOffSpr = createGeodeButton(
+    auto reenableModOffSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("reset.png"_spr),
         "Re-Enable",
-        GeodeButtonSprite::Default
+        SapfireButtonSprite::Default
     );
     reenableModOffSpr->setScale(.5f);
-    auto reenableModOnSpr = createGeodeButton(
+    auto reenableModOnSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("reset.png"_spr),
         "Re-Disable",
-        GeodeButtonSprite::Default
+        SapfireButtonSprite::Default
     );
     reenableModOnSpr->setScale(.5f);
     m_reenableBtn = CCMenuItemToggler::create(
@@ -379,10 +379,10 @@ bool ModPopup::setup(ModSource&& src) {
     m_reenableBtn->m_notClickable = true;
     m_installMenu->addChild(m_reenableBtn);
 
-    auto installModSpr = createGeodeButton(
+    auto installModSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("GJ_downloadsIcon_001.png"),
         "Install",
-        GeodeButtonSprite::Install
+        SapfireButtonSprite::Install
     );
     installModSpr->setScale(.5f);
     m_installBtn = CCMenuItemSpriteExtra::create(
@@ -390,10 +390,10 @@ bool ModPopup::setup(ModSource&& src) {
     );
     m_installMenu->addChild(m_installBtn);
 
-    auto uninstallModSpr = createGeodeButton(
+    auto uninstallModSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("delete-white.png"_spr),
         "Uninstall",
-        GeodeButtonSprite::Default
+        SapfireButtonSprite::Default
     );
     uninstallModSpr->setScale(.5f);
     m_uninstallBtn = CCMenuItemSpriteExtra::create(
@@ -401,10 +401,10 @@ bool ModPopup::setup(ModSource&& src) {
     );
     m_installMenu->addChild(m_uninstallBtn);
 
-    auto cancelDownloadSpr = createGeodeButton(
+    auto cancelDownloadSpr = createSapfireButton(
         CCSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"),
         "Cancel",
-        GeodeButtonSprite::Default
+        SapfireButtonSprite::Default
     );
     cancelDownloadSpr->setScale(.5f);
     m_cancelBtn = CCMenuItemSpriteExtra::create(
@@ -529,7 +529,7 @@ bool ModPopup::setup(ModSource&& src) {
         { "changelog.png"_spr, "Changelog",   "changelog",   Tab::Changelog }
         // { "version.png"_spr,   "Versions",    Tab::Versions },
     }) {
-        auto spr = GeodeTabSprite::create(std::get<0>(mdTab), std::get<1>(mdTab), 140, m_source.asServer());
+        auto spr = SapfireTabSprite::create(std::get<0>(mdTab), std::get<1>(mdTab), 140, m_source.asServer());
         auto btn = CCMenuItemSpriteExtra::create(spr, this, menu_selector(ModPopup::onTab));
         btn->setTag(static_cast<int>(std::get<3>(mdTab)));
         btn->setID(std::get<2>(mdTab));
@@ -557,7 +557,7 @@ bool ModPopup::setup(ModSource&& src) {
     mainContainer->updateLayout();
     m_mainLayer->addChildAtPosition(mainContainer, Anchor::Center);
 
-    auto settingsSpr = createGeodeCircleButton(CCSprite::createWithSpriteFrameName("settings.png"_spr));
+    auto settingsSpr = createSapfireCircleButton(CCSprite::createWithSpriteFrameName("settings.png"_spr));
     settingsSpr->setScale(.6f);
     auto settingsBtn = CCMenuItemSpriteExtra::create(
         settingsSpr, this, menu_selector(ModPopup::onSettings)
@@ -664,7 +664,7 @@ void ModPopup::updateState() {
     if (asMod && asMod->isInternal()) {
         m_enableBtn->setVisible(false);
         // you can uninstall loader ingame just fine on windows
-        #if !defined(GEODE_IS_WINDOWS)
+        #if !defined(SAPFIRE_IS_WINDOWS)
         m_uninstallBtn->setVisible(false);
         m_installStatusLabel->setString("N/A");
         m_installStatusLabel->setVisible(true);
@@ -859,8 +859,8 @@ void ModPopup::onLoadTags(typename server::ServerRequest<std::unordered_set<std:
         for (auto& tag : data) {
             auto readable = tag;
             readable[0] = std::toupper(readable[0]);
-            auto colors = geodeTagColor(tag);
-            m_tags->addChild(createGeodeTagLabel(readable));
+            auto colors = sapfireTagColor(tag);
+            m_tags->addChild(createSapfireTagLabel(readable));
         }
         
         if (data.empty()) {
@@ -1010,9 +1010,9 @@ void ModPopup::onSupport(CCObject*) {
 
 ModPopup* ModPopup::create(ModSource&& src) {
     auto ret = new ModPopup();
-    GeodePopupStyle style = GeodePopupStyle::Default;
+    SapfirePopupStyle style = SapfirePopupStyle::Default;
     if (src.asServer()) {
-        style = GeodePopupStyle::Alt;
+        style = SapfirePopupStyle::Alt;
     }
     if (ret->init(440, 280, std::move(src), style)) {
         ret->autorelease();

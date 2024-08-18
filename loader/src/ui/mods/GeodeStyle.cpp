@@ -1,9 +1,9 @@
-#include "GeodeStyle.hpp"
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/ColorProvider.hpp>
-#include <Geode/loader/SettingEvent.hpp>
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/ui/LoadingSpinner.hpp>
+#include "SapfireStyle.hpp"
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/ColorProvider.hpp>
+#include <Sapfire/loader/SettingEvent.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/ui/LoadingSpinner.hpp>
 
 $on_mod(Loaded) {
     // todo: these names should probably be shorter so they fit in SSO...
@@ -64,17 +64,17 @@ $on_mod(Loaded) {
     };
 
     // Update colors when the theme is changed
-    listenForSettingChanges("enable-geode-theme", updateColors);
+    listenForSettingChanges("enable-sapfire-theme", updateColors);
 
     Loader::get()->queueInMainThread([updateColors = updateColors] {
         // this code is ran during static init, where settings aren't loaded yet, and getSettingValue will always return false.
         // because of that, we have to delay it until next frame.
-        updateColors(Mod::get()->template getSettingValue<bool>("enable-geode-theme"));
+        updateColors(Mod::get()->template getSettingValue<bool>("enable-sapfire-theme"));
     });
 }
 
-bool GeodeSquareSprite::init(CCSprite* top, bool* state) {
-    if (!CCSprite::initWithFile(isGeodeTheme() ? "GE_button_05.png"_spr : "GJ_button_01.png"))
+bool SapfireSquareSprite::init(CCSprite* top, bool* state) {
+    if (!CCSprite::initWithFile(isSapfireTheme() ? "GE_button_05.png"_spr : "GJ_button_01.png"))
         return false;
 
     m_stateSrc = state;
@@ -91,13 +91,13 @@ bool GeodeSquareSprite::init(CCSprite* top, bool* state) {
     return true;
 }
 
-void GeodeSquareSprite::updateImage() {
+void SapfireSquareSprite::updateImage() {
     this->setTexture(CCTextureCache::get()->addImage(
-        (m_state ? "GJ_button_02.png" : (isGeodeTheme() ? "GE_button_05.png"_spr : "GJ_button_01.png")),
+        (m_state ? "GJ_button_02.png" : (isSapfireTheme() ? "GE_button_05.png"_spr : "GJ_button_01.png")),
         false
     ));
 }
-void GeodeSquareSprite::update(float dt) {
+void SapfireSquareSprite::update(float dt) {
     CCSprite::update(dt);
     if (m_stateSrc && m_state != *m_stateSrc) {
         m_state = *m_stateSrc;
@@ -105,8 +105,8 @@ void GeodeSquareSprite::update(float dt) {
     }
 }
 
-GeodeSquareSprite* GeodeSquareSprite::create(const char* top, bool* state) {
-    auto ret = new GeodeSquareSprite();
+SapfireSquareSprite* SapfireSquareSprite::create(const char* top, bool* state) {
+    auto ret = new SapfireSquareSprite();
     if (ret->init(CCSprite::create(top), state)) {
         ret->autorelease();
         return ret;
@@ -114,8 +114,8 @@ GeodeSquareSprite* GeodeSquareSprite::create(const char* top, bool* state) {
     delete ret;
     return nullptr;
 }
-GeodeSquareSprite* GeodeSquareSprite::createWithSpriteFrameName(const char* top, bool* state) {
-    auto ret = new GeodeSquareSprite();
+SapfireSquareSprite* SapfireSquareSprite::createWithSpriteFrameName(const char* top, bool* state) {
+    auto ret = new SapfireSquareSprite();
     if (ret->init(CCSprite::createWithSpriteFrameName(top), state)) {
         ret->autorelease();
         return ret;
@@ -124,11 +124,11 @@ GeodeSquareSprite* GeodeSquareSprite::createWithSpriteFrameName(const char* top,
     return nullptr;
 }
 
-CCSprite* GeodeSquareSprite::getTopSprite() const {
+CCSprite* SapfireSquareSprite::getTopSprite() const {
     return m_topSprite;
 }
 
-void GeodeSquareSprite::setState(bool state) {
+void SapfireSquareSprite::setState(bool state) {
     if (!m_stateSrc) {
         m_state = state;
         this->updateImage();
@@ -141,61 +141,61 @@ CCNode* createLoadingCircle(float sideLength, const char* id) {
     return spinner;
 }
 
-const char* getGeodeButtonSpriteName(GeodeButtonSprite spr) {
-    if (isGeodeTheme()) {
+const char* getSapfireButtonSpriteName(SapfireButtonSprite spr) {
+    if (isSapfireTheme()) {
         switch (spr) {
             default:
-            case GeodeButtonSprite::Default: return "GE_button_05.png"_spr;
-            case GeodeButtonSprite::Install: return "GE_button_01.png"_spr;
-            case GeodeButtonSprite::Delete: return "GJ_button_06.png";
-            case GeodeButtonSprite::Enable: return "GJ_button_01.png";
+            case SapfireButtonSprite::Default: return "GE_button_05.png"_spr;
+            case SapfireButtonSprite::Install: return "GE_button_01.png"_spr;
+            case SapfireButtonSprite::Delete: return "GJ_button_06.png";
+            case SapfireButtonSprite::Enable: return "GJ_button_01.png";
         }
     }
     else {
         switch (spr) {
             default:
-            case GeodeButtonSprite::Default: return "GJ_button_01.png";
-            case GeodeButtonSprite::Install: return "GE_button_01.png"_spr;
-            case GeodeButtonSprite::Delete: return "GJ_button_06.png";
-            case GeodeButtonSprite::Enable: return "GJ_button_02.png";
+            case SapfireButtonSprite::Default: return "GJ_button_01.png";
+            case SapfireButtonSprite::Install: return "GE_button_01.png"_spr;
+            case SapfireButtonSprite::Delete: return "GJ_button_06.png";
+            case SapfireButtonSprite::Enable: return "GJ_button_02.png";
         }
     }
 }
 
-IconButtonSprite* createGeodeButton(CCNode* icon, std::string const& text, GeodeButtonSprite bg) {
-    return IconButtonSprite::create(getGeodeButtonSpriteName(bg), icon, text.c_str(), "bigFont.fnt");
+IconButtonSprite* createSapfireButton(CCNode* icon, std::string const& text, SapfireButtonSprite bg) {
+    return IconButtonSprite::create(getSapfireButtonSpriteName(bg), icon, text.c_str(), "bigFont.fnt");
 }
-ButtonSprite* createGeodeButton(std::string const& text, int width, bool gold, bool absolute, GeodeButtonSprite bg) {
-    return ButtonSprite::create(text.c_str(), width, absolute, gold ? "goldFont.fnt" : "bigFont.fnt", getGeodeButtonSpriteName(bg), 0.0f, .8f);
+ButtonSprite* createSapfireButton(std::string const& text, int width, bool gold, bool absolute, SapfireButtonSprite bg) {
+    return ButtonSprite::create(text.c_str(), width, absolute, gold ? "goldFont.fnt" : "bigFont.fnt", getSapfireButtonSpriteName(bg), 0.0f, .8f);
 }
-ButtonSprite* createGeodeButton(std::string const& text, bool gold, GeodeButtonSprite bg) {
-    return ButtonSprite::create(text.c_str(), gold ? "goldFont.fnt" : "bigFont.fnt", getGeodeButtonSpriteName(bg), .8f);
+ButtonSprite* createSapfireButton(std::string const& text, bool gold, SapfireButtonSprite bg) {
+    return ButtonSprite::create(text.c_str(), gold ? "goldFont.fnt" : "bigFont.fnt", getSapfireButtonSpriteName(bg), .8f);
 }
 
-CircleButtonSprite* createGeodeCircleButton(CCSprite* top, float scale, CircleBaseSize size, bool altColor) {
-    const auto geodeTheme = isGeodeTheme();
+CircleButtonSprite* createSapfireCircleButton(CCSprite* top, float scale, CircleBaseSize size, bool altColor) {
+    const auto sapfireTheme = isSapfireTheme();
     auto ret = CircleButtonSprite::create(
-        top, geodeTheme ? (altColor ? CircleBaseColor::DarkAqua : CircleBaseColor::DarkPurple) : CircleBaseColor::Green, size
+        top, sapfireTheme ? (altColor ? CircleBaseColor::DarkAqua : CircleBaseColor::DarkPurple) : CircleBaseColor::Green, size
     );
     ret->setTopRelativeScale(scale);
     return ret;
 }
 
-ButtonSprite* createGeodeTagLabel(std::string const& text, std::optional<std::pair<ccColor3B, ccColor3B>> const& color) {
+ButtonSprite* createSapfireTagLabel(std::string const& text, std::optional<std::pair<ccColor3B, ccColor3B>> const& color) {
     auto label = ButtonSprite::create(text.c_str(), "bigFont.fnt", "white-square.png"_spr, .8f);
     if (color) {
         label->m_label->setColor(color->first);
         label->m_BGSprite->setColor(color->second);
     }
     else {
-        auto def = geodeTagColor(text);
+        auto def = sapfireTagColor(text);
         label->m_label->setColor(def.first);
         label->m_BGSprite->setColor(def.second);
     }
     return label;
 }
 
-std::pair<ccColor3B, ccColor3B> geodeTagColor(std::string_view const& text) {
+std::pair<ccColor3B, ccColor3B> sapfireTagColor(std::string_view const& text) {
     static std::array TAG_COLORS {
         std::make_pair(ccc3(240, 233, 255), ccc3(130, 123, 163)),
         std::make_pair(ccc3(234, 255, 245), ccc3(123, 163, 136)),
@@ -206,20 +206,20 @@ std::pair<ccColor3B, ccColor3B> geodeTagColor(std::string_view const& text) {
     return TAG_COLORS[hash(text) % 5932 % TAG_COLORS.size()];
 }
 
-ListBorders* createGeodeListBorders(CCSize const& size) {
+ListBorders* createSapfireListBorders(CCSize const& size) {
     auto ret = ListBorders::create();
-    if (isGeodeTheme()) {
-        ret->setSpriteFrames("geode-list-top.png"_spr, "geode-list-side.png"_spr, 2);
+    if (isSapfireTheme()) {
+        ret->setSpriteFrames("sapfire-list-top.png"_spr, "sapfire-list-side.png"_spr, 2);
     }
     ret->setContentSize(size);
     return ret;
 }
 
-bool isGeodeTheme() {
-    return Mod::get()->template getSettingValue<bool>("enable-geode-theme");
+bool isSapfireTheme() {
+    return Mod::get()->template getSettingValue<bool>("enable-sapfire-theme");
 }
 
-bool GeodeTabSprite::init(const char* iconFrame, const char* text, float width, bool altColor) {
+bool SapfireTabSprite::init(const char* iconFrame, const char* text, float width, bool altColor) {
     if (!CCNode::init())
         return false;
 
@@ -257,8 +257,8 @@ bool GeodeTabSprite::init(const char* iconFrame, const char* text, float width, 
     return true;
 }
 
-GeodeTabSprite* GeodeTabSprite::create(const char* iconFrame, const char* text, float width, bool altColor) {
-    auto ret = new GeodeTabSprite();
+SapfireTabSprite* SapfireTabSprite::create(const char* iconFrame, const char* text, float width, bool altColor) {
+    auto ret = new SapfireTabSprite();
     if (ret->init(iconFrame, text, width, altColor)) {
         ret->autorelease();
         return ret;
@@ -267,12 +267,12 @@ GeodeTabSprite* GeodeTabSprite::create(const char* iconFrame, const char* text, 
     return nullptr;
 }
 
-void GeodeTabSprite::select(bool selected) {
+void SapfireTabSprite::select(bool selected) {
     m_deselectedBG->setVisible(!selected);
     m_selectedBG->setVisible(selected);
 }
 
-void GeodeTabSprite::disable(bool disabled) {
+void SapfireTabSprite::disable(bool disabled) {
     auto color = disabled ? ccc3(95, 95, 95) : ccc3(255, 255, 255);
     m_deselectedBG->setColor(color);
     m_selectedBG->setColor(color);

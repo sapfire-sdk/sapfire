@@ -1,21 +1,21 @@
 #include "ModsLayer.hpp"
-#include <Geode/binding/CCMenuItemSpriteExtra.hpp>
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/ui/BasedButtonSprite.hpp>
-#include <Geode/utils/file.hpp>
-#include <Geode/cocos/cocoa/CCObject.h>
+#include <Sapfire/binding/CCMenuItemSpriteExtra.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/ui/BasedButtonSprite.hpp>
+#include <Sapfire/utils/file.hpp>
+#include <Sapfire/cocos/cocoa/CCObject.h>
 #include "SwelvyBG.hpp"
-#include <Geode/ui/TextInput.hpp>
-#include <Geode/utils/ColorProvider.hpp>
-#include <Geode/utils/ranges.hpp>
-#include <Geode/ui/GeodeUI.hpp>
-#include <Geode/binding/Slider.hpp>
-#include <Geode/binding/SetTextPopup.hpp>
-#include <Geode/binding/SetIDPopup.hpp>
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/binding/MenuLayer.hpp>
+#include <Sapfire/ui/TextInput.hpp>
+#include <Sapfire/utils/ColorProvider.hpp>
+#include <Sapfire/utils/ranges.hpp>
+#include <Sapfire/ui/SapfireUI.hpp>
+#include <Sapfire/binding/Slider.hpp>
+#include <Sapfire/binding/SetTextPopup.hpp>
+#include <Sapfire/binding/SetIDPopup.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/binding/MenuLayer.hpp>
 #include "popups/ConfirmInstall.hpp"
-#include "GeodeStyle.hpp"
+#include "SapfireStyle.hpp"
 #include "ui/mods/sources/ModListSource.hpp"
 #include <loader/LoaderImpl.hpp>
 
@@ -59,7 +59,7 @@ bool ModsStatusNode::init() {
     m_btnMenu->setID("button-menu");
     m_btnMenu->setContentWidth(m_obContentSize.width);
 
-    auto restartSpr = createGeodeButton("Restart Now");
+    auto restartSpr = createSapfireButton("Restart Now");
     restartSpr->setScale(.65f);
     m_restartBtn = CCMenuItemSpriteExtra::create(
         restartSpr, this, menu_selector(ModsStatusNode::onRestart)
@@ -67,13 +67,13 @@ bool ModsStatusNode::init() {
     m_restartBtn->setID("restart-button");
     m_btnMenu->addChild(m_restartBtn);
 
-    auto viewSpr = createGeodeButton("View");
+    auto viewSpr = createSapfireButton("View");
     viewSpr->setScale(.65f);
     m_viewBtn = CCMenuItemSpriteExtra::create(viewSpr, this, nullptr);
     m_viewBtn->setID("view-button");
     m_btnMenu->addChild(m_viewBtn);
 
-    auto cancelSpr = createGeodeButton("Cancel");
+    auto cancelSpr = createSapfireButton("Cancel");
     cancelSpr->setScale(.65f);
     m_cancelBtn = CCMenuItemSpriteExtra::create(
         cancelSpr, this, menu_selector(ModsStatusNode::onCancel)
@@ -304,9 +304,9 @@ bool ModsLayer::init() {
     auto winSize = CCDirector::get()->getWinSize();
     const bool isSafeMode = LoaderImpl::get()->isSafeMode();
     
-    const bool geodeTheme = isGeodeTheme();
+    const bool sapfireTheme = isSapfireTheme();
     if (!isSafeMode) {
-        if (geodeTheme) {
+        if (sapfireTheme) {
             this->addChild(SwelvyBG::create());
         }
         else {
@@ -338,7 +338,7 @@ bool ModsLayer::init() {
     actionsMenu->setContentHeight(200.f);
     actionsMenu->setAnchorPoint({ .5f, .0f });
 
-    auto reloadSpr = createGeodeCircleButton(
+    auto reloadSpr = createSapfireCircleButton(
         CCSprite::createWithSpriteFrameName("reload.png"_spr), 1.f,
         CircleBaseSize::Medium
     );
@@ -350,7 +350,7 @@ bool ModsLayer::init() {
     reloadBtn->setID("reload-button");
     actionsMenu->addChild(reloadBtn);
 
-    auto settingsSpr = createGeodeCircleButton(
+    auto settingsSpr = createSapfireCircleButton(
         CCSprite::createWithSpriteFrameName("settings.png"_spr), 1.f,
         CircleBaseSize::Medium
     );
@@ -362,7 +362,7 @@ bool ModsLayer::init() {
     settingsBtn->setID("settings-button");
     actionsMenu->addChild(settingsBtn);
 
-    auto folderSpr = createGeodeCircleButton(
+    auto folderSpr = createSapfireCircleButton(
         CCSprite::createWithSpriteFrameName("gj_folderBtn_001.png"), 1.f,
         CircleBaseSize::Medium
     );
@@ -392,24 +392,24 @@ bool ModsLayer::init() {
     frameBG->ignoreAnchorPointForPosition(false);
     m_frame->addChildAtPosition(frameBG, Anchor::Center);
 
-    auto tabsTop = CCSprite::createWithSpriteFrameName(geodeTheme ? "mods-list-top.png"_spr : "mods-list-top-gd.png"_spr);
+    auto tabsTop = CCSprite::createWithSpriteFrameName(sapfireTheme ? "mods-list-top.png"_spr : "mods-list-top-gd.png"_spr);
     tabsTop->setID("frame-top-sprite");
     tabsTop->setAnchorPoint({ .5f, .0f });
     tabsTop->setZOrder(1);
     m_frame->addChildAtPosition(tabsTop, Anchor::Top, ccp(0, -2));
 
-    auto tabsLeft = CCSprite::createWithSpriteFrameName(geodeTheme ? "mods-list-side.png"_spr : "mods-list-side-gd.png"_spr);
+    auto tabsLeft = CCSprite::createWithSpriteFrameName(sapfireTheme ? "mods-list-side.png"_spr : "mods-list-side-gd.png"_spr);
     tabsLeft->setID("frame-left-sprite");
     tabsLeft->setScaleY(m_frame->getContentHeight() / tabsLeft->getContentHeight());
     m_frame->addChildAtPosition(tabsLeft, Anchor::Left, ccp(6.5f, 1));
 
-    auto tabsRight = CCSprite::createWithSpriteFrameName(geodeTheme ? "mods-list-side.png"_spr : "mods-list-side-gd.png"_spr);
+    auto tabsRight = CCSprite::createWithSpriteFrameName(sapfireTheme ? "mods-list-side.png"_spr : "mods-list-side-gd.png"_spr);
     tabsRight->setID("frame-right-sprite");
     tabsRight->setFlipX(true);
     tabsRight->setScaleY(m_frame->getContentHeight() / tabsRight->getContentHeight());
     m_frame->addChildAtPosition(tabsRight, Anchor::Right, ccp(-6.5f, 1));
 
-    auto tabsBottom = CCSprite::createWithSpriteFrameName(geodeTheme ? "mods-list-bottom.png"_spr : "mods-list-bottom-gd.png"_spr);
+    auto tabsBottom = CCSprite::createWithSpriteFrameName(sapfireTheme ? "mods-list-bottom.png"_spr : "mods-list-bottom-gd.png"_spr);
     tabsBottom->setID("frame-bottom-sprite");
     tabsBottom->setAnchorPoint({ .5f, 1.f });
     tabsBottom->setZOrder(1);
@@ -432,7 +432,7 @@ bool ModsLayer::init() {
         { "GJ_timeIcon_001.png", "Recent", ServerModListSource::get(ServerModListType::Recent), "recent-button" },
     }) {
         auto btn = CCMenuItemSpriteExtra::create(
-            GeodeTabSprite::create(std::get<0>(item), std::get<1>(item), 120),
+            SapfireTabSprite::create(std::get<0>(item), std::get<1>(item), 120),
             this, menu_selector(ModsLayer::onTab)
         );
         btn->setUserData(std::get<2>(item));
@@ -453,14 +453,14 @@ bool ModsLayer::init() {
     listActionsMenu->setScale(.65f);
 
     auto bigSizeBtn = CCMenuItemSpriteExtra::create(
-        GeodeSquareSprite::createWithSpriteFrameName("GJ_smallModeIcon_001.png", &m_bigView),
+        SapfireSquareSprite::createWithSpriteFrameName("GJ_smallModeIcon_001.png", &m_bigView),
         this, menu_selector(ModsLayer::onBigView)
     );
     bigSizeBtn->setID("list-size-button");
     listActionsMenu->addChild(bigSizeBtn);
 
     auto searchBtn = CCMenuItemSpriteExtra::create(
-        GeodeSquareSprite::createWithSpriteFrameName("search.png"_spr, &m_showSearch),
+        SapfireSquareSprite::createWithSpriteFrameName("search.png"_spr, &m_showSearch),
         this, menu_selector(ModsLayer::onSearch)
     );
     searchBtn->setID("search-button");
@@ -551,7 +551,7 @@ void ModsLayer::gotoTab(ModListSource* src) {
     // Update selected tab
     for (auto tab : m_tabs) {
         auto selected = tab->getUserData() == static_cast<void*>(src);
-        static_cast<GeodeTabSprite*>(tab->getNormalImage())->select(selected);
+        static_cast<SapfireTabSprite*>(tab->getNormalImage())->select(selected);
         tab->setEnabled(!selected);
     }
 
@@ -678,18 +678,18 @@ void ModsLayer::onSearch(CCObject*) {
     }
 }
 void ModsLayer::onTheme(CCObject*) {
-    auto old = Mod::get()->template getSettingValue<bool>("enable-geode-theme");
+    auto old = Mod::get()->template getSettingValue<bool>("enable-sapfire-theme");
     createQuickPopup(
         "Switch Theme",
         fmt::format(
-            "Do you want to switch the <cp>color scheme</c> of the Geode menu "
+            "Do you want to switch the <cp>color scheme</c> of the Sapfire menu "
             "to {}?",
-            (old ? "<cy>GD-style colors</c>" : "<ca>Geode-style colors</c>")
+            (old ? "<cy>GD-style colors</c>" : "<ca>Sapfire-style colors</c>")
         ),
         "Cancel", "Switch",
         [old](auto*, bool btn2) {
             if (btn2) {
-                Mod::get()->setSettingValue("enable-geode-theme", !old);
+                Mod::get()->setSettingValue("enable-sapfire-theme", !old);
                 // todo: the touch priority on the new scene is screwed up and i can't figure out how to fix it
                 Loader::get()->queueInMainThread([] {
                     ModsLayer::scene();

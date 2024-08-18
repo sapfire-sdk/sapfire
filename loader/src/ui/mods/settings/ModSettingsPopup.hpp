@@ -1,13 +1,13 @@
 #pragma once
 
-#include <Geode/loader/SettingNode.hpp>
-#include <Geode/ui/Popup.hpp>
-#include <Geode/utils/cocos.hpp>
-#include "../GeodeStyle.hpp"
+#include <Sapfire/loader/SettingNode.hpp>
+#include <Sapfire/ui/Popup.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include "../SapfireStyle.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-class ModSettingsPopup : public GeodePopup<Mod*>, public SettingNodeDelegate {
+class ModSettingsPopup : public SapfirePopup<Mod*>, public SettingNodeDelegate {
 protected:
     Mod* m_mod;
     std::vector<SettingNode*> m_settings;

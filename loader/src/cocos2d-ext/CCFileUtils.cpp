@@ -1,9 +1,9 @@
 
-#include <Geode/modify/CCFileUtils.hpp>
-#include <Geode/utils/ranges.hpp>
+#include <Sapfire/modify/CCFileUtils.hpp>
+#include <Sapfire/utils/ranges.hpp>
 #include <cocos2d.h>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 static std::vector<CCTexturePack> REMOVED_PACKS;
 static std::vector<CCTexturePack> PACKS;
@@ -121,7 +121,7 @@ struct FileUtilsUpdatePaths : Modify<FileUtilsUpdatePaths, CCFileUtils> {
 
         // this filename in particular (cc_2x2_white_image) is never cached because its not actually present anywhere.
         // this is only an issue because cocos itself requests the full path for this in CCSprite,
-        // and with a lot of search paths (specially ones added by geode), this can cause a significant amount of lag.
+        // and with a lot of search paths (specially ones added by sapfire), this can cause a significant amount of lag.
         // GJ_GameSheetIcons.png comes from an improper plist distributed in GDS :P
         if (filename == "cc_2x2_white_image"sv || filename == "GJ_GameSheetIcons.png"sv) {
             return filename;

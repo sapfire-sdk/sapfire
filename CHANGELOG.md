@@ -1,7 +1,7 @@
-# Geode Changelog
+# Sapfire Changelog
 
 ## v3.4.0
- * Add an API for modifying the Geode UI via events; see [the corresponding docs page](https://docs.geode-sdk.org/tutorials/modify-geode) (2a3c35f)
+ * Add an API for modifying the Sapfire UI via events; see [the corresponding docs page](https://docs.geode-sdk.org/tutorials/modify-sapfire) (2a3c35f)
  * Add `openInfoPopup` overload that accepts a mod ID and can open both an installed mod page or a server page (028bbf9)
  * Add `LoadingSpinner` for creating loading circles easily (5c84012)
  * Add `TextInput::focus` and `TextInput::unfocus` (749fdf1)
@@ -18,7 +18,7 @@
  * Update network libraries, fixing problems with old Wine versions (e26fe95)
  * Fix scale on mod logos for low quality (ba7b0fa)
  * Fix platform-specific dependencies by using CLI 3.2.0 (98f82ff)
- * Add `GEODE_DONT_USE_CCACHE` CMake option (2edfb71)
+ * Add `SAPFIRE_DONT_USE_CCACHE` CMake option (2edfb71)
  * Remove now useless `std::hash` impl for `std::filesystem::path` on android (2b35e0e)
  * Implement custom window for showing crashlog on windows (4f32197)
  * Update docs version to show v3.0.0 (f86d4db)
@@ -36,8 +36,8 @@
  * Fix populating web headers and add some new getters (a96ec91)
  * Build mods to load stack statically (255066a)
  * Force internal mod to always appear enabled (e659b97)
- * Bring back uninstall Geode button on Windows (22b2580)
- * Add `geode::openChangelogPopup` (e432e72)
+ * Bring back uninstall Sapfire button on Windows (22b2580)
+ * Add `sapfire::openChangelogPopup` (e432e72)
  * Add special visuals for paid tag (0082765)
  * Add 64-bit check to the Windows installer (c45d8f6)
  * Add `Mod::checkUpdates` (9d02155)
@@ -61,7 +61,7 @@
  * Add more options to `web::WebRequest` (83f8a32) (#943)
  * Prioritize mod updates over failed mods on the main menu icon (89ed81a)
  * Windows installer improvements:
-   * Delete old geode/update folder to prevent downgrading (116af49)
+   * Delete old sapfire/update folder to prevent downgrading (116af49)
    * Delete left over dlls from 2.204 (d1e2919)
    * Installer can now forcibly install over existing mod loaders (736a61e)
    * Make installer delete msvcp dlls in gd folder (d9c7610, 9c6841e)
@@ -91,7 +91,7 @@
  * Make some classes final (ea96e2c)
 
 ## v3.0.0-beta.3
- * Fix a crash that might happen when entering the Geode mods page (79689cd)
+ * Fix a crash that might happen when entering the Sapfire mods page (79689cd)
  * Fix a locale related crash (fdb473a)
  * Cleanup old field syntax remnants (34e51ff)
  * Use `clamp` for `SwelvyBG` instead of `repeat` (0a6a5e6)
@@ -139,7 +139,7 @@
  * Fix download links for mods being generated without prerelease tag (06bd2e2)
  * Make developer filter search by username (014ec68, 1c40a63)
  * Fix `Notification` crashing when shown during a transition fade (0270d47)
- * Split `GEODE_PLATFORM_NAME` for Mac ARM and Mac Intel (48a7981)
+ * Split `SAPFIRE_PLATFORM_NAME` for Mac ARM and Mac Intel (48a7981)
  * Use `string_view` instead of `const char*` for `expandSpriteName` (22cc33b)
  * Make `_spr` compile time (b22a59d, bacab92)
  * Update server UserAgent format (9679b40)
@@ -150,7 +150,7 @@
 
 ## v3.0.0-alpha.2
  * Add `WebResponse::into()` for writing responses to files (f909a73)
- * Add `geodeImplicitEntry` and `geodeCustomEntry` (6b2ac24, 5969c90)
+ * Add `sapfireImplicitEntry` and `sapfireCustomEntry` (6b2ac24, 5969c90)
  * Fix padding and add a custom color for borders (#868)
  * Add more SMJS nodes to UI include (#869)
  * Fix an issue with CCParticleQuad (330c20e, #865)
@@ -163,7 +163,7 @@
  * trigger $on_mod(Loaded) for Loader
  * Make Windows installer use x64 vc_redist (6793fbd)
  * Fix some cocos members (#872, #881) - thanks Acaruso and SpaghettDev
- * geode::ui::Border fixes (#883) - thanks SMJS
+ * sapfire::ui::Border fixes (#883) - thanks SMJS
  * Update the developer popup, and various other UI fixes (#877) - thanks Alphalaneous
  * Check if is_json is defined for getSavedValue custom types
 
@@ -179,9 +179,9 @@
  * New UI for the Index, which also uses a server implementation (#833)
    * Implements new popups `ConfirmUninstallPopup`, `DevPopup`, `FiltersPopup`, `ModErrorPopup`, `ModPopup`, `SortPopup`
      * Mod popup now has new features like tags, reverting accidental disabling, version (1876af8, dac16a4, f365dc4)
-   * Adds 4 tabs to the Geode menu: Installed, Recommended, Download, Recent
+   * Adds 4 tabs to the Sapfire menu: Installed, Recommended, Download, Recent
    * Creates a fancy new background with `SwelvyBG`
-   * The entire color scheme has been changed to fit Geode's color language of pastel purple-pastel gold gradient
+   * The entire color scheme has been changed to fit Sapfire's color language of pastel purple-pastel gold gradient
  * Remove old web utilities (b129808)
  * Implement Windows 64-bit and MacOS M1 arm64 support
  * Add color support to `ListView` (#854, #859)
@@ -211,7 +211,7 @@
  * Bring in several UI helpers from the `new-index-but-better` branch: `ListBorders`, `addSideArt`, `AxisLayout` improvements, ... (26729c3, 7ff257c)
  * Make it possible to compile mods in Debug mode (517ad45)
  * Add `GJDifficultyName` and `GJFeatureState` (#706)
- * Add `geode::cocos::isSpriteName` and `geode::cocos::getChildBySpriteName` (#725)
+ * Add `sapfire::cocos::isSpriteName` and `sapfire::cocos::getChildBySpriteName` (#725)
  * Add some Android keycodes (4fa8098)
  * Update FMOD on Mac (c4a682b)
  * Bump JSON version (5cc23e7)
@@ -234,7 +234,7 @@
  * Fix json floating precision errors (318a7f2)
  * Fix loading bar going out of bounds (e50c3ab)
  * Fix field containers for modified classes that have an inheritance relationship sharing the container (00e971a)
- * Error if mod target geode version doesn't match installed SDK version (2c559f8)
+ * Error if mod target sapfire version doesn't match installed SDK version (2c559f8)
  * Fix dangling pointer in `disownPatch` (4c492c1)
  * Add a way to access internal setting container (798cacc)
  * Add the crashed thread to Windows crashlog (f84e866)
@@ -262,7 +262,7 @@
  * Add `Patch::updateBytes` to update a patch (ba648340)
  * (Possibly) fix random curl crashes (dd440433, 1fb12f2d, 6cd6e4d0, 8998041e, 2be58549)
    * This was done by using a build with the thread resolver enabled, possibly fixing race conditions when initing curl
- * Prevent `GeodeUpdater.exe` from hanging (d139049b)
+ * Prevent `SapfireUpdater.exe` from hanging (d139049b)
  * Fix a duplicated node ID in LoadingLayer (#574)
  * Fix minor memory leak in AsyncWebRequest (52ea6ea5)
  * Fix Wine crashing when launching via terminal (#501)
@@ -302,13 +302,13 @@
 
 ## v2.0.0-beta.19
  * Fix Windows forward compatibility mode (eef949c5, 824efbf3, 456075a2)
-   * This was caused by Clang not setting `/DELAYLOAD` properly, but also a mutex introduced in beta.7 causing Geode not to load at all
+   * This was caused by Clang not setting `/DELAYLOAD` properly, but also a mutex introduced in beta.7 causing Sapfire not to load at all
  * Slightly improve Mod List sorting (3497692)
 
 ## v2.0.0-beta.18
  * Use sccache for caching instead of PCH to improve compile times (#493)
  * Add translations for Japanese in installer (#504)
- * Add `geode::openSupportPopup` for opening the Support page for a mod (438252f)
+ * Add `sapfire::openSupportPopup` for opening the Support page for a mod (438252f)
  * Add `<ca>` to MDTextArea (ca683fa)
  * Add more `GameObjectType`s (8e4b76f)
  * Add `Mod::hasAvailableUpdate` (b71ae17)
@@ -319,7 +319,7 @@
  * Fix color parsing from hex (131539f)
  * Fix `JsonValidation` leaking exceptions in `into` (83847e3)
  * Fix struct returns for `CCPoint` not actually working properly (1daa671)
- * Fix `geode::web::fetchJSON` and `ColorPickPopup` not being DLL-exported (2c1eb67, 8250a73)
+ * Fix `sapfire::web::fetchJSON` and `ColorPickPopup` not being DLL-exported (2c1eb67, 8250a73)
  * Fix usernames not showing up on profile links in Markdown (3fe102d)
  * Fix `MDPopup` height estimations (cc4c32e)
  * Various other small fixes & improvements
@@ -350,7 +350,7 @@
  * Fix touch priority messing up after mod download (ba0e13f)
  * Improve safe mode, listing mods as normal (241ddc3)
  * Fix `SimpleTextArea` text alignment and size (9d92a7c)
- * Install resources on local Geode build (e9aa889)
+ * Install resources on local Sapfire build (e9aa889)
  * Update json library for better errors (0731f44)
  * Run binding codegen in CMake configure time (2e20ccc)
  * Replace media perms with file perms (5f7af1a)
@@ -359,7 +359,7 @@
  * Fix icon positioning in `InstallListCell` (cb7c024)
 
 ## v2.0.0-beta.14
- * Use Breakpad for crash reports on Android ([#481](https://github.com/geode-sdk/geode/pull/481))
+ * Use Breakpad for crash reports on Android ([#481](https://github.com/sapfire-sdk/sapfire/pull/481))
  * Fix available label on LocalModInfoPopup (b4037093)
  * Remove trailing CR from headers (17153a4f)
    * Ends up **fixing auto update**
@@ -369,10 +369,10 @@
  * Add install target for loader itself (36727ced)
 
 ## v2.0.0-beta.13
- * Add new `AnchorLayout` feature ([#476](https://github.com/geode-sdk/geode/pull/476))
+ * Add new `AnchorLayout` feature ([#476](https://github.com/sapfire-sdk/sapfire/pull/476))
  * Add support for multiple developers in `mod.json` through the `developers` key (85180d5f, f21542a8)
    * requires CLI v2.9.0 and VS Code extension v1.7.0
- * No longer consider outdated mods invalid .geode files altogether (d9c65b37)
+ * No longer consider outdated mods invalid .sapfire files altogether (d9c65b37)
 
 ## v2.0.0-beta.12
  * Increase target MacOS version to 10.15 (6dc6e9b4)
@@ -381,11 +381,11 @@
  * Add safety hook for save path on android (0188eee5)
    * We had a bug where the game would randomly reset your save file
    on android, and we believe this to be a hook by the launcher itself
-   not being placed properly. So, we also do the hook on Geode itself,
+   not being placed properly. So, we also do the hook on Sapfire itself,
    for safety.
  * Fix rob's broken MessageBoxW on Windows (5d631921)
  * Add utils for setting thread name, show it on log (832bcf81, ce53fb31)
- * Add some launch arguments for geode (7ccaef90)
+ * Add some launch arguments for sapfire (7ccaef90)
  * Deprecate blocking file picking utils (ee97e2da)
  * Sort mods by id in crashlog (984d1482)
 
@@ -426,8 +426,8 @@
  * Fix exceptions on android32 (9c87d4c)
  * Move GD version check to loadBinary (d2a51354, 82808c3a)
  * Show updates for mods that are disabled (bd9d0635)
- * Force geode internal mod to be first on list (c2d1e587)
- * Fix geode layer eating inputs if search is selected (18983974)
+ * Force sapfire internal mod to be first on list (c2d1e587)
+ * Fix sapfire layer eating inputs if search is selected (18983974)
  * Move clipping rect fix, fixes editor particle editor (eeeedbb9)
  * Fix force priority fix, fixes editor scale warp lock button (fd8c3630, f1a32b6a)
  * Clearer error message when platform binary is missing from mod (dc8cd219)
@@ -458,12 +458,12 @@
  * Use new launcher function for unzipped mod dir (120fa4a)
 
 ## v2.0.0-beta.2
- * Fix `geode::utils::cocos::reloadTextures` on windows
+ * Fix `sapfire::utils::cocos::reloadTextures` on windows
 
 ## v2.0.0-beta.1
  * 2.2 support!
    * Android arm64-v8 support!
-   * Future version compatibility mode, where the Geode UI is disabled
+   * Future version compatibility mode, where the Sapfire UI is disabled
  * Split bindings into their own repo (3aa3ae7d)
  * Add `gd` as a required key in mod.json, to specify target GD version (f7a3947c)
  * Load native binaries from mod resources (acd9bd78)
@@ -480,29 +480,29 @@
 
 ## v1.4.0
  * Add Android support !!!!
-   * Implement every Geode functionality except `utils::file::openFolder`
-   * Requires the Geode launcher in order to be used
+   * Implement every Sapfire functionality except `utils::file::openFolder`
+   * Requires the Sapfire launcher in order to be used
    * Fixes the text input node allowing typing for 1 less character
    * Uses `logcat` in order to get crash reports, so reopening the game is required to generate them
    * Broma requires classes to be added `[[link(android)]]` in order to be linked
-   * All Geode and GD files are stored in `Android/data/com.geode.launcher/files`
+   * All Sapfire and GD files are stored in `Android/data/com.sapfire.launcher/files`
      * Game files in `game`, save files in `save`
  * Allow logging to be disabled per mod (6d599a5)
  * Mod cells use layouts (114fa46)
  * MacOS console is now separate (182984d)
- * Add uninstall button to Geode mod (Only functional in Windows currently) (a738320)
+ * Add uninstall button to Sapfire mod (Only functional in Windows currently) (a738320)
  * Make new version label invisible on download (0f179da)
  * Fix the toggling of disabled dependencies (cd89ef1)
  * Fix spritesheet issues (ef47647)
  * Change `LoadingLayer` (ef47647)
  * Make mod info popup top a layout (dd806e0)
- * Add `GEODE_HIDDEN` to inline unique functions (71a79ab)
+ * Add `SAPFIRE_HIDDEN` to inline unique functions (71a79ab)
  * Fix big mod icons (26a6c7e)
  * Fix `CCNode::removeChildByID` export (23cd456)
  * Make `MDTextArea` fit its size (140f38b)
- * Enable ESC/Back to go back in Geode mod list (2847bee)
+ * Enable ESC/Back to go back in Sapfire mod list (2847bee)
  * Add `SimpleTextArea` (7f277a7)
- * Check modified date when unzipping `.geode` files (5c765c6)
+ * Check modified date when unzipping `.sapfire` files (5c765c6)
  * Only hash markdown files on resource checking (f563c46)
 
 ## v1.3.10
@@ -514,13 +514,13 @@
 ## v1.3.8
  * Implement a save file fix for Windows (391f63ed)
  * Recursively follow jumps in followThunkFunction (44a018cd)
- * Remove need for GEODE_DEBUG for crashlogs (e8a326f7)
+ * Remove need for SAPFIRE_DEBUG for crashlogs (e8a326f7)
  * Some bindings (f18335fa)
 
 ## v1.3.7
  * Fix web download deadlock (16418562)
  * Set max time for updating index notification (f7962246)
- * Log geode version on startup (c5550a67)
+ * Log sapfire version on startup (c5550a67)
  * Fix logic error in addHook (5cf0f3c2)
  * Improve logging + minor refactors (5083017b)
  * Some bindings changes
@@ -528,7 +528,7 @@
 ## v1.3.6
  * Allow error responses in our WebRequest classes (237128bf)
  * Display unhandled C++ exceptions in crash log (fdd78aca, 0d091626, 52421d8c, 0472075f)
- * Fix GEODE_CLI force caching when not found (0a113744)
+ * Fix SAPFIRE_CLI force caching when not found (0a113744)
  * Only write checksum file after unzipping, fixes inconsistent index state (b4fbea51)
  * Fix the index notif staying on all the time (c967b520)
  * Bump minimum required CMake version in codegen (27ed63e7)
@@ -635,8 +635,8 @@
  * Add link attribute to codegen for functions linked from elsewhere (a552160)
 
 ## v1.0.3
- * Fix mod changelogs only showing Geode's own changelog (2945422)
- * Fix some filesystem functions for Geode running under wine (7a83354)
+ * Fix mod changelogs only showing Sapfire's own changelog (2945422)
+ * Fix some filesystem functions for Sapfire running under wine (7a83354)
  * Lazy load the real XInput9 dll, removing the need for an XInput 1.3 (041d44c)
  * Fix MacOS requiring openssl@3 directly from homebrew (e489681)
  * Default to Steam installation on MacOS installer (072a18c)
@@ -651,7 +651,7 @@
  * Fix MacOS installer (ea5a5f0)
  * Add mod ids to deprecated keys logs of ModInfo (fc72c24)
  * Rename platform labels: (MacOS -> macOS, iOS -> IOS) (cf3ed32)
- * Fix Geode not loading when GeodeBootsrapper.dll exists (c2aacd9)
+ * Fix Sapfire not loading when SapfireBootsrapper.dll exists (c2aacd9)
  * Hide tag from version in cmake when it doesnt exist (fc8a8e1)
  * Change MacOS installer fmod original name for compatibility with the old installer (44d5aff)
 
@@ -686,8 +686,8 @@
  * Add logging for gd::string (e7ab46c)
  * Fix `ComparableVersionInfo` comparison being inverted (e7ab46c)
  * Add `FileWatchEvent` for file watching (50ff15c)
- * Fix `geode::utils::file::pickFile` on MacOS (8842e8f)
- * Fix `geode::utils::file::writeToJson` (1c699c3)
+ * Fix `sapfire::utils::file::pickFile` on MacOS (8842e8f)
+ * Fix `sapfire::utils::file::writeToJson` (1c699c3)
  * Fix notifications not being at the top (4754994)
  * Fix filter copy constructors (4cec5d7)
  * Update json library
@@ -716,19 +716,19 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
 ## v1.0.0-beta.12
  * Fix crash when installing mods 
  * FMOD is now linked on MacOS 
- * `GEODE_DEBUG` on longer needs to be defined for `log::debug` to work 
- * Make Geode changelog visible in-game
+ * `SAPFIRE_DEBUG` on longer needs to be defined for `log::debug` to work 
+ * Make Sapfire changelog visible in-game
  * Make the changelog only be loaded once the changelog button is pressed in ModInfoPopup
  * Fix the scrollbar not working for the changelog in ModInfoPopup
  * Fix visual issues with scrollbars
 
 ## v1.0.0-beta.11
- * New `geode::prelude` namespace to replace the old `USE_GEODE_NAMESPACE()` macro 
+ * New `sapfire::prelude` namespace to replace the old `USE_SAPFIRE_NAMESPACE()` macro 
  * Add `CCNode::removeChildByID` 
  * Add `CCNode::hasAncestor` 
  * Add `CCScene::get` and `CCScheduler::get` 
- * Add `geode::cocos::getMousePos` 
- * Add `GEODE_DONT_INSTALL_MODS` option to CMake 
+ * Add `sapfire::cocos::getMousePos` 
+ * Add `SAPFIRE_DONT_INSTALL_MODS` option to CMake 
  * Add logging `std::vector` with `log::` functions 
  * Add `EventListener::getFilter` 
  * Add `AttributeSetEvent` for detecting when attributes are added to nodes 
@@ -741,13 +741,13 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  * `Layout` now inherits from `CCObject`, allowing you to share layouts across multiple nodes 
  * Update TulipHook version 
  * Make sure mod load/enable/etc. events are only ever posted in the GD thread 
- * `Mod::getResourcesDir` now returns `geode/unzipped/{mod.id}/resources/{mod.id}` in conjunction with [CLI v2.1.0](https://github.com/geode-sdk/cli/releases/tag/v2.1.1) 
+ * `Mod::getResourcesDir` now returns `sapfire/unzipped/{mod.id}/resources/{mod.id}` in conjunction with [CLI v2.1.0](https://github.com/sapfire-sdk/cli/releases/tag/v2.1.1) 
  * Give a name to `ccTouchType` 
  * Fix `Scrollbar` being funky sometimes 
  * Fix mod resources not being loaded if the mod is enabled at runtime 
  * Fix `EditLevelLayer` description update button ID & layout 
  * Fix hooking functions with unpredictable calling conventions 
- * Fix `setup_geode_mod` not linking to Geode if CLI calls are disabled 
+ * Fix `setup_sapfire_mod` not linking to Sapfire if CLI calls are disabled 
  * Fix code editors showing a ton of warnings with `$modify` 
  * Fix top sprite sizes of `CircleButtonSprite` and `EditorButtonSprite` 
  * Fix `Mod::enableHook` error message 
@@ -756,7 +756,7 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
 ## v1.0.0-beta.10
  * Fix loader minimum mod version preventing the loader itself from loading 
  * Fix recursive comparison in VersionTag 
- * `geode/unzipped` is now deleted on startup if it exists 
+ * `sapfire/unzipped` is now deleted on startup if it exists 
 
 ## v1.0.0-beta.9
  * Fix multiple modifiers not being able to have fields on same class due to having same field index 
@@ -765,7 +765,7 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
 ## v1.0.0-beta.8
  * Unload the mod even when first time warning pops up 
  * Error when address of a function returns nullptr when hooking 
- * Add support for Geode CLI v2.0.0 (which has not been released yet) 
+ * Add support for Sapfire CLI v2.0.0 (which has not been released yet) 
  * Logging no longer causes a crash on invalid formats, but instead just warns 
  * `file::pickFile` now uses the last item in the default path as the default filename to save/open 
  * Fix `EditorPauseLayer` crashing constantly due to some members being accidentally set to `nullptr` 
@@ -778,7 +778,7 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  * Fix `typeinfo_cast` causing a crash if passed a `nullptr` on MacOS 
  * Fix settings not getting broadcasted 
  * Make `Loader::getLoadedMod` and `Loader::isModLoaded` also check if mod is enabled 
- * Display Geode commit hash in the bottom right of the mod info layer 
+ * Display Sapfire commit hash in the bottom right of the mod info layer 
  * Fix `EditorPauseLayer` info labels on the top left being too big 
 
 ## v1.0.0-beta.6
@@ -790,10 +790,10 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  * Add `Mod::getResourcesDir` for getting a mod's runtime resources directory (where `[mod.json].resources.files` are placed) 
  * Add `Mod::addCustomSetting` for convenience in registering custom settings 
  * Add `file::readDirectory` as a sanely named alternative to `file::listFiles` 
- * Move `GEODE_DLL` to the structs themselves in `JsonValidation` 
+ * Move `SAPFIRE_DLL` to the structs themselves in `JsonValidation` 
  * Versions now support tag numbers & version tags are now used in comparisons. This change does not affect old betas, which still internally report their version as just `v1.0.0-beta`, but starting with this beta the version is correctly reported as `v1.0.0-beta.6` and correctly compared against other versions 
  * `Loader::getLoadedMod` and `Loader::isModLoaded` now only return if the mod is also enabled 
- * Geode's internal mod representation is now included in the loader's loaded mods list 
+ * Sapfire's internal mod representation is now included in the loader's loaded mods list 
  * Fix settings value changes not being broadcast. This causes an API break relating to custom settings; `SettingValue` now requires the owner mod ID in its constructor 
  * Fix some warnings 
  * Fix `CCNode::swapChildIndices` 
@@ -814,8 +814,8 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
 - Fix macOS libzstd crash
 
 ## v1.0.0-beta.3
- - Better support for dependencies with [Geode CLI v1.4.x](https://github.com/geode-sdk/cli/releases/latest): mod dependencies are now automatically installed from the mods index by simply declaring them in your `mod.json`. See [the tutorial page in docs](https://docs.geode-sdk.org/mods/dependencies/) for more 
- - The `create_geode_file` CMake function has been replaced by `setup_geode_mod`. The old `create_geode_file` function is still available, but will be deprecated in the future 
+ - Better support for dependencies with [Sapfire CLI v1.4.x](https://github.com/sapfire-sdk/cli/releases/latest): mod dependencies are now automatically installed from the mods index by simply declaring them in your `mod.json`. See [the tutorial page in docs](https://docs.geode-sdk.org/mods/dependencies/) for more 
+ - The `create_sapfire_file` CMake function has been replaced by `setup_sapfire_mod`. The old `create_sapfire_file` function is still available, but will be deprecated in the future 
  - `Result::except` now works with non-copyable types 
  - `Zip` and `Unzip` now support in-memory ZIP extraction and creation 
  - `ComparableVersionInfo::compare` now always returns false if the major versions are different 
@@ -831,7 +831,7 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  * Fixed bug where loading would crash if one of the mods' binaries failed to load 
 
 ## v1.0.0-beta.1
- * Switched to [a new custom-built JSON library](https://github.com/geode-sdk/json) to replace `nlohmann::json` for compile-time improvements; if you were using the old JSON library, you can add & link to `nlohmann::json` in your own project, or update to use the new API. 
+ * Switched to [a new custom-built JSON library](https://github.com/sapfire-sdk/json) to replace `nlohmann::json` for compile-time improvements; if you were using the old JSON library, you can add & link to `nlohmann::json` in your own project, or update to use the new API. 
  * Fix resources not being downloaded automatically by using a fallback to latest release 
  * Add a new clear instruction popup in case downloading still fails 
  * String ID hooks now have higher priority, so they should always be applied regardless of if you call `NodeIDs::provideFor` or not (though it can still be called to absolutely ensure the IDs are there!) 
@@ -845,9 +845,9 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  - Jesus H. Christmas Kallen there's like 300 new commits since v0.6.1 I don't think there's a point in listing them all, we basically redesigned the whole framework
 
 ## v0.6.1
- - Add `geode::cocos::switchToScene` utility for easily switching to a layer with the default fade transition
+ - Add `sapfire::cocos::switchToScene` utility for easily switching to a layer with the default fade transition
  - Add `Mod::getPackagePath` as a replacement for `Mod::getPath`
- - Add `geode/config` directory as a standardized place for mods to add their config files
+ - Add `sapfire/config` directory as a standardized place for mods to add their config files
  - Add `Mod::getConfigDir` for getting a mods' config directory
  - Add open config directory button to mods with a config directory
  - Add open save directory button to mods' settings popup
@@ -859,11 +859,11 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  - Mod resource loading has been reworked again, with the intent of adding support for texture pack loaders
  - Added `Loader::addTexturePath` and `Loader::removeTexturePath` to work with additional resource paths
  - Mods that work with Cocos2d search paths directly should convert to using the above functions
- - New header `Geode/ui/LayerBG.hpp` with `createLayerBG` function for creating the blue gradient background GD layers have
+ - New header `Sapfire/ui/LayerBG.hpp` with `createLayerBG` function for creating the blue gradient background GD layers have
  - All Cocos2d include paths have been changed to be relative
- - `cocos2dx` folder has been removed, cocos2d is now directly inside `Geode/cocos`
+ - `cocos2dx` folder has been removed, cocos2d is now directly inside `Sapfire/cocos`
  - Loader resources updating will no longer check for plist file differences due to problems with CLI on Mac
- - More codegen optimizations, Geode mods should now compile faster
+ - More codegen optimizations, Sapfire mods should now compile faster
  - Added `NewResult` class, which will eventually replace the old `Result`
  - Add `deprecate` and `nodiscard` attributes to the old `Result` class
  - Cocos2d selectors (like `SEL_MenuHandler`) no longer require `using namespace cocos2d`
@@ -875,8 +875,8 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  - Fix crashes related to setting IDs in `MenuLayer`
  - Remove `Loader::updateModResourcePaths` and `Loader::updateResourcePaths`. The minimum mod target version is still v0.4.0 however, as you should never have been using these functions.
  - Rework how mod resources are added
- - Deprecate `geode::utils::vector` and `geode::utils::container` namespaces and replace them with `geode::utils::ranges`
- - Finally added a license to Geode! The framework is now licensed under BSL v1.0.
+ - Deprecate `sapfire::utils::vector` and `sapfire::utils::container` namespaces and replace them with `sapfire::utils::ranges`
+ - Finally added a license to Sapfire! The framework is now licensed under BSL v1.0.
 
 ## v0.4.8
  - CLI issues fixed in v1.0.6 so loader again verifies if loader resources are missing / corrupt on startup
@@ -888,16 +888,16 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
 
 ## v0.4.6
  - Automatically checks & downloads loader resources if they are missing / corrupt on startup
- - CMake rework; `GeodeFile.cmake` now checks and verifies CLI version
- - Add optional `DONT_INSTALL` parameter to `create_geode_file`
+ - CMake rework; `SapfireFile.cmake` now checks and verifies CLI version
+ - Add optional `DONT_INSTALL` parameter to `create_sapfire_file`
  - Test mods are now no longer automatically installed
- - Add `package_geode_resources_now` command for packaging resources at configure time and creating a header with their calculated hashes
+ - Add `package_sapfire_resources_now` command for packaging resources at configure time and creating a header with their calculated hashes
  - Fix `getSceneDelegate`
  - Change `CCArrayExt` to use `Ref`
 
 ## v0.4.5
- - Rework bindings and codegen to improve compile times, now individual bindings can be included with `<Geode/binding/{ClassName}.hpp>`
- - Modify has also been separated, you can now include individual modifiers with `<Geode/modify/{ClassName}.hpp>`
+ - Rework bindings and codegen to improve compile times, now individual bindings can be included with `<Sapfire/binding/{ClassName}.hpp>`
+ - Modify has also been separated, you can now include individual modifiers with `<Sapfire/modify/{ClassName}.hpp>`
  - Various other fixes to improve compile times
  - Fix mod resources not being loaded when installed from Index
  - Fix crashes related to downloading mods
@@ -909,13 +909,13 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  - Various other fixes & improvements
  - Index reworked
  - Fix issues with `VERSION` file
- - Add `GEODE_DEBUG` macro for enabling `log::debug` to actually print stuff
- - Show crashlog on crash when `GEODE_DEBUG` is enabled
+ - Add `SAPFIRE_DEBUG` macro for enabling `log::debug` to actually print stuff
+ - Show crashlog on crash when `SAPFIRE_DEBUG` is enabled
  - Add `JsonChecker::at` and `JsonChecker::array` for dealing with arrays
- - Add `geode::utils::web::fetchBytes` for fetching a byte array synchronously
- - Add `geode::utils::web::AsyncWebRequest` for creating thread-safe asynchronous web requests
+ - Add `sapfire::utils::web::fetchBytes` for fetching a byte array synchronously
+ - Add `sapfire::utils::web::AsyncWebRequest` for creating thread-safe asynchronous web requests
  - Add `Loader::updateModResourcePaths` for adding a mods' resources to search paths. Not recommended to be called manually
- - Add an overload to `geode::createQuickPopup` for specifying popup width
+ - Add an overload to `sapfire::createQuickPopup` for specifying popup width
  - `ModInfo::createFromFile` now checks for `about.md` and other special files in the same directory
  - Remove automatic mod updating for now, however automatic update checking for mods is still there
 
@@ -926,7 +926,7 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
 
 ## v0.4.3
  - Simplified the minimum and maximum loader versions, loader will now load any mod whose target version major and minor match. In practice, this means that for example mods whose target version is v0.4.8 can be loaded by loader of version v0.4.6.
- - Add `Geode/ui/GeodeUI.hpp` header for exposing some access to internal Geode UI like opening a mod's settings popup
+ - Add `Sapfire/ui/SapfireUI.hpp` header for exposing some access to internal Sapfire UI like opening a mod's settings popup
  - Fix crash with settings that could have a slider control
 
 ## v0.4.2
@@ -935,14 +935,14 @@ Thank you to [Fleeym](https://github.com/Fleeym/Fleeym) for contributing to this
  - Fix log filenames
 
 ## v0.4.1
- - Initial dev release of Geode.
+ - Initial dev release of Sapfire.
 
 ---
 
 Note that from here on, changes to the framework were not tracked by versions as the framework was still considered to be in heavy development and not released. Instead, major changes are listed by dates.
 
 ## 2022/10/10
- - Geode released for developers
+ - Sapfire released for developers
 
 ## 2022/10/08
  - `ui` branch merged to `main`
@@ -955,10 +955,10 @@ Note that from here on, changes to the framework were not tracked by versions as
  - CLI redesign started
 
 ## 2022/07/30
- - `sdk`, `loader` and `api` repos all merged into one `geode` repo
+ - `sdk`, `loader` and `api` repos all merged into one `sapfire` repo
 
 ## 2022/05/24
- - Geode announced to be merging with Hyperdash, later on it turned out we were all pathological liars
+ - Sapfire announced to be merging with Hyperdash, later on it turned out we were all pathological liars
 
 ## 2022/05/02
  - Installer on Windows
@@ -970,7 +970,7 @@ Note that from here on, changes to the framework were not tracked by versions as
  - CLI started
 
 ## 2022/01/19
- - Lilac and Cacao merged and renamed to Geode
+ - Lilac and Cacao merged and renamed to Sapfire
 
 ## 2021/07/30
  - Lilac started by Mat, HJfod and Pie

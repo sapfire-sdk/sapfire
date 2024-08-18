@@ -174,7 +174,7 @@ emitter.startSpin = 0;
 */
 class CC_DLL CCParticleSystem : public CCNode, public CCTextureProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 protected:
     gd::string m_sPlistFile;
     //! time elapsed since the start of the system (in seconds)
@@ -425,7 +425,7 @@ public:
      * @js ctor
      */
     CCParticleSystem();
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCParticleSystem, CCNode)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCParticleSystem, CCNode)
     /**
      * @js NA
      * @lua NA

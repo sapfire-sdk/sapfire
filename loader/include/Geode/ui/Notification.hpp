@@ -3,10 +3,10 @@
 #include "SceneManager.hpp"
 #include <cocos2d.h>
 #include <cocos-ext.h>
-#include <Geode/binding/TextAlertPopup.hpp>
+#include <Sapfire/binding/TextAlertPopup.hpp>
 #include "../utils/cocos.hpp"
 
-namespace geode {
+namespace sapfire {
     constexpr auto NOTIFICATION_DEFAULT_TIME = 1.f;
     constexpr auto NOTIFICATION_LONG_TIME = 4.f;
 
@@ -19,7 +19,7 @@ namespace geode {
         Info,
     };
 
-    class GEODE_DLL Notification : public cocos2d::CCNodeRGBA {
+    class SAPFIRE_DLL Notification : public cocos2d::CCNodeRGBA {
     protected:
         static Ref<cocos2d::CCArray> s_queue;
         cocos2d::extension::CCScale9Sprite* m_bg;

@@ -1,5 +1,5 @@
-#include <Geode/utils/Result.hpp>
-#include <Geode/utils/general.hpp>
+#include <Sapfire/utils/Result.hpp>
+#include <Sapfire/utils/general.hpp>
 #include <filesystem>
 #include <fmt/core.h>
 #include <fstream>
@@ -9,13 +9,13 @@
 #include <curl/curl.h>
 #include <ca_bundle.h>
 
-#include <Geode/utils/web.hpp>
-#include <Geode/utils/map.hpp>
-#include <Geode/utils/terminate.hpp>
+#include <Sapfire/utils/web.hpp>
+#include <Sapfire/utils/map.hpp>
+#include <Sapfire/utils/terminate.hpp>
 #include <sstream>
 
-using namespace geode::prelude;
-using namespace geode::utils::web;
+using namespace sapfire::prelude;
+using namespace sapfire::utils::web;
 
 static long unwrapProxyType(ProxyType type) {
     switch (type) {
@@ -129,7 +129,7 @@ Result<std::string> WebResponse::string() const {
     return Ok(std::string(m_impl->m_data.begin(), m_impl->m_data.end()));
 }
 Result<matjson::Value> WebResponse::json() const {
-    GEODE_UNWRAP_INTO(auto value, this->string());
+    SAPFIRE_UNWRAP_INTO(auto value, this->string());
     std::string error;
     auto res = matjson::parse(value, error);
     if (error.size() > 0) {

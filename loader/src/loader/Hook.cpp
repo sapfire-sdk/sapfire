@@ -1,7 +1,7 @@
-#include <Geode/loader/Hook.hpp>
+#include <Sapfire/loader/Hook.hpp>
 #include "HookImpl.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 Hook::Hook(std::shared_ptr<Impl>&& impl) : m_impl(std::move(impl)) { m_impl->m_self = this; }
 Hook::~Hook() = default;

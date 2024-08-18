@@ -1,6 +1,6 @@
 #include "about.hpp"
 
-geode::VersionInfo about::getLoaderVersion() {
+sapfire::VersionInfo about::getLoaderVersion() {
     return {
         @PROJECT_VERSION_MAJOR@,
         @PROJECT_VERSION_MINOR@,
@@ -9,6 +9,6 @@ geode::VersionInfo about::getLoaderVersion() {
     };
 }
 const char* about::getLoaderVersionStr() { return "@PROJECT_VERSION@@PROJECT_VERSION_SUFFIX@"; }
-const char* about::getLoaderCommitHash() { return "@GEODE_COMMIT_HASH@"; }
-const char* about::getBindingsCommitHash() { return "@GEODE_BINDINGS_COMMIT_HASH@"; }
+const char* about::getLoaderCommitHash() { return "@SAPFIRE_COMMIT_HASH@"; }
+const char* about::getBindingsCommitHash() { return "@SAPFIRE_BINDINGS_COMMIT_HASH@"; }
 const char* about::getLoaderModJson() { return R"JSON_SEPARATOR(@LOADER_MOD_JSON@)JSON_SEPARATOR"; }

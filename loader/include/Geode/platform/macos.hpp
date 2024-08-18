@@ -6,7 +6,7 @@
 #include <typeinfo>
 #include "ItaniumCast.hpp"
 
-namespace geode {
+namespace sapfire {
     using dylib_t = void*;
 
     struct PlatformInfo {
@@ -14,8 +14,8 @@ namespace geode {
     };
 }
 
-namespace geode::base {
-    GEODE_NOINLINE inline uintptr_t get() {
+namespace sapfire::base {
+    SAPFIRE_NOINLINE inline uintptr_t get() {
         // on arm macos, launching through steam seems to set image 0 to some steam helper library
         // i don't know why... :(
 
@@ -31,7 +31,7 @@ namespace geode::base {
             }
 
             // we couldn't find the base, so just assume it's 0
-            // should probably have an error for this, but geode::log isn't available yet
+            // should probably have an error for this, but sapfire::log isn't available yet
             return _dyld_get_image_vmaddr_slide(0) + 0x100000000;
         }();
         return base;

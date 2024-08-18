@@ -10,7 +10,7 @@
 #include <variant>
 #include <optional>
 
-namespace geode {
+namespace sapfire {
     namespace impl {
         using DefaultValue = std::monostate;
         using DefaultError = std::string;
@@ -282,18 +282,18 @@ namespace geode {
         );
     }
 
-#define GEODE_UNWRAP_INTO(into, ...)                                            \
-    auto GEODE_CONCAT(unwrap_res_, __LINE__) = (__VA_ARGS__);                   \
-    if (GEODE_CONCAT(unwrap_res_, __LINE__).isErr()) {                          \
-        return geode::Err(std::move(GEODE_CONCAT(unwrap_res_, __LINE__).unwrapErr())); \
+#define SAPFIRE_UNWRAP_INTO(into, ...)                                            \
+    auto SAPFIRE_CONCAT(unwrap_res_, __LINE__) = (__VA_ARGS__);                   \
+    if (SAPFIRE_CONCAT(unwrap_res_, __LINE__).isErr()) {                          \
+        return sapfire::Err(std::move(SAPFIRE_CONCAT(unwrap_res_, __LINE__).unwrapErr())); \
     }                                                                           \
-    into = std::move(GEODE_CONCAT(unwrap_res_, __LINE__).unwrap())
+    into = std::move(SAPFIRE_CONCAT(unwrap_res_, __LINE__).unwrap())
 
-#define GEODE_UNWRAP(...)                                                           \
+#define SAPFIRE_UNWRAP(...)                                                           \
     do {                                                                            \
-        auto GEODE_CONCAT(unwrap_res_, __LINE__) = (__VA_ARGS__);                   \
-        if (GEODE_CONCAT(unwrap_res_, __LINE__).isErr()) {                          \
-            return geode::Err(std::move(GEODE_CONCAT(unwrap_res_, __LINE__).unwrapErr())); \
+        auto SAPFIRE_CONCAT(unwrap_res_, __LINE__) = (__VA_ARGS__);                   \
+        if (SAPFIRE_CONCAT(unwrap_res_, __LINE__).isErr()) {                          \
+            return sapfire::Err(std::move(SAPFIRE_CONCAT(unwrap_res_, __LINE__).unwrapErr())); \
         }                                                                           \
     } while(false)
 }

@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Geode/binding/CCMenuItemSpriteExtra.hpp>
-#include <Geode/binding/FLAlertLayer.hpp>
-#include <Geode/utils/MiniFunction.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/binding/CCMenuItemSpriteExtra.hpp>
+#include <Sapfire/binding/FLAlertLayer.hpp>
+#include <Sapfire/utils/MiniFunction.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-namespace geode {
+namespace sapfire {
     template <typename... InitArgs>
     class Popup : public FLAlertLayer {
     protected:
@@ -160,22 +160,22 @@ namespace geode {
         }
     };
 
-    GEODE_DLL FLAlertLayer* createQuickPopup(
+    SAPFIRE_DLL FLAlertLayer* createQuickPopup(
         char const* title, std::string const& content, char const* btn1, char const* btn2,
         utils::MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow = true
     );
 
-    GEODE_DLL FLAlertLayer* createQuickPopup(
+    SAPFIRE_DLL FLAlertLayer* createQuickPopup(
         char const* title, std::string const& content, char const* btn1, char const* btn2,
         float width, utils::MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow = true
     );
 
-    GEODE_DLL FLAlertLayer* createQuickPopup(
+    SAPFIRE_DLL FLAlertLayer* createQuickPopup(
         char const* title, std::string const& content, char const* btn1, char const* btn2,
         utils::MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow, bool cancelledByEscape
     );
 
-    GEODE_DLL FLAlertLayer* createQuickPopup(
+    SAPFIRE_DLL FLAlertLayer* createQuickPopup(
         char const* title, std::string const& content, char const* btn1, char const* btn2,
         float width, utils::MiniFunction<void(FLAlertLayer*, bool)> selected, bool doShow, bool cancelledByEscape
     );

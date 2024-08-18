@@ -7,10 +7,10 @@ ${LangFileString} MUI_UNTEXT_WELCOME_INFO_TEXT "このセットアップは$(^Na
 
 ; installer
 
-${LangFileString} GEODE_TEXT_GD_MISSING "$\r$\n$\r$\nこのパスにはGeometry Dashがインストールされていません！"
-${LangFileString} GEODE_TEXT_GD_OLD "$\r$\n$\r$\nGeometry DashのバージョンはこのGeodeのバージョンには古すぎます!"
-${LangFileString} GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED "このパスには他のモッドがインストールされています！$\r$\nそれらはGeodeによって上書きされます。（the dll trademark）"
+${LangFileString} SAPFIRE_TEXT_GD_MISSING "$\r$\n$\r$\nこのパスにはGeometry Dashがインストールされていません！"
+${LangFileString} SAPFIRE_TEXT_GD_OLD "$\r$\n$\r$\nGeometry DashのバージョンはこのSapfireのバージョンには古すぎます!"
+${LangFileString} SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED "このパスには他のモッドがインストールされています！$\r$\nそれらはSapfireによって上書きされます。（the dll trademark）"
 
 ; uninstaller
 
-${LangFileString} GEODE_UNTEXT_GEODE_MISSING "このパスにはGeodeがインストールされていません！"
+${LangFileString} SAPFIRE_UNTEXT_SAPFIRE_MISSING "このパスにはSapfireがインストールされていません！"

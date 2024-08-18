@@ -1,7 +1,7 @@
 #pragma once
 #include <type_traits>
 
-namespace geode::modifier {
+namespace sapfire::modifier {
     template <class FunctionType>
     struct MemberFunc {
         template <class Class>

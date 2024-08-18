@@ -2,9 +2,9 @@
 #include <fmt/core.h>
 #include "about.hpp"
 #include "../loader/ModImpl.hpp"
-#include <Geode/Utils.hpp>
+#include <Sapfire/Utils.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 std::string crashlog::getDateString(bool filesafe) {
     auto const now = std::time(nullptr);
@@ -19,7 +19,7 @@ std::string crashlog::getDateString(bool filesafe) {
     return oss.str();
 }
 
-void crashlog::printGeodeInfo(std::stringstream& stream) {
+void crashlog::printSapfireInfo(std::stringstream& stream) {
     stream << "Loader Version: " << Loader::get()->getVersion().toVString() << "\n"
            << "Loader Commit: " << about::getLoaderCommitHash() << "\n"
            << "Bindings Commit: " << about::getBindingsCommitHash() << "\n"
@@ -52,16 +52,16 @@ void crashlog::printMods(std::stringstream& stream) {
     }
 }
 
-std::string crashlog::writeCrashlog(geode::Mod* faultyMod, std::string const& info, std::string const& stacktrace, std::string const& registers) {
+std::string crashlog::writeCrashlog(sapfire::Mod* faultyMod, std::string const& info, std::string const& stacktrace, std::string const& registers) {
     std::filesystem::path outPath;
     return writeCrashlog(faultyMod, info, stacktrace, registers, outPath);
 }
 
-std::string crashlog::writeCrashlog(geode::Mod* faultyMod, std::string const& info, std::string const& stacktrace, std::string const& registers, std::filesystem::path& outPath) {
+std::string crashlog::writeCrashlog(sapfire::Mod* faultyMod, std::string const& info, std::string const& stacktrace, std::string const& registers, std::filesystem::path& outPath) {
     // make sure crashlog directory exists
     (void)utils::file::createDirectoryAll(crashlog::getCrashLogDirectory());
 
-    // add a file to let Geode know on next launch that it crashed previously
+    // add a file to let Sapfire know on next launch that it crashed previously
     // this could also be done by saving a loader setting or smth but eh.
     (void)utils::file::writeBinary(crashlog::getCrashLogDirectory() / "last-crashed", {});
     
@@ -78,9 +78,9 @@ std::string crashlog::writeCrashlog(geode::Mod* faultyMod, std::string const& in
              << ") for assistance.\n";
     }
 
-    // geode info
-    file << "\n== Geode Information ==\n";
-    printGeodeInfo(file);
+    // sapfire info
+    file << "\n== Sapfire Information ==\n";
+    printSapfireInfo(file);
 
     // exception info
     file << "\n== Exception Information ==\n";

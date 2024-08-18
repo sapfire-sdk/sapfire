@@ -6,7 +6,7 @@
 #include "Task.hpp"
 
 #include <matjson.hpp>
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 #include <filesystem>
 #include <string>
 #include <unordered_set>
@@ -24,38 +24,38 @@ struct matjson::Serialize<std::filesystem::path> {
     }
 };
 
-namespace geode::utils::file {
-    GEODE_DLL Result<std::string> readString(std::filesystem::path const& path);
-    GEODE_DLL Result<matjson::Value> readJson(std::filesystem::path const& path);
-    GEODE_DLL Result<ByteVector> readBinary(std::filesystem::path const& path);
+namespace sapfire::utils::file {
+    SAPFIRE_DLL Result<std::string> readString(std::filesystem::path const& path);
+    SAPFIRE_DLL Result<matjson::Value> readJson(std::filesystem::path const& path);
+    SAPFIRE_DLL Result<ByteVector> readBinary(std::filesystem::path const& path);
 
     template <class T>
     Result<T> readFromJson(std::filesystem::path const& file) {
-        GEODE_UNWRAP_INTO(auto json, readJson(file));
+        SAPFIRE_UNWRAP_INTO(auto json, readJson(file));
         if (!json.template is<T>()) {
             return Err("JSON is not of type {}", typeid(T).name());
         }
         return Ok(json.template as<T>());
     }
 
-    GEODE_DLL Result<> writeString(std::filesystem::path const& path, std::string const& data);
-    GEODE_DLL Result<> writeBinary(std::filesystem::path const& path, ByteVector const& data);
+    SAPFIRE_DLL Result<> writeString(std::filesystem::path const& path, std::string const& data);
+    SAPFIRE_DLL Result<> writeBinary(std::filesystem::path const& path, ByteVector const& data);
 
     template <class T>
     Result<> writeToJson(std::filesystem::path const& path, T const& data) {
-        GEODE_UNWRAP(writeString(path, matjson::Value(data).dump()));
+        SAPFIRE_UNWRAP(writeString(path, matjson::Value(data).dump()));
         return Ok();
     }
 
-    GEODE_DLL Result<> createDirectory(std::filesystem::path const& path);
-    GEODE_DLL Result<> createDirectoryAll(std::filesystem::path const& path);
-    GEODE_DLL Result<std::vector<std::filesystem::path>> readDirectory(
+    SAPFIRE_DLL Result<> createDirectory(std::filesystem::path const& path);
+    SAPFIRE_DLL Result<> createDirectoryAll(std::filesystem::path const& path);
+    SAPFIRE_DLL Result<std::vector<std::filesystem::path>> readDirectory(
         std::filesystem::path const& path, bool recursive = false
     );
 
     class Unzip;
 
-    class GEODE_DLL Zip final {
+    class SAPFIRE_DLL Zip final {
     public:
         using Path = std::filesystem::path;
 
@@ -130,7 +130,7 @@ namespace geode::utils::file {
         Result<> addFolder(Path const& entry);
     };
 
-    class GEODE_DLL Unzip final {
+    class SAPFIRE_DLL Unzip final {
     private:
         using Impl = Zip::Impl;
         std::unique_ptr<Impl> m_impl;
@@ -224,7 +224,7 @@ namespace geode::utils::file {
      * Open a folder / file in the system's file explorer
      * @param path Folder / file to open
      */
-    GEODE_DLL bool openFolder(std::filesystem::path const& path);
+    SAPFIRE_DLL bool openFolder(std::filesystem::path const& path);
 
     enum class PickMode {
         OpenFile,
@@ -257,15 +257,15 @@ namespace geode::utils::file {
      * @param mode Type of file selection prompt to show
      * @param options Picker options
      */
-    GEODE_DLL Task<Result<std::filesystem::path>> pick(PickMode mode, FilePickOptions const& options);
+    SAPFIRE_DLL Task<Result<std::filesystem::path>> pick(PickMode mode, FilePickOptions const& options);
 
     /**
      * Prompt the user to pick a bunch of files for opening using the system's file system picker
      * @param options Picker options
      */
-    GEODE_DLL Task<Result<std::vector<std::filesystem::path>>> pickMany(FilePickOptions const& options);
+    SAPFIRE_DLL Task<Result<std::vector<std::filesystem::path>>> pickMany(FilePickOptions const& options);
 
-    class GEODE_DLL FileWatchEvent final : public Event {
+    class SAPFIRE_DLL FileWatchEvent final : public Event {
     protected:
         std::filesystem::path m_path;
     
@@ -274,7 +274,7 @@ namespace geode::utils::file {
         std::filesystem::path getPath() const;
     };
 
-    class GEODE_DLL FileWatchFilter final : public EventFilter<FileWatchEvent> {
+    class SAPFIRE_DLL FileWatchFilter final : public EventFilter<FileWatchEvent> {
     protected:
         std::filesystem::path m_path;
     
@@ -294,10 +294,10 @@ namespace geode::utils::file {
      * so different paths that point to the same file will be considered the 
      * same
      */
-    GEODE_DLL Result<> watchFile(std::filesystem::path const& file);
+    SAPFIRE_DLL Result<> watchFile(std::filesystem::path const& file);
     /**
      * Stop watching a file for changes
      * @param file The file to unwatch
      */
-    GEODE_DLL void unwatchFile(std::filesystem::path const& file);
+    SAPFIRE_DLL void unwatchFile(std::filesystem::path const& file);
 }

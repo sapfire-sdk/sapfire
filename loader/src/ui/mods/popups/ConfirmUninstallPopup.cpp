@@ -1,6 +1,6 @@
 #include "ConfirmUninstallPopup.hpp"
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/binding/TextArea.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/binding/TextArea.hpp>
 
 bool ConfirmUninstallPopup::setup(Mod* mod) {
     m_mod = mod;

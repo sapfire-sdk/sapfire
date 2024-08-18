@@ -7,15 +7,15 @@
 
 #include <optional>
 
-namespace geode {
-    struct GEODE_DLL SettingChangedEvent : public Event {
+namespace sapfire {
+    struct SAPFIRE_DLL SettingChangedEvent : public Event {
         Mod* mod;
         SettingValue* value;
 
         SettingChangedEvent(Mod* mod, SettingValue* value);
     };
 
-    class GEODE_DLL SettingChangedFilter : public EventFilter<SettingChangedEvent> {
+    class SAPFIRE_DLL SettingChangedFilter : public EventFilter<SettingChangedEvent> {
     protected:
         std::string m_modID;
         std::optional<std::string> m_targetKey;
@@ -40,7 +40,7 @@ namespace geode {
      * Listen for built-in setting changes
      */
     template<class T>
-    class GeodeSettingChangedFilter : public SettingChangedFilter {
+    class SapfireSettingChangedFilter : public SettingChangedFilter {
     public:
         using Callback = void(T);
 
@@ -54,11 +54,11 @@ namespace geode {
             return ListenerResult::Propagate;
         }
 
-        GeodeSettingChangedFilter(
+        SapfireSettingChangedFilter(
             std::string const& modID,
             std::string const& settingID
         ) : SettingChangedFilter(modID, settingID) {}
-        GeodeSettingChangedFilter(GeodeSettingChangedFilter const&) = default;
+        SapfireSettingChangedFilter(SapfireSettingChangedFilter const&) = default;
     };
 
     template <class T>
@@ -66,7 +66,7 @@ namespace geode {
         std::string const& settingKey, void (*callback)(T)
     ) {
         (void)new EventListener(
-            callback, GeodeSettingChangedFilter<T>(getMod()->getID(), settingKey)
+            callback, SapfireSettingChangedFilter<T>(getMod()->getID(), settingKey)
         );
         return std::monostate();
     }

@@ -1,10 +1,10 @@
 # Loader
 
-Repository for the Geode Mod Loader
+Repository for the Sapfire Mod Loader
 
 ## Documentation
 
-See [docs](https://geode-sdk.github.io/docs/)
+See [docs](https://sapfire-sdk.github.io/docs/)
 
 ## Building
 
@@ -12,7 +12,7 @@ See [docs](https://geode-sdk.github.io/docs/)
 
  * [CMake](https://cmake.org/download/) (minimum v3.13.4)
  * A supported C++ compiler ([clang](https://releases.llvm.org/)/[MSVC](https://visualstudio.microsoft.com/downloads/))
- * [Geode CLI](https://github.com/geode-sdk/cli) (Highly Recommended)
+ * [Sapfire CLI](https://github.com/sapfire-sdk/cli) (Highly Recommended)
  * [git](https://git-scm.com/downloads) (Highly Recommended)
 
 ### Quick instructions (for thigh-high programmers)
@@ -31,7 +31,7 @@ See [docs](https://geode-sdk.github.io/docs/)
 
 3. Open up the command line and navigate to any directory where you'd like to build the loader
 
-4. `git clone https://github.com/geode-sdk/loader --recurse-submodules`
+4. `git clone https://github.com/sapfire-sdk/loader --recurse-submodules`
 
 5. Open up the directory in VS Code
 

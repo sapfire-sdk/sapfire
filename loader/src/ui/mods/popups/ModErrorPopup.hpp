@@ -1,13 +1,13 @@
 #pragma once
 
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Mod.hpp>
 
-#include "ui/mods/GeodeStyle.hpp"
+#include "ui/mods/SapfireStyle.hpp"
 #include "ui/mods/list/ModProblemList.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-class ModErrorPopup : public GeodePopup<Mod*> {
+class ModErrorPopup : public SapfirePopup<Mod*> {
 protected:
     Mod* m_mod;
     ModProblemList* m_list;

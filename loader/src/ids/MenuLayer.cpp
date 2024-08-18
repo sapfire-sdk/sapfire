@@ -1,13 +1,13 @@
-#include <Geode/modify/IDManager.hpp>
-#include <Geode/modify/MenuLayer.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/NodeIDs.hpp>
-#include <Geode/ui/BasedButtonSprite.hpp>
-#include <Geode/binding/GameManager.hpp>
-#include <Geode/binding/PlatformToolbox.hpp>
+#include <Sapfire/modify/IDManager.hpp>
+#include <Sapfire/modify/MenuLayer.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/NodeIDs.hpp>
+#include <Sapfire/ui/BasedButtonSprite.hpp>
+#include <Sapfire/binding/GameManager.hpp>
+#include <Sapfire/binding/PlatformToolbox.hpp>
 
-using namespace geode::prelude;
-using namespace geode::node_ids;
+using namespace sapfire::prelude;
+using namespace sapfire::node_ids;
 
 $register_ids(MenuLayer) {
     // set IDs to everything

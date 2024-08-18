@@ -1,11 +1,11 @@
 #include <cocos2d.h>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/ranges.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/binding/CCMenuItemSpriteExtra.hpp>
-#include <Geode/binding/CCMenuItemToggler.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/ranges.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/binding/CCMenuItemSpriteExtra.hpp>
+#include <Sapfire/binding/CCMenuItemToggler.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // if 5k iterations isn't enough to fit the layout, then something is wrong
 static size_t RECURSION_DEPTH_LIMIT = 5000;

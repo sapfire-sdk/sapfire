@@ -8,14 +8,14 @@
 #include <matjson.hpp>
 #include <memory>
 
-namespace geode {
+namespace sapfire {
     namespace utils::file {
         class Unzip;
     }
 
     class ModMetadataImpl;
 
-    class GEODE_DLL ModMetadataLinks final {
+    class SAPFIRE_DLL ModMetadataLinks final {
         class Impl;
         std::unique_ptr<Impl> m_impl;
 
@@ -42,7 +42,7 @@ namespace geode {
          */
         std::optional<std::string> getCommunityURL() const;
 
-#if defined(GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
+#if defined(SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
         Impl* getImpl();
 #endif
     };
@@ -51,7 +51,7 @@ namespace geode {
      * Represents all the data gather-able
      * from mod.json
      */
-    class GEODE_DLL ModMetadata final {
+    class SAPFIRE_DLL ModMetadata final {
         class Impl;
         std::unique_ptr<Impl> m_impl;
 
@@ -64,7 +64,7 @@ namespace geode {
         ModMetadata& operator=(ModMetadata&& other) noexcept;
         ~ModMetadata();
 
-        struct GEODE_DLL Dependency {
+        struct SAPFIRE_DLL Dependency {
             enum class Importance : uint8_t { Required, Recommended, Suggested };
             std::string id;
             ComparableVersionInfo version;
@@ -73,7 +73,7 @@ namespace geode {
             [[nodiscard]] bool isResolved() const;
         };
 
-        struct GEODE_DLL Incompatibility {
+        struct SAPFIRE_DLL Incompatibility {
             enum class Importance : uint8_t {
                 Breaking,
                 Conflicting,
@@ -141,12 +141,12 @@ namespace geode {
         [[nodiscard]] std::optional<std::string> getDescription() const;
         /**
          * Detailed description of the mod, written in Markdown (see
-         * <Geode/ui/MDTextArea.hpp>) for more info
+         * <Sapfire/ui/MDTextArea.hpp>) for more info
          */
         [[nodiscard]] std::optional<std::string> getDetails() const;
         /**
          * Changelog for the mod, written in Markdown (see
-         * <Geode/ui/MDTextArea.hpp>) for more info
+         * <Sapfire/ui/MDTextArea.hpp>) for more info
          */
         [[nodiscard]] std::optional<std::string> getChangelog() const;
         /**
@@ -205,9 +205,9 @@ namespace geode {
         [[nodiscard]] std::optional<std::string> getGameVersion() const;
 
         /**
-         * Gets the target Geode version for the current platform.
+         * Gets the target Sapfire version for the current platform.
         */
-        [[nodiscard]] VersionInfo getGeodeVersion() const;
+        [[nodiscard]] VersionInfo getSapfireVersion() const;
 
         /**
          * Checks if mod can be installed on the current GD version.
@@ -215,7 +215,7 @@ namespace geode {
         */
         Result<> checkGameVersion() const;
 
-#if defined(GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
+#if defined(SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
         void setPath(std::filesystem::path const& value);
         void setBinaryName(std::string const& value);
         void setVersion(VersionInfo const& value);
@@ -240,13 +240,13 @@ namespace geode {
 #endif
 
         /**
-         * Create ModInfo from an unzipped .geode package
+         * Create ModInfo from an unzipped .sapfire package
          */
-        static Result<ModMetadata> createFromGeodeZip(utils::file::Unzip& zip);
+        static Result<ModMetadata> createFromSapfireZip(utils::file::Unzip& zip);
         /**
-         * Create ModInfo from a .geode package
+         * Create ModInfo from a .sapfire package
          */
-        static Result<ModMetadata> createFromGeodeFile(std::filesystem::path const& path);
+        static Result<ModMetadata> createFromSapfireFile(std::filesystem::path const& path);
         /**
          * Create ModInfo from a mod.json file
          */
@@ -300,8 +300,8 @@ namespace geode {
 }
 
 template <>
-struct matjson::Serialize<geode::ModMetadata> {
-    static matjson::Value to_json(geode::ModMetadata const& info) {
+struct matjson::Serialize<sapfire::ModMetadata> {
+    static matjson::Value to_json(sapfire::ModMetadata const& info) {
         return info.toJSON();
     }
 };

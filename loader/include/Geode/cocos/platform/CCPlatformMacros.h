@@ -103,12 +103,12 @@ It's new in cocos2d-x since v0.99.5
 
 // namespace cocos2d {}
 /**
- * Geode specific:
- * Since Geode uses gd namespace for stl support, this needs to be reflected for
+ * Sapfire specific:
+ * Since Sapfire uses gd namespace for stl support, this needs to be reflected for
  * classes using stl containers. Easiest way to hijack this is redefining the NS_CC_BEGIN
  * macro.
  */
-class GeodeNodeMetadata;
+class SapfireNodeMetadata;
 
 #include <stdint.h>
 #include <string>
@@ -119,7 +119,7 @@ namespace tulip::hook {
     struct HandlerMetadata;
 }
 
-namespace geode {
+namespace sapfire {
     template <class, class>
     class Result;
 
@@ -141,16 +141,16 @@ namespace geode {
     }
 }
 
-#define GEODE_FRIEND_MODIFY                                         \
+#define SAPFIRE_FRIEND_MODIFY                                         \
     template <class Derived, class Base>                            \
-    friend class ::geode::modifier::ModifyDerive;                   \
-    friend class ::GeodeNodeMetadata;                               \
+    friend class ::sapfire::modifier::ModifyDerive;                   \
+    friend class ::SapfireNodeMetadata;                               \
     template <uint32_t>                                             \
-    friend uintptr_t geode::modifier::address();                    \
-    friend geode::Result<tulip::hook::HandlerMetadata, std::string> \
-    geode::modifier::handlerMetadataForAddress(uintptr_t address);  \
+    friend uintptr_t sapfire::modifier::address();                    \
+    friend sapfire::Result<tulip::hook::HandlerMetadata, std::string> \
+    sapfire::modifier::handlerMetadataForAddress(uintptr_t address);  \
     template <class Class>                                          \
-    friend Class* geode::addresser::                                \
+    friend Class* sapfire::addresser::                                \
         friendCreate(typename std::void_t<decltype(static_cast<Class* (*)()>(&Class::create))>*);
 
 #ifdef __cplusplus

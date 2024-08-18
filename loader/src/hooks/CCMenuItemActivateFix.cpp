@@ -1,8 +1,8 @@
-#include <Geode/Geode.hpp>
-#include <Geode/modify/CCMenuItem.hpp>
-#include <Geode/modify/CCMenu.hpp>
+#include <Sapfire/Sapfire.hpp>
+#include <Sapfire/modify/CCMenuItem.hpp>
+#include <Sapfire/modify/CCMenu.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class $modify(CCMenuItem) {
     void activate() {

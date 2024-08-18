@@ -1,8 +1,8 @@
-#include <Geode/ui/Border.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/ui/Border.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 Border* Border::create(CCNode* node, const ccColor4B& backgroundColor, const CCSize& size, const CCPoint& padding) {
     Border* instance = new Border(padding);

@@ -50,7 +50,7 @@ A more flexible class is CCLabelBMFont. It supports variable width characters an
 */
 class CC_DLL CCLabelAtlas : public CCAtlasNode, public CCLabelProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor

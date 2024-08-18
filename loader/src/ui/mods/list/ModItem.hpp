@@ -1,16 +1,16 @@
 #pragma once
 
-#include <Geode/ui/General.hpp>
+#include <Sapfire/ui/General.hpp>
 #include <server/Server.hpp>
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/binding/Slider.hpp>
-#include <Geode/binding/CCMenuItemToggler.hpp>
-#include <Geode/binding/CCMenuItemSpriteExtra.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/binding/Slider.hpp>
+#include <Sapfire/binding/CCMenuItemToggler.hpp>
+#include <Sapfire/binding/CCMenuItemSpriteExtra.hpp>
 #include <server/DownloadManager.hpp>
 #include "../sources/ModSource.hpp"
 #include "../UpdateModListState.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class ModItem : public CCNode {
 protected:

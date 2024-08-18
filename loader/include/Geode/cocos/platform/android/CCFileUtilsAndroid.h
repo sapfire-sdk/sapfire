@@ -41,8 +41,8 @@ NS_CC_BEGIN
 //! @brief  Helper class to handle file operations
 class CC_DLL CCFileUtilsAndroid : public CCFileUtils
 {
-    GEODE_FRIEND_MODIFY
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCFileUtilsAndroid, CCFileUtils)
+    SAPFIRE_FRIEND_MODIFY
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCFileUtilsAndroid, CCFileUtils)
 
     friend class CCFileUtils;
     CCFileUtilsAndroid();

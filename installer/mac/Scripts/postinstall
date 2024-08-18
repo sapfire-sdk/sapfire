@@ -6,9 +6,9 @@ on ExitWithMessage(message)
     error number -128
 end ExitWithMessage
 
-set installerChoices to {"Install Geode", "Uninstall Geode"}
+set installerChoices to {"Install Sapfire", "Uninstall Sapfire"}
 
-set installerAnswer to choose from list installerChoices with title "Geode" with prompt "What do you want to do?" default items "Install Geode"
+set installerAnswer to choose from list installerChoices with title "Sapfire" with prompt "What do you want to do?" default items "Install Sapfire"
 
 if installerAnswer is false then
     ExitWithMessage ("Prompt cancelled.")
@@ -17,7 +17,7 @@ else
 end if
 
 set tmpPath to POSIX path of "/tmp/"
-set binPath to (tmpPath & "geode-install/")
+set binPath to (tmpPath & "sapfire-install/")
 
 tell application "System Events"
     try
@@ -27,9 +27,9 @@ tell application "System Events"
         display dialog "Steam path: " & steamPath
 
         if exists folder steamPath then
-            set gdPath to (the POSIX path of (choose file with prompt "Please choose the Geometry Dash application to install Geode to:" of type {"app"} default location steamPath))
+            set gdPath to (the POSIX path of (choose file with prompt "Please choose the Geometry Dash application to install Sapfire to:" of type {"app"} default location steamPath))
         else 
-            set gdPath to (the POSIX path of (choose file with prompt "Please choose the Geometry Dash application to install Geode to:" of type {"app"}))
+            set gdPath to (the POSIX path of (choose file with prompt "Please choose the Geometry Dash application to install Sapfire to:" of type {"app"}))
         end if
 
         set gdPath to (gdPath & "/")
@@ -42,11 +42,11 @@ tell application "System Events"
     set frameworkPath to (gdPath & "Contents/Frameworks/")
     set fmodPath to "libfmod.dylib"
     set fmodOriginalPath to "restore_fmod.dylib"
-    set geodePath to "Geode.dylib"
-    set bootstrapperPath to "GeodeBootstrapper.dylib"
+    set sapfirePath to "Sapfire.dylib"
+    set bootstrapperPath to "SapfireBootstrapper.dylib"
     set resourcesPath to "resources/"
-    set newGeodePath to "Contents/geode/"
-    set newResourcesPath to (newGeodePath & "resources/geode.loader/")
+    set newSapfirePath to "Contents/sapfire/"
+    set newResourcesPath to (newSapfirePath & "resources/sapfire.loader/")
 
     try
         if not exists file execPath then
@@ -65,7 +65,7 @@ end tell
 
 
 
-if installerAnswer is "Install Geode" then
+if installerAnswer is "Install Sapfire" then
 
     try
         do shell script "mv -n \"" & (frameworkPath & fmodPath) & "\" \"" & (frameworkPath & fmodOriginalPath) & "\""
@@ -74,7 +74,7 @@ if installerAnswer is "Install Geode" then
     end try
 
     try
-        do shell script "mv \"" & (binPath & geodePath) & "\" \"" & (frameworkPath & geodePath) & "\""
+        do shell script "mv \"" & (binPath & sapfirePath) & "\" \"" & (frameworkPath & sapfirePath) & "\""
         do shell script "mv \"" & (binPath & bootstrapperPath) & "\" \"" & (frameworkPath & bootstrapperPath) & "\""
         do shell script "mv \"" & (binPath & fmodPath) & "\" \"" & (frameworkPath & fmodPath) & "\""
         do shell script "INSTALLER_USER=$(stat -f '%Su' $HOME) && chown -R $INSTALLER_USER \"" & frameworkPath & "\""
@@ -85,7 +85,7 @@ if installerAnswer is "Install Geode" then
     try
         do shell script "mkdir -p \"" & (gdPath & newResourcesPath) & "\""
         do shell script "mv \"" & (binPath & resourcesPath) & "\"* \"" & (gdPath & newResourcesPath) & "\""
-        do shell script "INSTALLER_USER=$(stat -f '%Su' $HOME) && chown -R $INSTALLER_USER \"" & (gdPath & newGeodePath) & "\""
+        do shell script "INSTALLER_USER=$(stat -f '%Su' $HOME) && chown -R $INSTALLER_USER \"" & (gdPath & newSapfirePath) & "\""
     on error
         ExitWithMessage ("Moving resources failed: " & (gdPath & newResourcesPath))
     end try
@@ -96,10 +96,10 @@ if installerAnswer is "Install Geode" then
 
     end try
 
-else if installerAnswer is "Uninstall Geode" then
+else if installerAnswer is "Uninstall Sapfire" then
 
     try
-        do shell script "rm \"" & (frameworkPath & geodePath) & "\""
+        do shell script "rm \"" & (frameworkPath & sapfirePath) & "\""
         do shell script "rm \"" & (frameworkPath & bootstrapperPath) & "\""
         do shell script "rm \"" & (frameworkPath & fmodPath) & "\""
     on error
@@ -113,9 +113,9 @@ else if installerAnswer is "Uninstall Geode" then
     end try
 
     try
-        do shell script "rm -r \"" & (gdPath & newGeodePath) & "\""
+        do shell script "rm -r \"" & (gdPath & newSapfirePath) & "\""
     on error
-        ExitWithMessage ("Removing geode folder failed: " & (gdPath & newGeodePath))
+        ExitWithMessage ("Removing sapfire folder failed: " & (gdPath & newSapfirePath))
     end try
 
 end if

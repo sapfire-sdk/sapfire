@@ -1,18 +1,18 @@
 #include "ModDeveloperItem.hpp"
 
-#include <Geode/cocos/base_nodes/CCNode.h>
-#include <Geode/cocos/base_nodes/Layout.hpp>
-#include <Geode/cocos/cocoa/CCGeometry.h>
-#include <Geode/cocos/label_nodes/CCLabelBMFont.h>
-#include <Geode/cocos/platform/CCPlatformMacros.h>
-#include <Geode/cocos/sprite_nodes/CCSprite.h>
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/ui/TextArea.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/ColorProvider.hpp>
+#include <Sapfire/cocos/base_nodes/CCNode.h>
+#include <Sapfire/cocos/base_nodes/Layout.hpp>
+#include <Sapfire/cocos/cocoa/CCGeometry.h>
+#include <Sapfire/cocos/label_nodes/CCLabelBMFont.h>
+#include <Sapfire/cocos/platform/CCPlatformMacros.h>
+#include <Sapfire/cocos/sprite_nodes/CCSprite.h>
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/ui/TextArea.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/ColorProvider.hpp>
 #include <GUI/CCControlExtension/CCScale9Sprite.h>
 #include <ccTypes.h>
 #include <fmt/core.h>
@@ -71,7 +71,7 @@ bool ModDeveloperItem::init(
         auto menu = CCMenu::create();
         menu->setAnchorPoint({1.0f, 0.5f});
 
-        auto more = createGeodeButton("More");
+        auto more = createSapfireButton("More");
 
         auto btn = CCMenuItemSpriteExtra::create(
             more, this, menu_selector(ModDeveloperItem::onMoreByThisDev)

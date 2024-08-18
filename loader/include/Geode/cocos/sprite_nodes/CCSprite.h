@@ -84,7 +84,7 @@ class CC_DLL CCSprite : public CCNodeRGBA, public CCTextureProtocol
 , public CCGLBufferedNode
 #endif // EMSCRIPTEN
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /// @{
     /// @name Creators
@@ -168,7 +168,7 @@ public:
      * @js ctor
      */
     CCSprite(void);
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCSprite, CCNodeRGBA)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCSprite, CCNodeRGBA)
     
     /**
      * Default destructor

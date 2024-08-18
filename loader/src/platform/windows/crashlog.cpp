@@ -1,15 +1,15 @@
 #define WIN32_LEAN_AND_MEAN
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 
 #include <crashlog.hpp>
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include <DbgHelp.h>
-#include <Geode/utils/casts.hpp>
-#include <Geode/utils/file.hpp>
-#include <Geode/utils/terminate.hpp>
+#include <Sapfire/utils/casts.hpp>
+#include <Sapfire/utils/file.hpp>
+#include <Sapfire/utils/terminate.hpp>
 #include <Windows.h>
 #include <ctime>
 #include <errhandlingapi.h>
@@ -19,7 +19,7 @@
 #include <fmt/core.h>
 #include "ehdata_structs.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 static bool g_lastLaunchCrashed = false;
 static bool g_symbolsInitialized = false;
@@ -65,8 +65,8 @@ static char const* getExceptionCodeString(DWORD code) {
         EXP_STR(EXCEPTION_FLT_INVALID_OPERATION);
         EXP_STR(EXCEPTION_FLT_OVERFLOW);
         EXP_STR(EXCEPTION_INT_DIVIDE_BY_ZERO);
-        EXP_STR(GEODE_TERMINATE_EXCEPTION_CODE);
-        EXP_STR(GEODE_UNREACHABLE_EXCEPTION_CODE);
+        EXP_STR(SAPFIRE_TERMINATE_EXCEPTION_CODE);
+        EXP_STR(SAPFIRE_UNREACHABLE_EXCEPTION_CODE);
         default: return "<Unknown>";
     }
     #undef EXP_STR
@@ -91,7 +91,7 @@ static Mod* modFromAddress(PVOID exceptionAddress) {
     return nullptr;
 }
 
-PVOID GeodeFunctionTableAccess64(HANDLE hProcess, DWORD64 AddrBase);
+PVOID SapfireFunctionTableAccess64(HANDLE hProcess, DWORD64 AddrBase);
 
 typedef union _UNWIND_CODE {
     struct {
@@ -184,7 +184,7 @@ static void printAddr(std::ostream& stream, void const* addr, bool fullPath = tr
     else {
         stream << addr;
 
-        if (GeodeFunctionTableAccess64(proc, reinterpret_cast<DWORD64>(addr))) {
+        if (SapfireFunctionTableAccess64(proc, reinterpret_cast<DWORD64>(addr))) {
             stream << " (Hook handler)";
         }
     }
@@ -199,7 +199,7 @@ static std::string getStacktrace(PCONTEXT context, Mod*& suspectedFaultyMod) {
 
     auto process = GetCurrentProcess();
     auto thread = GetCurrentThread();
-#ifdef GEODE_IS_X86
+#ifdef SAPFIRE_IS_X86
     stack.AddrPC.Offset = context->Eip;
     stack.AddrStack.Offset = context->Esp;
     stack.AddrFrame.Offset = context->Ebp;
@@ -218,14 +218,14 @@ static std::string getStacktrace(PCONTEXT context, Mod*& suspectedFaultyMod) {
         if (!StackWalk64(
                 IMAGE_FILE_MACHINE_AMD64, process, thread, &stack, context, nullptr,
                 +[](HANDLE hProcess, DWORD64 AddrBase) {
-                    auto ret = GeodeFunctionTableAccess64(hProcess, AddrBase);
+                    auto ret = SapfireFunctionTableAccess64(hProcess, AddrBase);
                     if (ret) {
                         return ret;
                     }
                     return SymFunctionTableAccess64(hProcess, AddrBase);
                 }, 
                 +[](HANDLE hProcess, DWORD64 dwAddr) -> DWORD64 {
-                    auto ret = GeodeFunctionTableAccess64(hProcess, dwAddr);
+                    auto ret = SapfireFunctionTableAccess64(hProcess, dwAddr);
                     if (ret) {
                         return dwAddr & (~0xffffull);
                     }
@@ -251,7 +251,7 @@ static std::string getStacktrace(PCONTEXT context, Mod*& suspectedFaultyMod) {
 }
 
 static std::string getRegisters(PCONTEXT context) {
-#ifdef GEODE_IS_X86
+#ifdef SAPFIRE_IS_X86
     return fmt::format(
         "EAX: {:08x}\n"
         "EBX: {:08x}\n"
@@ -423,7 +423,7 @@ static std::string getInfo(LPEXCEPTION_POINTERS info, Mod* faultyMod, Mod* suspe
         stream << parseCppException(info) << "\n";
         stream << makeFaultyModString(faultyMod) << "\n";
     }
-    else if (isGeodeExceptionCode(code)) {
+    else if (isSapfireExceptionCode(code)) {
         stream
             << "A mod has deliberately asked the game to crash.\n"
             << "Reason: " << reinterpret_cast<const char*>(info->ExceptionRecord->ExceptionInformation[0]) << "\n"
@@ -540,5 +540,5 @@ bool crashlog::didLastLaunchCrash() {
 void crashlog::setupPlatformHandlerPost() {}
 
 std::filesystem::path crashlog::getCrashLogDirectory() {
-    return dirs::getGeodeDir() / "crashlogs";
+    return dirs::getSapfireDir() / "crashlogs";
 }

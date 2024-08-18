@@ -1,8 +1,8 @@
-#include <Geode/loader/Loader.hpp> // a third great circular dependency fix
-#include <Geode/loader/Log.hpp>
-#include <Geode/utils/file.hpp>
-#include <Geode/utils/map.hpp>
-#include <Geode/utils/string.hpp>
+#include <Sapfire/loader/Loader.hpp> // a third great circular dependency fix
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/utils/file.hpp>
+#include <Sapfire/utils/map.hpp>
+#include <Sapfire/utils/string.hpp>
 #include <matjson.hpp>
 #include <fstream>
 #include <mz.h>
@@ -12,13 +12,13 @@
 #include <mz_strm_mem.h>
 #include <mz_zip.h>
 #include <internal/FileWatcher.hpp>
-#include <Geode/utils/ranges.hpp>
+#include <Sapfire/utils/ranges.hpp>
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 #include <filesystem>
 #endif
 
-#if defined(GEODE_IS_ANDROID) || defined(GEODE_IS_MACOS)
+#if defined(SAPFIRE_IS_ANDROID) || defined(SAPFIRE_IS_MACOS)
 struct path_hash_t {
     std::size_t operator()(std::filesystem::path const& path) const noexcept {
         return std::filesystem::hash_value(path);
@@ -28,8 +28,8 @@ struct path_hash_t {
 using path_hash_t = std::hash<std::filesystem::path>;
 #endif
 
-using namespace geode::prelude;
-using namespace geode::utils::file;
+using namespace sapfire::prelude;
+using namespace sapfire::utils::file;
 
 Result<std::string> utils::file::readString(std::filesystem::path const& path) {
     if (!std::filesystem::exists(path))
@@ -114,7 +114,7 @@ Result<> utils::file::writeBinary(std::filesystem::path const& path, ByteVector 
 
 Result<> utils::file::createDirectory(std::filesystem::path const& path) {
     std::error_code ec;
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
     std::filesystem::create_directory(path.wstring(), ec);
 #else
     std::filesystem::create_directory(path, ec);
@@ -127,7 +127,7 @@ Result<> utils::file::createDirectory(std::filesystem::path const& path) {
 
 Result<> utils::file::createDirectoryAll(std::filesystem::path const& path) {
     std::error_code ec;
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
     std::filesystem::create_directories(path.wstring(), ec);
 #else
     std::filesystem::create_directories(path, ec);
@@ -275,7 +275,7 @@ public:
         auto ret = std::make_unique<Impl>();
         ret->m_mode = mode;
         ret->m_srcDest = path;
-        GEODE_UNWRAP(ret->init());
+        SAPFIRE_UNWRAP(ret->init());
         return Ok(std::move(ret));
     }
 
@@ -283,7 +283,7 @@ public:
         auto ret = std::make_unique<Impl>();
         ret->m_mode = MZ_OPEN_MODE_READ;
         ret->m_srcDest = raw;
-        GEODE_UNWRAP(ret->init());
+        SAPFIRE_UNWRAP(ret->init());
         return Ok(std::move(ret));
     }
 
@@ -291,7 +291,7 @@ public:
         auto ret = std::make_unique<Impl>();
         ret->m_mode = MZ_OPEN_MODE_CREATE;
         ret->m_srcDest = ByteVector();
-        GEODE_UNWRAP(ret->init());
+        SAPFIRE_UNWRAP(ret->init());
         return Ok(std::move(ret));
     }
 
@@ -302,7 +302,7 @@ public:
     Result<> extractAt(Path const& dir, Path const& name) {
         auto entry = m_entries.at(name);
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_entry_read_open(m_handle, 0, nullptr))
             .expect("Unable to open entry (code {error})")
         );
@@ -322,23 +322,23 @@ public:
 
         mz_zip_entry_close(m_handle);
 
-        GEODE_UNWRAP(file::createDirectoryAll((dir / name).parent_path()));
-        GEODE_UNWRAP(file::writeBinary(dir / name, res).expect("Unable to write to {}: {error}", dir / name));
+        SAPFIRE_UNWRAP(file::createDirectoryAll((dir / name).parent_path()));
+        SAPFIRE_UNWRAP(file::writeBinary(dir / name, res).expect("Unable to write to {}: {error}", dir / name));
 
         return Ok();
     }
 
     Result<> extractAllTo(Path const& dir) {
-        GEODE_UNWRAP(file::createDirectoryAll(dir));
+        SAPFIRE_UNWRAP(file::createDirectoryAll(dir));
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_goto_first_entry(m_handle))
             .expect("Unable to navigate to first entry (code {error})")
         );
 
         uint64_t numEntries;
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_get_number_entry(m_handle, &numEntries))
             .expect("Unable to get number of entries (code {error})")
         );
@@ -357,16 +357,16 @@ public:
 
             // make sure zip files like root/../../file.txt don't get extracted to 
             // avoid zip attacks
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
             if (!std::filesystem::relative((dir / filePath).wstring(), dir.wstring()).empty()) {
 #else
             if (!std::filesystem::relative(dir / filePath, dir).empty()) {
 #endif
                 if (m_entries.at(filePath).isDirectory) {
-                    GEODE_UNWRAP(file::createDirectoryAll(dir / filePath));
+                    SAPFIRE_UNWRAP(file::createDirectoryAll(dir / filePath));
                 }
                 else {
-                    GEODE_UNWRAP(this->extractAt(dir, filePath));
+                    SAPFIRE_UNWRAP(this->extractAt(dir, filePath));
                 }
                 if (m_progressCallback) {
                     m_progressCallback(currentEntry, numEntries);
@@ -393,12 +393,12 @@ public:
             return Err("Entry is directory");
         }
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_goto_first_entry(m_handle))
             .expect("Unable to navigate to first entry (code {error})")
         );
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_locate_entry(
                 m_handle,
                 reinterpret_cast<const char*>(name.u8string().c_str()),
@@ -406,7 +406,7 @@ public:
             )).expect("Unable to navigate to entry (code {error})")
         );
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_entry_read_open(m_handle, 0, nullptr))
             .expect("Unable to open entry (code {error})")
         );
@@ -440,13 +440,13 @@ public:
         info.filename = reinterpret_cast<const char*>(strPath.c_str());
         info.uncompressed_size = 0;
         info.flag = MZ_ZIP_FLAG_UTF8;
-    #ifdef GEODE_IS_WINDOWS
+    #ifdef SAPFIRE_IS_WINDOWS
         info.external_fa = FILE_ATTRIBUTE_DIRECTORY;
     #endif
         info.aes_version = MZ_AES_VERSION;
 
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_entry_write_open(m_handle, &info, MZ_COMPRESS_LEVEL_DEFAULT, 0, nullptr))
             .expect("Unable to open entry for writing (code {error})")
         );
@@ -463,7 +463,7 @@ public:
         info.uncompressed_size = data.size();
         info.aes_version = MZ_AES_VERSION;
 
-        GEODE_UNWRAP(
+        SAPFIRE_UNWRAP(
             mzTry(mz_zip_entry_write_open(m_handle, &info, MZ_COMPRESS_LEVEL_DEFAULT, 0, nullptr))
             .expect("Unable to open entry for writing (code {error})")
         );
@@ -522,12 +522,12 @@ Unzip::Unzip(Unzip&& other) : m_impl(std::move(other.m_impl)) {
 }
 
 Result<Unzip> Unzip::create(Path const& file) {
-    GEODE_UNWRAP_INTO(auto impl, Zip::Impl::inFile(file, MZ_OPEN_MODE_READ));
+    SAPFIRE_UNWRAP_INTO(auto impl, Zip::Impl::inFile(file, MZ_OPEN_MODE_READ));
     return Ok(Unzip(std::move(impl)));
 }
 
 Result<Unzip> Unzip::create(ByteVector const& data) {
-    GEODE_UNWRAP_INTO(auto impl, Zip::Impl::fromMemory(data));
+    SAPFIRE_UNWRAP_INTO(auto impl, Zip::Impl::fromMemory(data));
     return Ok(Unzip(std::move(impl)));
 }
 
@@ -554,12 +554,12 @@ Result<ByteVector> Unzip::extract(Path const& name) {
 }
 
 Result<> Unzip::extractTo(Path const& name, Path const& path) {
-    GEODE_UNWRAP_INTO(auto bytes, m_impl->extract(name).expect("{error} (entry {})", name.string()));
+    SAPFIRE_UNWRAP_INTO(auto bytes, m_impl->extract(name).expect("{error} (entry {})", name.string()));
     // create containing directories for target path
     if (path.has_parent_path()) {
-        GEODE_UNWRAP(file::createDirectoryAll(path.parent_path()));
+        SAPFIRE_UNWRAP(file::createDirectoryAll(path.parent_path()));
     }
-    GEODE_UNWRAP(file::writeBinary(path, bytes).expect("Unable to write file {}: {error}", path.string()));
+    SAPFIRE_UNWRAP(file::writeBinary(path, bytes).expect("Unable to write file {}: {error}", path.string()));
     return Ok();
 }
 
@@ -575,9 +575,9 @@ Result<> Unzip::intoDir(
     // scope to ensure the zip is closed after extracting so the zip can be 
     // removed
     {
-        GEODE_UNWRAP_INTO(auto unzip, Unzip::create(from));
+        SAPFIRE_UNWRAP_INTO(auto unzip, Unzip::create(from));
         // TODO: this is quite slow lol, takes 30 seconds to extract index..
-        GEODE_UNWRAP(unzip.extractAllTo(to));
+        SAPFIRE_UNWRAP(unzip.extractAllTo(to));
     }
     if (deleteZipAfter) {
         std::error_code ec;
@@ -592,9 +592,9 @@ Result<> Unzip::intoDir(
     Path const& to,
     bool deleteZipAfter
 ) {
-    GEODE_UNWRAP_INTO(auto unzip, Unzip::create(from));
+    SAPFIRE_UNWRAP_INTO(auto unzip, Unzip::create(from));
     unzip.setProgressCallback(progressCallback);
-    GEODE_UNWRAP(unzip.extractAllTo(to));
+    SAPFIRE_UNWRAP(unzip.extractAllTo(to));
     if (deleteZipAfter) {
         std::error_code ec;
         std::filesystem::remove(from, ec);
@@ -615,12 +615,12 @@ Zip::Zip(Zip&& other) : m_impl(std::move(other.m_impl)) {
 }
 
 Result<Zip> Zip::create(Path const& file) {
-    GEODE_UNWRAP_INTO(auto impl, Zip::Impl::inFile(file, MZ_OPEN_MODE_CREATE | MZ_OPEN_MODE_WRITE));
+    SAPFIRE_UNWRAP_INTO(auto impl, Zip::Impl::inFile(file, MZ_OPEN_MODE_CREATE | MZ_OPEN_MODE_WRITE));
     return Ok(Zip(std::move(impl)));
 }
 
 Result<Zip> Zip::create() {
-    GEODE_UNWRAP_INTO(auto impl, Zip::Impl::intoMemory());
+    SAPFIRE_UNWRAP_INTO(auto impl, Zip::Impl::intoMemory());
     return Ok(Zip(std::move(impl)));
 }
 
@@ -641,18 +641,18 @@ Result<> Zip::add(Path const& path, std::string const& data) {
 }
 
 Result<> Zip::addFrom(Path const& file, Path const& entryDir) {
-    GEODE_UNWRAP_INTO(auto data, file::readBinary(file));
+    SAPFIRE_UNWRAP_INTO(auto data, file::readBinary(file));
     return this->add(entryDir / file.filename(), data);
 }
 
 Result<> Zip::addAllFromRecurse(Path const& dir, Path const& entry) {
-    GEODE_UNWRAP(this->addFolder(entry / dir.filename()));
+    SAPFIRE_UNWRAP(this->addFolder(entry / dir.filename()));
     for (auto& file : std::filesystem::directory_iterator(dir)) {
         if (std::filesystem::is_directory(file)) {
-            GEODE_UNWRAP(this->addAllFromRecurse(file, entry / dir.filename()));
+            SAPFIRE_UNWRAP(this->addAllFromRecurse(file, entry / dir.filename()));
         } else {
-            GEODE_UNWRAP_INTO(auto data, file::readBinary(file));
-            GEODE_UNWRAP(this->addFrom(file, entry / dir.filename()));
+            SAPFIRE_UNWRAP_INTO(auto data, file::readBinary(file));
+            SAPFIRE_UNWRAP(this->addFrom(file, entry / dir.filename()));
         }
     }
     return Ok();

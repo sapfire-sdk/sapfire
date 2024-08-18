@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Geode/cocos/base_nodes/CCNode.h>
-#include <Geode/cocos/cocoa/CCGeometry.h>
-#include <Geode/cocos/sprite_nodes/CCSprite.h>
-#include <Geode/loader/Loader.hpp>
+#include <Sapfire/cocos/base_nodes/CCNode.h>
+#include <Sapfire/cocos/cocoa/CCGeometry.h>
+#include <Sapfire/cocos/sprite_nodes/CCSprite.h>
+#include <Sapfire/loader/Loader.hpp>
 #include <GUI/CCControlExtension/CCScale9Sprite.h>
 #include <optional>
 #include "ui/mods/popups/DevPopup.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class ModDeveloperItem : public CCNode {
 protected:

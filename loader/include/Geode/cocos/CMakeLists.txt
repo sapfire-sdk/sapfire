@@ -10,6 +10,6 @@ target_include_directories(cocos2d INTERFACE
 )
 
 target_link_libraries(cocos2d INTERFACE
-  ${GEODE_LOADER_PATH}/include/link/libcocos2d.lib
-  ${GEODE_LOADER_PATH}/include/link/libExtensions.lib
+  ${SAPFIRE_LOADER_PATH}/include/link/libcocos2d.lib
+  ${SAPFIRE_LOADER_PATH}/include/link/libExtensions.lib
 )

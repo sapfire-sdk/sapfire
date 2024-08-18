@@ -1,10 +1,10 @@
-#include <Geode/ui/BasedButtonSprite.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/ui/BasedButtonSprite.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-const char* geode::baseEnumToString(CircleBaseSize value) {
+const char* sapfire::baseEnumToString(CircleBaseSize value) {
     switch (value) {
         case CircleBaseSize::Tiny: return "Tiny";
         case CircleBaseSize::Small: return "Small";
@@ -18,7 +18,7 @@ const char* geode::baseEnumToString(CircleBaseSize value) {
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(CircleBaseColor value) {
+const char* sapfire::baseEnumToString(CircleBaseColor value) {
     switch (value) {
         case CircleBaseColor::Green: return "Green";
         case CircleBaseColor::Pink: return "Pink";
@@ -31,7 +31,7 @@ const char* geode::baseEnumToString(CircleBaseColor value) {
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(CrossBaseSize value) {
+const char* sapfire::baseEnumToString(CrossBaseSize value) {
     switch (value) {
         case CrossBaseSize::Small: return "Small";
         case CrossBaseSize::Huge: return "Huge";
@@ -39,21 +39,21 @@ const char* geode::baseEnumToString(CrossBaseSize value) {
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(CrossBaseColor value) {
+const char* sapfire::baseEnumToString(CrossBaseColor value) {
     switch (value) {
         case CrossBaseColor::Green: return "Green";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(AccountBaseSize value) {
+const char* sapfire::baseEnumToString(AccountBaseSize value) {
     switch (value) {
         case AccountBaseSize::Normal: return "Normal";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(AccountBaseColor value) {
+const char* sapfire::baseEnumToString(AccountBaseColor value) {
     switch (value) {
         case AccountBaseColor::Blue: return "Blue";
         case AccountBaseColor::Gray: return "Gray";
@@ -62,14 +62,14 @@ const char* geode::baseEnumToString(AccountBaseColor value) {
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(IconSelectBaseSize value) {
+const char* sapfire::baseEnumToString(IconSelectBaseSize value) {
     switch (value) {
         case IconSelectBaseSize::Normal: return "Normal";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(IconSelectBaseColor value) {
+const char* sapfire::baseEnumToString(IconSelectBaseColor value) {
     switch (value) {
         case IconSelectBaseColor::Unselected: return "Unselected";
         case IconSelectBaseColor::Selected: return "Selected";
@@ -77,14 +77,14 @@ const char* geode::baseEnumToString(IconSelectBaseColor value) {
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(EditorBaseSize value) {
+const char* sapfire::baseEnumToString(EditorBaseSize value) {
     switch (value) {
         case EditorBaseSize::Normal: return "Normal";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(EditorBaseColor value) {
+const char* sapfire::baseEnumToString(EditorBaseColor value) {
     switch (value) {
         case EditorBaseColor::LightBlue: return "LightBlue";
         case EditorBaseColor::Green: return "Green";
@@ -103,14 +103,14 @@ const char* geode::baseEnumToString(EditorBaseColor value) {
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(TabBaseSize value) {
+const char* sapfire::baseEnumToString(TabBaseSize value) {
     switch (value) {
         case TabBaseSize::Normal: return "Normal";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(TabBaseColor value) {
+const char* sapfire::baseEnumToString(TabBaseColor value) {
     switch (value) {
         case TabBaseColor::Unselected: return "Unselected";
         case TabBaseColor::UnselectedDark: return "UnselectedDark";
@@ -119,35 +119,35 @@ const char* geode::baseEnumToString(TabBaseColor value) {
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(LeaderboardBaseSize value) {
+const char* sapfire::baseEnumToString(LeaderboardBaseSize value) {
     switch (value) {
         case LeaderboardBaseSize::Normal: return "Normal";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(LeaderboardBaseColor value) {
+const char* sapfire::baseEnumToString(LeaderboardBaseColor value) {
     switch (value) {
         case LeaderboardBaseColor::Blue: return "Blue";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(CategoryBaseSize value) {
+const char* sapfire::baseEnumToString(CategoryBaseSize value) {
     switch (value) {
         case CategoryBaseSize::Big: return "Big";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(CategoryBaseColor value) {
+const char* sapfire::baseEnumToString(CategoryBaseColor value) {
     switch (value) {
         case CategoryBaseColor::Green: return "Green";
     }
     return "Unknown";
 }
 
-const char* geode::baseEnumToString(BaseType value) {
+const char* sapfire::baseEnumToString(BaseType value) {
     switch (value) {
         case BaseType::Circle: return "Circle";
         case BaseType::Cross: return "Cross";

@@ -32,7 +32,7 @@ NS_CC_BEGIN
 
 class CC_DLL CCComponent : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 protected:
 
 

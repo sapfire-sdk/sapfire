@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../GeodeStyle.hpp"
+#include "../SapfireStyle.hpp"
 #include "../sources/ModSource.hpp"
 #include <server/Server.hpp>
 
-class DevListPopup : public GeodePopup<ModSource const&> {
+class DevListPopup : public SapfirePopup<ModSource const&> {
 protected:
     ModSource m_source;
 public:

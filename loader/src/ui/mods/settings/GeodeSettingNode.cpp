@@ -1,15 +1,15 @@
-#include "GeodeSettingNode.hpp"
-#include "Geode/binding/FLAlertLayer.hpp"
-#include "Geode/ui/Popup.hpp"
+#include "SapfireSettingNode.hpp"
+#include "Sapfire/binding/FLAlertLayer.hpp"
+#include "Sapfire/ui/Popup.hpp"
 
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/binding/CCTextInputNode.hpp>
-#include <Geode/binding/ColorChannelSprite.hpp>
-#include <Geode/binding/Slider.hpp>
-#include <Geode/binding/CCMenuItemToggler.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/utils/general.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
+#include <Sapfire/binding/ColorChannelSprite.hpp>
+#include <Sapfire/binding/Slider.hpp>
+#include <Sapfire/binding/CCMenuItemToggler.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/utils/general.hpp>
 #include <charconv>
 #include <clocale>
 #include <filesystem>
@@ -39,7 +39,7 @@ static typename T::ValueType valueFromSlider(T const& setting, float num) {
 }
 
 template<class C, class T>
-TextInput* createInput(C* node, GeodeSettingValue<T>* setting, float width) {
+TextInput* createInput(C* node, SapfireSettingValue<T>* setting, float width) {
     auto input = TextInput::create(width / 2 - 70.f, "Text", "chatFont.fnt");
     input->setPosition({
         -(width / 2 - 70.f) / 2,
@@ -51,7 +51,7 @@ TextInput* createInput(C* node, GeodeSettingValue<T>* setting, float width) {
 }
 
 template<class C, class T>
-Slider* createSlider(C* node, GeodeSettingValue<T>* setting, float width) {
+Slider* createSlider(C* node, SapfireSettingValue<T>* setting, float width) {
     auto slider = Slider::create(
         node, menu_selector(C::onSlider), .5f
     );
@@ -63,7 +63,7 @@ Slider* createSlider(C* node, GeodeSettingValue<T>* setting, float width) {
 template<class C, class T>
 std::pair<
     CCMenuItemSpriteExtra*, CCMenuItemSpriteExtra*
-> createArrows(C* node, GeodeSettingValue<T>* setting, float width, bool big) {
+> createArrows(C* node, SapfireSettingValue<T>* setting, float width, bool big) {
     auto yPos = setting->castDefinition().controls.slider ? 5.f : 0.f;
     auto decArrowSpr = CCSprite::createWithSpriteFrameName(
         big ? "double-nav.png"_spr : "navArrowBtn_001.png"
@@ -100,7 +100,7 @@ std::pair<
 // BoolSettingNode
 
 void BoolSettingNode::valueChanged(bool updateText) {
-    GeodeSettingNode::valueChanged(updateText);
+    SapfireSettingNode::valueChanged(updateText);
     m_toggle->toggle(m_uncommittedValue);
 }
 
@@ -136,7 +136,7 @@ void IntSettingNode::onSlider(CCObject* slider) {
 }
 
 void IntSettingNode::valueChanged(bool updateText) {
-    GeodeSettingNode::valueChanged(updateText);
+    SapfireSettingNode::valueChanged(updateText);
     if (updateText) {
         this->updateLabel();
     }
@@ -220,7 +220,7 @@ void FloatSettingNode::onSlider(CCObject* slider) {
 }
 
 void FloatSettingNode::valueChanged(bool updateText) {
-    GeodeSettingNode::valueChanged(updateText);
+    SapfireSettingNode::valueChanged(updateText);
     if (updateText) {
         this->updateLabel();
     }
@@ -305,7 +305,7 @@ void StringSettingNode::textChanged(CCTextInputNode* input) {
 }
 
 void StringSettingNode::valueChanged(bool updateText) {
-    GeodeSettingNode::valueChanged(updateText);
+    SapfireSettingNode::valueChanged(updateText);
     this->updateLabel();
 }
 
@@ -388,7 +388,7 @@ void FileSettingNode::textChanged(CCTextInputNode* input) {
 }
 
 void FileSettingNode::valueChanged(bool updateText) {
-    GeodeSettingNode::valueChanged(updateText);
+    SapfireSettingNode::valueChanged(updateText);
     this->updateLabel();
 }
 
@@ -442,7 +442,7 @@ bool FileSettingNode::setup(FileSettingValue* setting, float width) {
 // ColorSettingNode
 
 void ColorSettingNode::valueChanged(bool updateText) {
-    GeodeSettingNode::valueChanged(updateText);
+    SapfireSettingNode::valueChanged(updateText);
     m_colorSpr->setColor(m_uncommittedValue);
 }
 
@@ -475,7 +475,7 @@ bool ColorSettingNode::setup(ColorSettingValue* setting, float width) {
 // ColorAlphaSettingNode
 
 void ColorAlphaSettingNode::valueChanged(bool updateText) {
-    GeodeSettingNode::valueChanged(updateText);
+    SapfireSettingNode::valueChanged(updateText);
     m_colorSpr->setColor(to3B(m_uncommittedValue));
     m_colorSpr->updateOpacity(m_uncommittedValue.a / 255.f);
 }

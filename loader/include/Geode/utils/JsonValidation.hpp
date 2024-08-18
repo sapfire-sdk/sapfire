@@ -4,9 +4,9 @@
 #include "../loader/Log.hpp"
 #include <set>
 #include <variant>
-#include <Geode/utils/MiniFunction.hpp>
+#include <Sapfire/utils/MiniFunction.hpp>
 
-namespace geode {
+namespace sapfire {
     struct JsonChecker;
 
     template <typename T, typename = void>
@@ -77,7 +77,7 @@ namespace geode {
     struct JsonMaybeObject;
     struct JsonMaybeValue;
 
-    struct GEODE_DLL JsonMaybeSomething {
+    struct SAPFIRE_DLL JsonMaybeSomething {
     protected:
         JsonChecker& m_checker;
         matjson::Value& m_json;
@@ -102,7 +102,7 @@ namespace geode {
         operator bool() const;
     };
 
-    struct GEODE_DLL JsonMaybeValue : public JsonMaybeSomething {
+    struct SAPFIRE_DLL JsonMaybeValue : public JsonMaybeSomething {
         bool m_inferType = true;
 
         JsonMaybeValue(
@@ -254,7 +254,7 @@ namespace geode {
         Iterator<std::pair<std::string, JsonMaybeValue>> items();
     };
 
-    struct GEODE_DLL JsonMaybeObject : JsonMaybeSomething {
+    struct SAPFIRE_DLL JsonMaybeObject : JsonMaybeSomething {
         std::set<std::string> m_knownKeys;
 
         JsonMaybeObject(
@@ -276,7 +276,7 @@ namespace geode {
         void checkUnknownKeys();
     };
 
-    struct GEODE_DLL JsonChecker {
+    struct SAPFIRE_DLL JsonChecker {
         std::variant<std::monostate, std::string> m_result;
         matjson::Value& m_json;
 

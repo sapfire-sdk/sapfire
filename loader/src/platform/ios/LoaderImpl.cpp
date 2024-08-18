@@ -1,8 +1,8 @@
 #include <loader/LoaderImpl.hpp>
 
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Log.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Log.hpp>
 #include <loader/ModImpl.hpp>
 #include <iostream>
 #include <pwd.h>
@@ -21,7 +21,7 @@ void Loader::Impl::logConsoleMessageWithSeverity(std::string const& msg, Severit
 
 void Loader::Impl::openPlatformConsole() {
     std::filesystem::path(getpwuid(getuid())->pw_dir);
-    freopen(std::filesystem::path(dirs::getGeodeDir() / "geode_log.txt").string().c_str(), "w", stdout);
+    freopen(std::filesystem::path(dirs::getSapfireDir() / "sapfire_log.txt").string().c_str(), "w", stdout);
     m_platformConsoleOpen = true;
 }
 

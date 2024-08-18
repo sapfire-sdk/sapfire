@@ -1,15 +1,15 @@
 #include "ModItem.hpp"
-#include <Geode/ui/GeodeUI.hpp>
-#include <Geode/utils/ColorProvider.hpp>
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/loader/Loader.hpp>
+#include <Sapfire/ui/SapfireUI.hpp>
+#include <Sapfire/utils/ColorProvider.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/loader/Loader.hpp>
 #include <vector>
-#include "../GeodeStyle.hpp"
+#include "../SapfireStyle.hpp"
 #include "../popups/ModPopup.hpp"
 #include "../popups/DevPopup.hpp"
 #include "ui/mods/popups/ModErrorPopup.hpp"
 #include "ui/mods/sources/ModSource.hpp"
-#include "../../GeodeUIEvent.hpp"
+#include "../../SapfireUIEvent.hpp"
 
 bool ModItem::init(ModSource&& source) {
     if (!CCNode::init())
@@ -84,7 +84,7 @@ bool ModItem::init(ModSource&& source) {
     );
     m_infoContainer->addChild(m_developers);
 
-    m_restartRequiredLabel = createGeodeTagLabel(
+    m_restartRequiredLabel = createSapfireTagLabel(
         "Restart Required",
         {{
             to3B(ColorProvider::get()->color("mod-list-restart-required-label"_spr)),
@@ -136,9 +136,9 @@ bool ModItem::init(ModSource&& source) {
 
     ButtonSprite* spr;
     if (Loader::get()->isModInstalled(m_source.getID())) {
-        spr = createGeodeButton("View", 50, false, true);
+        spr = createSapfireButton("View", 50, false, true);
     } else {
-        spr = createGeodeButton("Get", 50, false, true, GeodeButtonSprite::Install);
+        spr = createSapfireButton("Get", 50, false, true, SapfireButtonSprite::Install);
     }
     auto viewBtn = CCMenuItemSpriteExtra::create(
         spr,
@@ -171,7 +171,7 @@ bool ModItem::init(ModSource&& source) {
                 m_viewMenu->updateLayout();
             }
             if (mod->hasProblems()) {
-                auto viewErrorSpr = createGeodeCircleButton(
+                auto viewErrorSpr = createSapfireCircleButton(
                     CCSprite::createWithSpriteFrameName("exclamation.png"_spr), 1.f,
                     CircleBaseSize::Small
                 );
@@ -259,7 +259,7 @@ bool ModItem::init(ModSource&& source) {
         }
     });
 
-    auto updateSpr = createGeodeCircleButton(
+    auto updateSpr = createSapfireCircleButton(
         CCSprite::createWithSpriteFrameName("update.png"_spr), 1.15f,
         CircleBaseSize::Medium, true
     );
@@ -323,7 +323,7 @@ void ModItem::updateState() {
     // (possibly overriding later based on state)
     m_source.visit(makeVisitor {
         [this](Mod* mod) {
-            if (isGeodeTheme()) {
+            if (isSapfireTheme()) {
                 m_bg->setColor(ccWHITE);
                 m_bg->setOpacity(mod->isOrWillBeEnabled() ? 25 : 10);
             }
@@ -336,22 +336,22 @@ void ModItem::updateState() {
             m_developerLabel->setOpacity(mod->isOrWillBeEnabled() ? 255 : 155);
         },
         [this](server::ServerModMetadata const& metadata) {
-            m_bg->setColor(isGeodeTheme() ? ccWHITE : ccBLACK);
-            m_bg->setOpacity(isGeodeTheme() ? 25 : 90);
+            m_bg->setColor(isSapfireTheme() ? ccWHITE : ccBLACK);
+            m_bg->setOpacity(isSapfireTheme() ? 25 : 90);
 
             if (metadata.tags.contains("paid")) {
                 m_bg->setColor("mod-list-paid-color"_cc3b);
                 m_bg->setOpacity(55);
             }
             
-            if (isGeodeTheme() && metadata.featured) {
+            if (isSapfireTheme() && metadata.featured) {
                 m_bg->setColor("mod-list-featured-color"_cc3b);
                 m_bg->setOpacity(65);
             }
         },
         [this](ModSuggestion const& suggestion) {
             m_bg->setColor("mod-list-recommended-bg"_cc3b);
-            m_bg->setOpacity(isGeodeTheme() ? 25 : 90);
+            m_bg->setOpacity(isSapfireTheme() ? 25 : 90);
         }
     });
 
@@ -370,7 +370,7 @@ void ModItem::updateState() {
         m_versionLabel->setColor(to3B(ColorProvider::get()->color("mod-list-version-label-updates-available"_spr)));
 
         m_bg->setColor(to3B(ColorProvider::get()->color("mod-list-version-bg-updates-available"_spr)));
-        m_bg->setOpacity(isGeodeTheme() ? 25 : 90);
+        m_bg->setOpacity(isSapfireTheme() ? 25 : 90);
     }
     else {
         m_updateBtn->setVisible(false);
@@ -384,13 +384,13 @@ void ModItem::updateState() {
     // If there were problems, tint the BG red
     if (m_source.asMod() && m_source.asMod()->hasProblems()) {
         m_bg->setColor("mod-list-errors-found"_cc3b);
-        m_bg->setOpacity(isGeodeTheme() ? 25 : 90);
+        m_bg->setOpacity(isSapfireTheme() ? 25 : 90);
     }
 
     // Highlight item via BG if it wants to restart for extra UI attention
     if (wantsRestart) {
         m_bg->setColor("mod-list-restart-required-label"_cc3b);
-        m_bg->setOpacity(isGeodeTheme() ? 25 : 90);
+        m_bg->setOpacity(isSapfireTheme() ? 25 : 90);
     }
 
     // Update enable toggle state
@@ -467,7 +467,7 @@ void ModItem::onView(CCObject*) {
             "Paid Content",
             "This mod contains <cg>Paid Content</c>. This means that some or all "
             "features of the mod <cj>require money to use</c>.\n\n"
-            "<cy>Geode does not handle any payments. The mod handles all transactions in their own way.</c>\n\n"
+            "<cy>Sapfire does not handle any payments. The mod handles all transactions in their own way.</c>\n\n"
             "<cp>The paid content may not be available in your country.</c>",
             "OK", nullptr, 360
         )->show();

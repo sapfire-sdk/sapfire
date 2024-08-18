@@ -7,7 +7,7 @@
 #include <mutex>
 #include <string_view>
 
-namespace geode {
+namespace sapfire {
     /**
      * Tasks represent an asynchronous operation that will be finished at some 
      * unknown point in the future. Tasks can report their progress, and will 
@@ -15,7 +15,7 @@ namespace geode {
      * Tasks are designed to provide a thread-safe general purpose abstraction 
      * for dealing with any asynchronous operations.
      * The `Task` class satisfies `EventFilter` and as such is listened 
-     * to using the Geode events system; tasks may have multiple listeners, and 
+     * to using the Sapfire events system; tasks may have multiple listeners, and 
      * even if a listener is attached after the Task has finished it will
      * receive the finished value. 
      * Tasks are a very cheap and tiny struct that just have a reference to 
@@ -181,7 +181,7 @@ namespace geode {
          * is posted; the `Task` class itself is used as an event filter to 
          * catch the task events for that specific task
          */
-        class Event final : public geode::Event {
+        class Event final : public sapfire::Event {
         private:
             std::shared_ptr<Handle> m_handle;
             std::variant<T*, P*, Cancel> m_value;

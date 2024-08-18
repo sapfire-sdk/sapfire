@@ -1,7 +1,7 @@
 #include "load.hpp"
-#include <Geode/platform/cplatform.h>
+#include <Sapfire/platform/cplatform.h>
 
-#ifdef GEODE_IS_MACOS
+#ifdef SAPFIRE_IS_MACOS
 
 #include <loader/LoaderImpl.hpp>
 #include <loader/LogImpl.hpp>

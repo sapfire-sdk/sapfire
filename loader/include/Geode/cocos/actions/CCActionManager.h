@@ -56,7 +56,7 @@ struct _hashElement;
  */
 class CC_DLL CCActionManager : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor
@@ -68,7 +68,7 @@ public:
      */
     ~CCActionManager(void);
 
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCActionManager, CCObject);
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCActionManager, CCObject);
 
     // actions
     

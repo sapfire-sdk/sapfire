@@ -48,7 +48,7 @@ is turned on in CCDirector using:
 */
 class CC_DLL CCTransitionPageTurn : public CCTransitionScene
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 protected:
 
 

@@ -173,7 +173,7 @@ private:
  */
 class CC_DLL CCScriptEngineProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     virtual ~CCScriptEngineProtocol() {};
     
@@ -269,7 +269,7 @@ public:
  */
 class CC_DLL CCScriptEngineManager
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     ~CCScriptEngineManager(void);
     

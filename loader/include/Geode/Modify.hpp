@@ -2,6 +2,6 @@
 
 #include "modify/Modify.hpp"
 
-#include <Geode/GeneratedModify.hpp>
+#include <Sapfire/GeneratedModify.hpp>
 
-using namespace geode::modifier;
+using namespace sapfire::modifier;

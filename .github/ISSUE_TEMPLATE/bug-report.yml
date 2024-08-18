@@ -1,16 +1,16 @@
 name: Bug Report
-description: Report a Geode bug (not mods themselves) where something is not working as expected in Geode Loader (not mods created by others), which does not crash the game.
+description: Report a Sapfire bug (not mods themselves) where something is not working as expected in Sapfire Loader (not mods created by others), which does not crash the game.
 labels: [ "unverified", "bug" ]
 body:
   - type: checkboxes
     attributes:
-      label: Geode Issue
+      label: Sapfire Issue
       description: |
-        The Geode repository is for issues of *Geode Loader*, not individual mods created by other developers.
-        When submitting a bug report, please make sure that the bug is *actually* related to ***Geode Loader itself*** and not to a mod or mod combination.
+        The Sapfire repository is for issues of *Sapfire Loader*, not individual mods created by other developers.
+        When submitting a bug report, please make sure that the bug is *actually* related to ***Sapfire Loader itself*** and not to a mod or mod combination.
         Failing to do this will get your issue *closed without explanation*.
       options:
-        - label: I confirm that this bug is NOT related to a mod but directly to Geode Loader itself.
+        - label: I confirm that this bug is NOT related to a mod but directly to Sapfire Loader itself.
           required: true
   - type: dropdown
     id: platform
@@ -35,8 +35,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: Geode Version
-      description: The version of Geode you were using when this bug was encountered. If you do not know where to find this, look for the mods listing.
+      label: Sapfire Version
+      description: The version of Sapfire you were using when this bug was encountered. If you do not know where to find this, look for the mods listing.
       placeholder: "Example: v0.5.4"
     validations:
       required: true
@@ -45,7 +45,7 @@ body:
     attributes:
       label: Mods Installed
       description: The mods and their respective versions used when this bug was encountered. If you were not using mods, please leave this field blank.
-      placeholder: "Example: geode.test v1.0.0, geode.testdep v0.1.0"
+      placeholder: "Example: sapfire.test v1.0.0, sapfire.testdep v0.1.0"
     validations:
       required: false
   - type: textarea

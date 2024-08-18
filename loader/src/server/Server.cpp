@@ -1,6 +1,6 @@
 #include "Server.hpp"
-#include <Geode/utils/JsonValidation.hpp>
-#include <Geode/utils/ranges.hpp>
+#include <Sapfire/utils/JsonValidation.hpp>
+#include <Sapfire/utils/ranges.hpp>
 #include <chrono>
 #include <date/date.h>
 #include <fmt/core.h>
@@ -11,7 +11,7 @@
 
 using namespace server;
 
-#define GEODE_GD_VERSION_STR GEODE_STR(GEODE_GD_VERSION)
+#define SAPFIRE_GD_VERSION_STR SAPFIRE_STR(SAPFIRE_GD_VERSION)
 
 template <class K, class V>
     requires std::equality_comparable<K> && std::copy_constructible<K>
@@ -264,21 +264,21 @@ Result<ServerModVersion> ServerModVersion::parse(matjson::Value const& raw) {
 
     auto res = ServerModVersion();
 
-    // Verify target Geode version
-    auto version = root.needs("geode").template get<VersionInfo>();
+    // Verify target Sapfire version
+    auto version = root.needs("sapfire").template get<VersionInfo>();
     if (!semverCompare(Loader::get()->getVersion(), version)) {
         return Err(
-            "Mod targets version {} but Geode is version {}",
+            "Mod targets version {} but Sapfire is version {}",
             version, Loader::get()->getVersion()
         );
     }
 
     // Verify target GD version
-    auto gd = root.needs("gd").obj().needs(GEODE_PLATFORM_SHORT_IDENTIFIER).template get<std::string>();
-    if (gd != GEODE_GD_VERSION_STR && gd != "*") {
+    auto gd = root.needs("gd").obj().needs(SAPFIRE_PLATFORM_SHORT_IDENTIFIER).template get<std::string>();
+    if (gd != SAPFIRE_GD_VERSION_STR && gd != "*") {
         return Err(
             "Mod targets GD version {} but current is version {}",
-            gd, GEODE_GD_VERSION_STR
+            gd, SAPFIRE_GD_VERSION_STR
         );
     }
 
@@ -302,7 +302,7 @@ Result<ServerModVersion> ServerModVersion::parse(matjson::Value const& raw) {
 
         bool onThisPlatform = !obj.has("platforms");
         for (auto& plat : obj.has("platforms").iterate()) {
-            if (PlatformID::coveredBy(plat.get<std::string>(), GEODE_PLATFORM_TARGET)) {
+            if (PlatformID::coveredBy(plat.get<std::string>(), SAPFIRE_PLATFORM_TARGET)) {
                 onThisPlatform = true;
             }
         }
@@ -385,7 +385,7 @@ Result<ServerModUpdate> ServerModUpdate::parse(matjson::Value const& raw) {
     root.needs("id").into(res.id);
     root.needs("version").into(res.version);
     if (root.has("replacement")) {
-        GEODE_UNWRAP_INTO(res.replacement, ServerModReplacement::parse(root.has("replacement").json()));
+        SAPFIRE_UNWRAP_INTO(res.replacement, ServerModReplacement::parse(root.has("replacement").json()));
     }
 
     // Check for errors and return result
@@ -438,10 +438,10 @@ Result<ServerModMetadata> ServerModMetadata::parse(matjson::Value const& raw) {
     root.has("changelog").into(res.changelog);
     root.has("repository").into(res.repository);
     if (root.has("created_at")) {
-        GEODE_UNWRAP_INTO(res.createdAt, ServerDateTime::parse(root.has("created_at").template get<std::string>()));
+        SAPFIRE_UNWRAP_INTO(res.createdAt, ServerDateTime::parse(root.has("created_at").template get<std::string>()));
     }
     if (root.has("updated_at")) {
-        GEODE_UNWRAP_INTO(res.updatedAt, ServerDateTime::parse(root.has("updated_at").template get<std::string>()));
+        SAPFIRE_UNWRAP_INTO(res.updatedAt, ServerDateTime::parse(root.has("updated_at").template get<std::string>()));
     }
 
     std::vector<std::string> developerNames;
@@ -553,10 +553,10 @@ std::string server::getServerUserAgent() {
     // no need to compute this more than once
     static const auto value = [] {
         // TODO: is this enough info? is it too much?
-        return fmt::format("Geode Loader (ver={};commit={};platform={};gd={})",
+        return fmt::format("Sapfire Loader (ver={};commit={};platform={};gd={})",
             Loader::get()->getVersion().toNonVString(),
             about::getLoaderCommitHash(),
-            GEODE_PLATFORM_SHORT_IDENTIFIER,
+            SAPFIRE_PLATFORM_SHORT_IDENTIFIER,
             LoaderImpl::get()->getGameVersion()
         );
     }();
@@ -572,8 +572,8 @@ ServerRequest<ServerModsList> server::getMods(ModsQuery const& query, bool useCa
     req.userAgent(getServerUserAgent());
 
     // Always target current GD version and Loader version
-    req.param("gd", GEODE_GD_VERSION_STR);
-    req.param("geode", Loader::get()->getVersion().toNonVString());
+    req.param("gd", SAPFIRE_GD_VERSION_STR);
+    req.param("sapfire", Loader::get()->getVersion().toNonVString());
 
     // Add search params
     if (query.query) {
@@ -801,9 +801,9 @@ ServerRequest<std::vector<ServerModUpdate>> server::checkAllUpdates(bool useCach
 
     auto req = web::WebRequest();
     req.userAgent(getServerUserAgent());
-    req.param("platform", GEODE_PLATFORM_SHORT_IDENTIFIER);
-    req.param("gd", GEODE_GD_VERSION_STR);
-    req.param("geode", Loader::get()->getVersion().toNonVString());
+    req.param("platform", SAPFIRE_PLATFORM_SHORT_IDENTIFIER);
+    req.param("gd", SAPFIRE_GD_VERSION_STR);
+    req.param("sapfire", Loader::get()->getVersion().toNonVString());
     if (modIDs.size()) {
         req.param("ids", ranges::join(modIDs, ";"));
     }

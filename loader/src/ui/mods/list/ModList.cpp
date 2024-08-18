@@ -1,8 +1,8 @@
 #include "ModList.hpp"
-#include <Geode/utils/ColorProvider.hpp>
+#include <Sapfire/utils/ColorProvider.hpp>
 #include "../popups/FiltersPopup.hpp"
 #include "../popups/SortPopup.hpp"
-#include "../GeodeStyle.hpp"
+#include "../SapfireStyle.hpp"
 #include "../ModsLayer.hpp"
 
 bool ModList::init(ModListSource* src, CCSize const& size) {
@@ -72,13 +72,13 @@ bool ModList::init(ModListSource* src, CCSize const& size) {
         m_updateAllMenu->setContentWidth(size.width / 2);
         m_updateAllMenu->setAnchorPoint({ 1, .5f });
 
-        m_showUpdatesSpr = createGeodeButton(
+        m_showUpdatesSpr = createSapfireButton(
             CCSprite::createWithSpriteFrameName("GJ_filterIcon_001.png"),
-            "Show Updates", GeodeButtonSprite::Install
+            "Show Updates", SapfireButtonSprite::Install
         );
-        m_hideUpdatesSpr = createGeodeButton(
+        m_hideUpdatesSpr = createSapfireButton(
             CCSprite::createWithSpriteFrameName("GJ_filterIcon_001.png"),
-            "Hide Updates", GeodeButtonSprite::Default
+            "Hide Updates", SapfireButtonSprite::Default
         );
         m_toggleUpdatesOnlyBtn = CCMenuItemToggler::create(
             m_showUpdatesSpr, m_hideUpdatesSpr, this, menu_selector(ModList::onToggleUpdates)
@@ -87,9 +87,9 @@ bool ModList::init(ModListSource* src, CCSize const& size) {
         m_toggleUpdatesOnlyBtn->m_notClickable = true;
         m_updateAllMenu->addChild(m_toggleUpdatesOnlyBtn);
 
-        m_updateAllSpr = createGeodeButton(
+        m_updateAllSpr = createSapfireButton(
             CCSprite::createWithSpriteFrameName("update.png"_spr),
-            "Update All", GeodeButtonSprite::Install
+            "Update All", SapfireButtonSprite::Install
         );
         m_updateAllBtn = CCMenuItemSpriteExtra::create(
             m_updateAllSpr, this, menu_selector(ModList::onUpdateAll)
@@ -140,13 +140,13 @@ bool ModList::init(ModListSource* src, CCSize const& size) {
             errorsMenu->setContentWidth(size.width / 2);
             errorsMenu->setAnchorPoint({ 1, .5f });
 
-            auto showErrorsSpr = createGeodeButton(
+            auto showErrorsSpr = createSapfireButton(
                 CCSprite::createWithSpriteFrameName("GJ_filterIcon_001.png"),
-                "Show Errors Only", GeodeButtonSprite::Delete
+                "Show Errors Only", SapfireButtonSprite::Delete
             );
-            auto hideErrorsSpr = createGeodeButton(
+            auto hideErrorsSpr = createSapfireButton(
                 CCSprite::createWithSpriteFrameName("GJ_filterIcon_001.png"),
-                "Hide Errors Only", GeodeButtonSprite::Default
+                "Hide Errors Only", SapfireButtonSprite::Default
             );
             m_toggleErrorsOnlyBtn = CCMenuItemToggler::create(
                 showErrorsSpr, hideErrorsSpr, this, menu_selector(ModList::onToggleErrors)
@@ -213,7 +213,7 @@ bool ModList::init(ModListSource* src, CCSize const& size) {
     // Set higher prio to not let list items override touch
     searchFiltersMenu->setTouchPriority(-150);
 
-    auto sortSpr = GeodeSquareSprite::createWithSpriteFrameName("GJ_sortIcon_001.png");
+    auto sortSpr = SapfireSquareSprite::createWithSpriteFrameName("GJ_sortIcon_001.png");
     auto sortBtn = CCMenuItemSpriteExtra::create(
         sortSpr, this, menu_selector(ModList::onSort)
     );
@@ -228,14 +228,14 @@ bool ModList::init(ModListSource* src, CCSize const& size) {
     searchFiltersMenu->addChild(sortBtn);
 
     m_filtersBtn = CCMenuItemSpriteExtra::create(
-        GeodeSquareSprite::createWithSpriteFrameName("GJ_filterIcon_001.png"),
+        SapfireSquareSprite::createWithSpriteFrameName("GJ_filterIcon_001.png"),
         this, menu_selector(ModList::onFilters)
     );
     m_filtersBtn->setID("filters-button");
     searchFiltersMenu->addChild(m_filtersBtn);
 
     m_clearFiltersBtn = CCMenuItemSpriteExtra::create(
-        GeodeSquareSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"),
+        SapfireSquareSprite::createWithSpriteFrameName("GJ_deleteIcon_001.png"),
         this, menu_selector(ModList::onClearFilters)
     );
     m_clearFiltersBtn->setID("clear-filters-button");
@@ -573,10 +573,10 @@ void ModList::updateState() {
     // Update filter button states
     auto isDefaultQuery = m_source->isDefaultQuery();
 
-    auto filterSpr = static_cast<GeodeSquareSprite*>(m_filtersBtn->getNormalImage());
+    auto filterSpr = static_cast<SapfireSquareSprite*>(m_filtersBtn->getNormalImage());
     filterSpr->setState(!isDefaultQuery);
 
-    auto clearSpr = static_cast<GeodeSquareSprite*>(m_clearFiltersBtn->getNormalImage());
+    auto clearSpr = static_cast<SapfireSquareSprite*>(m_clearFiltersBtn->getNormalImage());
     clearSpr->setColor(isDefaultQuery ? ccGRAY : ccWHITE);
     clearSpr->setOpacity(isDefaultQuery ? 90 : 255);
     clearSpr->getTopSprite()->setColor(isDefaultQuery ? ccGRAY : ccWHITE);

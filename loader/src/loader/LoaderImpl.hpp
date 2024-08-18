@@ -3,14 +3,14 @@
 #include "FileWatcher.hpp"
 
 #include <matjson.hpp>
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/utils/Result.hpp>
-#include <Geode/utils/map.hpp>
-#include <Geode/utils/ranges.hpp>
-#include <Geode/utils/MiniFunction.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/utils/Result.hpp>
+#include <Sapfire/utils/map.hpp>
+#include <Sapfire/utils/ranges.hpp>
+#include <Sapfire/utils/MiniFunction.hpp>
 #include "ModImpl.hpp"
 #include <crashlog.hpp>
 #include <mutex>
@@ -22,8 +22,8 @@
 #include <queue>
 #include <tulip/TulipHook.hpp>
 
-namespace geode {
-    static constexpr std::string_view LAUNCH_ARG_PREFIX = "--geode:";
+namespace sapfire {
+    static constexpr std::string_view LAUNCH_ARG_PREFIX = "--sapfire:";
 
     class Loader::Impl {
     public:

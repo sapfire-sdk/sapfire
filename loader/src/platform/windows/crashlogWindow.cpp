@@ -2,9 +2,9 @@
 
 #include <Windows.h>
 
-#include <Geode/loader/Log.hpp>
-#include <Geode/utils/file.hpp>
-#include <Geode/utils/general.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/utils/file.hpp>
+#include <Sapfire/utils/general.hpp>
 
 #include <string>
 #include <filesystem>
@@ -158,11 +158,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         if (id == ID_BUTTON_CLOSE) {
             DestroyWindow(hwnd);
         } else if (id == ID_BUTTON_OPEN_FOLDER) {
-            geode::utils::file::openFolder(g_crashlogPath);
+            sapfire::utils::file::openFolder(g_crashlogPath);
         } else if (id == ID_BUTTON_COPY_CLIPBOARD) {
-            geode::utils::clipboard::write(g_crashlogText);
+            sapfire::utils::clipboard::write(g_crashlogText);
         } else if (id == ID_BUTTON_RESTART_GAME) {
-            geode::utils::game::restart();
+            sapfire::utils::game::restart();
         }
     } break;
 
@@ -173,7 +173,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 }
 
 bool showCustomCrashlogWindow(std::string text, std::filesystem::path const& crashlogPath) {
-    static constexpr auto WINDOW_CLASS_NAME = "GeodeCrashHandlerWindow";
+    static constexpr auto WINDOW_CLASS_NAME = "SapfireCrashHandlerWindow";
 
     g_crashlogPath = crashlogPath;
     g_crashlogText = text;
@@ -203,7 +203,7 @@ bool showCustomCrashlogWindow(std::string text, std::filesystem::path const& cra
     auto hwnd = CreateWindowExA(
         0,
         WINDOW_CLASS_NAME,
-        "Geode Crash Handler",
+        "Sapfire Crash Handler",
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
         NULL, NULL, wc.hInstance, NULL

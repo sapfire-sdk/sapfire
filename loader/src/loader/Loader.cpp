@@ -2,15 +2,15 @@
 
 #include "LoaderImpl.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 Loader::Loader() : m_impl(new Impl) {}
 
 Loader::~Loader() {}
 
 Loader* Loader::get() {
-    static auto g_geode = new Loader;
-    return g_geode;
+    static auto g_sapfire = new Loader;
+    return g_sapfire;
 }
 
 bool Loader::isForwardCompatMode() {

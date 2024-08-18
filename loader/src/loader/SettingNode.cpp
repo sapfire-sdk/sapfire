@@ -1,7 +1,7 @@
-#include <Geode/loader/SettingNode.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/loader/SettingNode.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 void SettingNode::dispatchChanged() {
     if (m_delegate) {

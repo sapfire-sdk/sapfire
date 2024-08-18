@@ -7,7 +7,7 @@
  * over with undefined symbols with CC_DLL
  */
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    #ifdef GEODE_EXPORTING
+    #ifdef SAPFIRE_EXPORTING
         #define CC_ZIP_DLL __declspec(dllexport)
     #else
         #define CC_ZIP_DLL __declspec(dllimport)

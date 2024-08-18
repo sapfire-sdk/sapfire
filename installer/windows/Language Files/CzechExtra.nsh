@@ -7,10 +7,10 @@ ${LangFileString} MUI_UNTEXT_WELCOME_INFO_TEXT "Tento průvodce vás provede odi
 
 ; installer
 
-${LangFileString} GEODE_TEXT_GD_MISSING "$\r$\n$\r$\nV této cestě se nenachází Geometry Dash!"
-${LangFileString} GEODE_TEXT_GD_OLD "$\r$\n$\r$\nVaše verze Geometry Dash je moc stará pro tuto verzi Geode!"
-${LangFileString} GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED "V této cestě jsou již nainstalovány jiné mody!$\r$\nGeode bude nainstalován místo nich. (the dll trademark)"
+${LangFileString} SAPFIRE_TEXT_GD_MISSING "$\r$\n$\r$\nV této cestě se nenachází Geometry Dash!"
+${LangFileString} SAPFIRE_TEXT_GD_OLD "$\r$\n$\r$\nVaše verze Geometry Dash je moc stará pro tuto verzi Sapfire!"
+${LangFileString} SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED "V této cestě jsou již nainstalovány jiné mody!$\r$\nSapfire bude nainstalován místo nich. (the dll trademark)"
 
 ; uninstaller
 
-${LangFileString} GEODE_UNTEXT_GEODE_MISSING "V této cestě se nenachází Geode!"
+${LangFileString} SAPFIRE_UNTEXT_SAPFIRE_MISSING "V této cestě se nenachází Sapfire!"

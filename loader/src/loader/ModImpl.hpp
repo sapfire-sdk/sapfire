@@ -2,10 +2,10 @@
 
 #include <matjson.hpp>
 #include "ModPatch.hpp"
-#include <Geode/loader/Loader.hpp>
+#include <Sapfire/loader/Loader.hpp>
 #include <string_view>
 
-namespace geode {
+namespace sapfire {
     class Mod::Impl {
     public:
         Mod* m_self;
@@ -81,7 +81,7 @@ namespace geode {
         Result<> createTempDir();
 
         // called on a separate thread
-        Result<> unzipGeodeFile(ModMetadata metadata);
+        Result<> unzipSapfireFile(ModMetadata metadata);
 
         void setupSettings();
 
@@ -102,7 +102,7 @@ namespace geode {
         matjson::Value& getSaveContainer();
         matjson::Value& getSavedSettingsData();
 
-#if defined(GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
+#if defined(SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
         void setMetadata(ModMetadata const& metadata);
         std::vector<Mod*> getDependants() const;
 #endif

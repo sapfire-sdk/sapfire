@@ -1,8 +1,8 @@
-#include <Geode/loader/Event.hpp>
-#include <Geode/utils/ranges.hpp>
+#include <Sapfire/loader/Event.hpp>
+#include <Sapfire/utils/ranges.hpp>
 #include <mutex>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 DefaultEventListenerPool::DefaultEventListenerPool() : m_data(new Data) {}
 

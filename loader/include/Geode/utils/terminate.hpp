@@ -3,40 +3,40 @@
 #include "../DefaultInclude.hpp"
 #include <exception>
 
-namespace geode {
+namespace sapfire {
     class Mod;
     Mod* getMod();
 }
 
-namespace geode::utils {
-#ifdef GEODE_IS_WINDOWS
-    static constexpr size_t GEODE_TERMINATE_EXCEPTION_CODE   = 0x4000;
-    static constexpr size_t GEODE_UNREACHABLE_EXCEPTION_CODE = 0x4001;
+namespace sapfire::utils {
+#ifdef SAPFIRE_IS_WINDOWS
+    static constexpr size_t SAPFIRE_TERMINATE_EXCEPTION_CODE   = 0x4000;
+    static constexpr size_t SAPFIRE_UNREACHABLE_EXCEPTION_CODE = 0x4001;
 
-    static constexpr bool isGeodeExceptionCode(size_t code) {
-        return GEODE_TERMINATE_EXCEPTION_CODE <= code && code <= GEODE_UNREACHABLE_EXCEPTION_CODE;
+    static constexpr bool isSapfireExceptionCode(size_t code) {
+        return SAPFIRE_TERMINATE_EXCEPTION_CODE <= code && code <= SAPFIRE_UNREACHABLE_EXCEPTION_CODE;
     }
 #else
-    static constexpr size_t GEODE_TERMINATE_EXCEPTION_CODE = 0;
-    static constexpr size_t GEODE_UNREACHABLE_EXCEPTION_CODE = 0;
+    static constexpr size_t SAPFIRE_TERMINATE_EXCEPTION_CODE = 0;
+    static constexpr size_t SAPFIRE_UNREACHABLE_EXCEPTION_CODE = 0;
 
-    static constexpr bool isGeodeExceptionCode(size_t code) {
+    static constexpr bool isSapfireExceptionCode(size_t code) {
         return false;
     }
 #endif
 
     namespace detail {
         // This needs to do stuff with `Mod*` which is not included in the file
-        GEODE_DLL void logTerminationError(const char* reason, Mod* mod);
+        SAPFIRE_DLL void logTerminationError(const char* reason, Mod* mod);
     }
 
     template <class = void>
     [[noreturn]]
-    void terminate(std::string const& reason, Mod* mod = getMod(), size_t platformCode = GEODE_TERMINATE_EXCEPTION_CODE) {
+    void terminate(std::string const& reason, Mod* mod = getMod(), size_t platformCode = SAPFIRE_TERMINATE_EXCEPTION_CODE) {
         // Add the error to the logfile
         detail::logTerminationError(reason.c_str(), mod);
 
-    #ifdef GEODE_IS_WINDOWS
+    #ifdef SAPFIRE_IS_WINDOWS
         // If a debugger is attached, start debugging
         if (IsDebuggerPresent()) {
             OutputDebugStringA(reason.c_str());
@@ -59,6 +59,6 @@ namespace geode::utils {
     template <class = void>
     [[noreturn]]
     void unreachable(std::string const& reason = "Unspecified", Mod* mod = getMod()) {
-        terminate(reason, mod, GEODE_UNREACHABLE_EXCEPTION_CODE);
+        terminate(reason, mod, SAPFIRE_UNREACHABLE_EXCEPTION_CODE);
     }
 }

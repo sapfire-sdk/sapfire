@@ -7,12 +7,12 @@ namespace cocos2d {
     class CCNode;
 }
 
-namespace geode {
+namespace sapfire {
     template<class T>
     concept InheritsCCNode = std::is_base_of_v<cocos2d::CCNode, T>;
 
     // Base class; exists so event listeners can be placed dynamically at runtime
-    struct GEODE_DLL AEnterLayerEvent : public Event {
+    struct SAPFIRE_DLL AEnterLayerEvent : public Event {
         const std::string layerID;
         cocos2d::CCNode* layer;
     
@@ -22,7 +22,7 @@ namespace geode {
         );
     };
 
-    class GEODE_DLL AEnterLayerFilter : public EventFilter<AEnterLayerEvent> {
+    class SAPFIRE_DLL AEnterLayerFilter : public EventFilter<AEnterLayerEvent> {
 	public:
 		using Callback = void(AEnterLayerEvent*);
     

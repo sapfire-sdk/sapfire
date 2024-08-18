@@ -49,7 +49,7 @@ class CCSize;
  */
 class CC_DLL CCPoint
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     float x;
     float y;
@@ -300,7 +300,7 @@ public:
  */
 class CC_DLL CCSize
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     float width;
     float height;
@@ -369,7 +369,7 @@ public:
     }
     /**
      * Get the aspect ratio of this CCSize
-     * @note Geode addition
+     * @note Sapfire addition
      */
     inline float aspect() const {
         return this->width / this->height;
@@ -396,7 +396,7 @@ CCPoint& CCPoint::operator= (const CCSize& size) {
  */
 class CC_DLL CCRect
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     CCPoint origin;
     CCSize  size;

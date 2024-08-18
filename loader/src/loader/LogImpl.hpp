@@ -1,13 +1,13 @@
 #pragma once
 
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include <vector>
 #include <fstream>
 #include <string>
 
-namespace geode::log {
+namespace sapfire::log {
     class Log final {
         log_clock::time_point m_time;
         Severity m_severity;

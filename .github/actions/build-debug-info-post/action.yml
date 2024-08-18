@@ -21,13 +21,13 @@ runs:
   - name: Upload Build Debug Info
     uses: actions/upload-artifact@v4
     with:
-      name: geode-build-debug-info-${{ inputs.target }}
+      name: sapfire-build-debug-info-${{ inputs.target }}
       path: ./build-debug-info/*
     if: success() || failure()
 
   - name: Upload Preprocessed Files
     uses: actions/upload-artifact@v4
     with:
-      name: geode-build-debug-info-preprocessed-${{ inputs.target }}
+      name: sapfire-build-debug-info-preprocessed-${{ inputs.target }}
       path: ./build-debug-info-preprocessed/*
     if: success() || failure()

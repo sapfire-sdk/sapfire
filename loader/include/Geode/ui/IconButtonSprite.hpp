@@ -6,8 +6,8 @@ namespace cocos2d::extension {
     class CCScale9Sprite;
 }
 
-namespace geode {
-    class GEODE_DLL IconButtonSprite : public cocos2d::CCSprite, public cocos2d::CCLabelProtocol {
+namespace sapfire {
+    class SAPFIRE_DLL IconButtonSprite : public cocos2d::CCSprite, public cocos2d::CCLabelProtocol {
     protected:
         cocos2d::extension::CCScale9Sprite* m_bg = nullptr;
         cocos2d::CCLabelBMFont* m_label = nullptr;

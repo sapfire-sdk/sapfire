@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-namespace geode::utils {
+namespace sapfire::utils {
     template <typename T>
     struct is_chrono_duration {
         static constexpr bool value = false;

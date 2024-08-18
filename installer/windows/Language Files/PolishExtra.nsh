@@ -7,10 +7,10 @@ ${LangFileString} MUI_UNTEXT_WELCOME_INFO_TEXT "Instalator przeprowadzi Cię prz
 
 ; installer
 
-${LangFileString} GEODE_TEXT_GD_MISSING "$\r$\n$\r$\nGeometry Dash nie jest zainstalowane w tym folderze!"
-${LangFileString} GEODE_TEXT_GD_OLD "$\r$\n$\r$\nTwoja wersja Geometry Dash jest zbyt stara dla tej wersji Geode!"
-${LangFileString} GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED "W tym folderze zainstalowane są inne modyfikacje!$\r$\nZostaną one zastąpione przez Geode. (the dll trademark)"
+${LangFileString} SAPFIRE_TEXT_GD_MISSING "$\r$\n$\r$\nGeometry Dash nie jest zainstalowane w tym folderze!"
+${LangFileString} SAPFIRE_TEXT_GD_OLD "$\r$\n$\r$\nTwoja wersja Geometry Dash jest zbyt stara dla tej wersji Sapfire!"
+${LangFileString} SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED "W tym folderze zainstalowane są inne modyfikacje!$\r$\nZostaną one zastąpione przez Sapfire. (the dll trademark)"
 
 ; uninstaller
 
-${LangFileString} GEODE_UNTEXT_GEODE_MISSING "Geode nie jest zainstalowane w tym folderze!"
+${LangFileString} SAPFIRE_UNTEXT_SAPFIRE_MISSING "Sapfire nie jest zainstalowane w tym folderze!"

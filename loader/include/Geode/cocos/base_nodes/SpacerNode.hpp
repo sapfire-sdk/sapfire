@@ -22,7 +22,7 @@ NS_CC_BEGIN
  * @note If you want to specify a minimum width for a SpacerNode, add 
  * AxisLayoutOptions for it and use setLength
  */
-class GEODE_DLL SpacerNode : public CCNode {
+class SAPFIRE_DLL SpacerNode : public CCNode {
 protected:
     size_t m_grow;
 
@@ -59,7 +59,7 @@ public:
  * @note This is useful for making a spacer node that takes up the remaining
  * space in a layout
  */
-class GEODE_DLL SpacerNodeChild : public SpacerNode {
+class SAPFIRE_DLL SpacerNodeChild : public SpacerNode {
 protected:
     CCNode* m_child = nullptr;
 

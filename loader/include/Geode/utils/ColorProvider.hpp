@@ -1,19 +1,19 @@
 #pragma once
 
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include <ccTypes.h>
 #include "../DefaultInclude.hpp"
 #include "../loader/Event.hpp"
 
-namespace geode {
-    struct GEODE_DLL ColorProvidedEvent final : public Event {
+namespace sapfire {
+    struct SAPFIRE_DLL ColorProvidedEvent final : public Event {
         std::string id;
         cocos2d::ccColor4B color;
 
         ColorProvidedEvent(std::string const& id, cocos2d::ccColor4B const& color);
     };
 
-    class GEODE_DLL ColorProvidedFilter final : public EventFilter<ColorProvidedEvent> {
+    class SAPFIRE_DLL ColorProvidedFilter final : public EventFilter<ColorProvidedEvent> {
     public:
         using Callback = void(ColorProvidedEvent*);
 
@@ -32,7 +32,7 @@ namespace geode {
      * makes it hard for texture packs to reliably change colors, since they'd 
      * have to manually deal with every mod.
      * 
-     * To help with this, Geode provides the `ColorProvider` class, which is 
+     * To help with this, Sapfire provides the `ColorProvider` class, which is 
      * just an index of colors with associated IDs. Mods should use this to 
      * define their hardcoded colors for their UIs, and texture packs can then 
      * change the color dynamically.
@@ -44,7 +44,7 @@ namespace geode {
      * naturally refreshed after a texture pack is applied, it should listen 
      * for `ColorProvidedEvent`s to react accordingly.
      */
-    class GEODE_DLL ColorProvider final {
+    class SAPFIRE_DLL ColorProvider final {
     private:
         class Impl;
 
@@ -115,15 +115,15 @@ namespace geode {
     };
 }
 
-GEODE_HIDDEN inline cocos2d::ccColor4B operator"" _cc4b_gd(const char* str, size_t) {
-    return geode::ColorProvider::get()->color(str);
+SAPFIRE_HIDDEN inline cocos2d::ccColor4B operator"" _cc4b_gd(const char* str, size_t) {
+    return sapfire::ColorProvider::get()->color(str);
 }
-GEODE_HIDDEN inline cocos2d::ccColor3B operator"" _cc3b_gd(const char* str, size_t) {
-    return geode::ColorProvider::get()->color3b(str);
+SAPFIRE_HIDDEN inline cocos2d::ccColor3B operator"" _cc3b_gd(const char* str, size_t) {
+    return sapfire::ColorProvider::get()->color3b(str);
 }
-GEODE_HIDDEN inline cocos2d::ccColor4B operator"" _cc4b(const char* str, size_t) {
-    return geode::ColorProvider::get()->color(std::string(geode::Mod::get()->expandSpriteName(str)));
+SAPFIRE_HIDDEN inline cocos2d::ccColor4B operator"" _cc4b(const char* str, size_t) {
+    return sapfire::ColorProvider::get()->color(std::string(sapfire::Mod::get()->expandSpriteName(str)));
 }
-GEODE_HIDDEN inline cocos2d::ccColor3B operator"" _cc3b(const char* str, size_t) {
-    return geode::ColorProvider::get()->color3b(std::string(geode::Mod::get()->expandSpriteName(str)));
+SAPFIRE_HIDDEN inline cocos2d::ccColor3B operator"" _cc3b(const char* str, size_t) {
+    return sapfire::ColorProvider::get()->color3b(std::string(sapfire::Mod::get()->expandSpriteName(str)));
 }

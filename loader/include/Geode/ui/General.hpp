@@ -1,16 +1,16 @@
 #pragma once
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 #include <cocos2d.h>
 #include <cocos-ext.h>
 
-namespace geode {
+namespace sapfire {
     /**
      * Creates the usual blue gradient BG for a layer. You should use this over
      * creating the sprite manually, as in the future we may provide texture
      * packs the ability to override this function.
      */
-    GEODE_DLL cocos2d::CCSprite* createLayerBG();
+    SAPFIRE_DLL cocos2d::CCSprite* createLayerBG();
 
     enum class SideArt {
         BottomLeft   = 0b0001,
@@ -42,7 +42,7 @@ namespace geode {
      * @param useAnchorLayout If true, `to` is given an `AnchorLayout` and the 
      * corners' positions are dynamically updated
      */
-    GEODE_DLL void addSideArt(
+    SAPFIRE_DLL void addSideArt(
         cocos2d::CCNode* to,
         SideArt sides = SideArt::All,
         bool useAnchorLayout = false
@@ -55,7 +55,7 @@ namespace geode {
      * @param useAnchorLayout If true, `to` is given an `AnchorLayout` and the 
      * corners' positions are dynamically updated
      */
-    GEODE_DLL void addSideArt(
+    SAPFIRE_DLL void addSideArt(
         cocos2d::CCNode* to,
         SideArt sides,
         SideArtStyle style,
@@ -66,13 +66,13 @@ namespace geode {
      * Add the rounded comment borders to a node
      * @note Use the `ListBorders` class for increased control
      */
-    GEODE_DLL void addListBorders(
+    SAPFIRE_DLL void addListBorders(
         cocos2d::CCNode* to,
         cocos2d::CCPoint const& center,
         cocos2d::CCSize const& size
     );
     
-    class GEODE_DLL ListBorders : public cocos2d::CCNode {
+    class SAPFIRE_DLL ListBorders : public cocos2d::CCNode {
     protected:
         cocos2d::extension::CCScale9Sprite* m_top = nullptr;
         cocos2d::extension::CCScale9Sprite* m_bottom = nullptr;

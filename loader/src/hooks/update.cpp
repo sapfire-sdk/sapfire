@@ -1,8 +1,8 @@
 #include <loader/LoaderImpl.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-#include <Geode/modify/CCScheduler.hpp>
+#include <Sapfire/modify/CCScheduler.hpp>
 
 struct FunctionQueue : Modify<FunctionQueue, CCScheduler> {
     void update(float dt) {

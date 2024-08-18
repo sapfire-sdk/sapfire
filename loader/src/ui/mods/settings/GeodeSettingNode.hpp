@@ -1,22 +1,22 @@
 #pragma once
 
-#include <Geode/loader/Event.hpp>
-#include <Geode/utils/Result.hpp>
-#include <Geode/binding/CCMenuItemSpriteExtra.hpp>
-#include <Geode/binding/CCTextInputNode.hpp>
-#include <Geode/binding/Slider.hpp>
-#include <Geode/binding/SliderThumb.hpp>
-#include <Geode/loader/Setting.hpp>
-#include <Geode/loader/SettingNode.hpp>
-#include <Geode/ui/BasedButtonSprite.hpp>
-#include <Geode/ui/ColorPickPopup.hpp>
-#include <Geode/ui/InputNode.hpp>
-#include <Geode/ui/Popup.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/string.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Event.hpp>
+#include <Sapfire/utils/Result.hpp>
+#include <Sapfire/binding/CCMenuItemSpriteExtra.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
+#include <Sapfire/binding/Slider.hpp>
+#include <Sapfire/binding/SliderThumb.hpp>
+#include <Sapfire/loader/Setting.hpp>
+#include <Sapfire/loader/SettingNode.hpp>
+#include <Sapfire/ui/BasedButtonSprite.hpp>
+#include <Sapfire/ui/ColorPickPopup.hpp>
+#include <Sapfire/ui/InputNode.hpp>
+#include <Sapfire/ui/Popup.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/string.hpp>
+#include <Sapfire/loader/Mod.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 #define IMPL_SETT_CREATE(type_) \
     static type_##SettingNode* create(              \
@@ -32,7 +32,7 @@ using namespace geode::prelude;
     }
 
 template <class T>
-class GeodeSettingNode : public SettingNode {
+class SapfireSettingNode : public SettingNode {
 public:
     using ValueType = typename T::ValueType;
 
@@ -45,7 +45,7 @@ protected:
     CCLabelBMFont* m_errorLabel;
     CCMenuItemSpriteExtra* m_resetBtn;
 
-    bool init(GeodeSettingValue<T>* setting, float width) {
+    bool init(SapfireSettingValue<T>* setting, float width) {
         if (!SettingNode::init(setting))
             return false;
 
@@ -85,7 +85,7 @@ protected:
             infoSpr->setScale(.6f);
 
             auto infoBtn = CCMenuItemSpriteExtra::create(
-                infoSpr, this, menu_selector(GeodeSettingNode::onDescription)
+                infoSpr, this, menu_selector(SapfireSettingNode::onDescription)
             );
             infoBtn->setPosition(
                 -m_obContentSize.width + sidePad + m_nameLabel->getScaledContentSize().width +
@@ -101,7 +101,7 @@ protected:
         resetBtnSpr->setScale(.5f);
 
         m_resetBtn = CCMenuItemSpriteExtra::create(
-            resetBtnSpr, this, menu_selector(GeodeSettingNode::onReset)
+            resetBtnSpr, this, menu_selector(SapfireSettingNode::onReset)
         );
         m_resetBtn->setPosition(
             -m_obContentSize.width + sidePad + m_nameLabel->getScaledContentSize().width +
@@ -142,11 +142,11 @@ protected:
         );
     }
 
-    virtual float setupHeight(GeodeSettingValue<T>* setting) const {
+    virtual float setupHeight(SapfireSettingValue<T>* setting) const {
         return 40.f;
     }
 
-    virtual bool setup(GeodeSettingValue<T>* setting, float width) = 0;
+    virtual bool setup(SapfireSettingValue<T>* setting, float width) = 0;
 
     virtual void valueChanged(bool updateText = true) {
         if (this->hasUncommittedChanges()) {
@@ -167,8 +167,8 @@ protected:
         this->dispatchChanged();
     }
 
-    GeodeSettingValue<T>* setting() {
-        return static_cast<GeodeSettingValue<T>*>(m_value);
+    SapfireSettingValue<T>* setting() {
+        return static_cast<SapfireSettingValue<T>*>(m_value);
     }
 
 public:
@@ -193,7 +193,7 @@ public:
     }
 };
 
-class BoolSettingNode : public GeodeSettingNode<BoolSetting> {
+class BoolSettingNode : public SapfireSettingNode<BoolSetting> {
 protected:
     CCMenuItemToggler* m_toggle;
 
@@ -206,7 +206,7 @@ public:
 };
 
 class IntSettingNode :
-    public GeodeSettingNode<IntSetting>,
+    public SapfireSettingNode<IntSetting>,
     public TextInputDelegate
 {
 protected:
@@ -235,7 +235,7 @@ public:
 };
 
 class FloatSettingNode :
-    public GeodeSettingNode<FloatSetting>,
+    public SapfireSettingNode<FloatSetting>,
     public TextInputDelegate
 {
 protected:
@@ -264,7 +264,7 @@ public:
 };
 
 class StringSettingNode :
-    public GeodeSettingNode<StringSetting>,
+    public SapfireSettingNode<StringSetting>,
     public TextInputDelegate
 {
 protected:
@@ -289,7 +289,7 @@ public:
 };
 
 class FileSettingNode :
-    public GeodeSettingNode<FileSetting>,
+    public SapfireSettingNode<FileSetting>,
     public TextInputDelegate
 {
 protected:
@@ -312,7 +312,7 @@ public:
 };
 
 class ColorSettingNode :
-    public GeodeSettingNode<ColorSetting>,
+    public SapfireSettingNode<ColorSetting>,
     public ColorPickPopupDelegate {
 protected:
     ColorChannelSprite* m_colorSpr;
@@ -329,7 +329,7 @@ public:
 };
 
 class ColorAlphaSettingNode :
-    public GeodeSettingNode<ColorAlphaSetting>,
+    public SapfireSettingNode<ColorAlphaSetting>,
     public ColorPickPopupDelegate {
 protected:
     ColorChannelSprite* m_colorSpr;

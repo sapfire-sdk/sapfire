@@ -1,8 +1,8 @@
-#include <Geode/Geode.hpp>
+#include <Sapfire/Sapfire.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-#ifdef GEODE_IS_ANDROID
+#ifdef SAPFIRE_IS_ANDROID
 
 // replaces https://github.com/llvm-mirror/libcxxabi/blob/master/src/private_typeinfo.cpp#L213
 // this is the function that checks if a type can catch an exception
@@ -16,17 +16,17 @@ bool canCatchImpl(const std::type_info* self, const std::type_info* thrown, void
         return false;
     }
 #endif
-    auto vtable = reinterpret_cast<geode::cast::VtableType*>(*(intptr_t*)adjustedPtr);
-    auto complete = static_cast<geode::cast::CompleteVtableType*>(vtable);
+    auto vtable = reinterpret_cast<sapfire::cast::VtableType*>(*(intptr_t*)adjustedPtr);
+    auto complete = static_cast<sapfire::cast::CompleteVtableType*>(vtable);
     auto typeinfo = complete->m_typeinfo;
     return traverseTypeinfoFor(adjustedPtr, typeinfo, self->name());
 }
 
 $execute {
     // we get the __class_type_info::can_catch address from the typeinfo of a dummy class
-    geode::cast::DummyClass dummyClass;
-    auto vtable = reinterpret_cast<geode::cast::VtableType*>(*(intptr_t*)&dummyClass);
-    auto complete = static_cast<geode::cast::CompleteVtableType*>(vtable);
+    sapfire::cast::DummyClass dummyClass;
+    auto vtable = reinterpret_cast<sapfire::cast::VtableType*>(*(intptr_t*)&dummyClass);
+    auto complete = static_cast<sapfire::cast::CompleteVtableType*>(vtable);
     auto typeinfo = complete->m_typeinfo;
     auto tiVtable = typeinfo->m_typeinfoVtable;
     auto hookAddr = tiVtable->m_vtable[4]; // 5th entry is can_catch

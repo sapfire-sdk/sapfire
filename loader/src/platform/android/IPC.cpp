@@ -1,8 +1,8 @@
-﻿#include <Geode/DefaultInclude.hpp>
+﻿#include <Sapfire/DefaultInclude.hpp>
 #include <loader/IPC.hpp>
-#include <Geode/loader/Log.hpp>
+#include <Sapfire/loader/Log.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 void ipc::setup() {
     log::debug("IPC is not supported on this platform!");

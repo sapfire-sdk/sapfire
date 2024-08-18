@@ -215,7 +215,7 @@ public:
 class CC_DLL CCKeyboardHandler : public CCObject
 {
 public:
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCKeyboardHandler, CCObject)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCKeyboardHandler, CCObject)
     inline CCKeyboardHandler() = default;
     
     virtual ~CCKeyboardHandler();

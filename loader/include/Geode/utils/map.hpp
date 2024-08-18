@@ -2,13 +2,13 @@
 
 #include "Result.hpp"
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 #include <functional>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-namespace geode::utils::map {
+namespace sapfire::utils::map {
     /**
      * Returns true if the map contains
      * a value matching `containFunc`.

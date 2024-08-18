@@ -6,17 +6,17 @@
 #include "LogImpl.hpp"
 #include "console.hpp"
 
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/loader/IPC.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/utils/JsonValidation.hpp>
-#include <Geode/utils/file.hpp>
-#include <Geode/utils/map.hpp>
-#include <Geode/utils/ranges.hpp>
-#include <Geode/utils/string.hpp>
-#include <Geode/utils/web.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/loader/IPC.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/utils/JsonValidation.hpp>
+#include <Sapfire/utils/file.hpp>
+#include <Sapfire/utils/map.hpp>
+#include <Sapfire/utils/ranges.hpp>
+#include <Sapfire/utils/string.hpp>
+#include <Sapfire/utils/web.hpp>
 #include <about.hpp>
 #include <crashlog.hpp>
 #include <fmt/format.h>
@@ -29,7 +29,7 @@
 #include <string_view>
 #include <vector>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 Loader::Impl* LoaderImpl::get() {
     return Loader::get()->m_impl.get();
@@ -44,20 +44,20 @@ Loader::Impl::~Impl() = default;
 bool Loader::Impl::isForwardCompatMode() {
     if (!m_forwardCompatMode.has_value()) {
         m_forwardCompatMode = !this->getGameVersion().empty() &&
-            this->getGameVersion() != GEODE_STR(GEODE_GD_VERSION);
+            this->getGameVersion() != SAPFIRE_STR(SAPFIRE_GD_VERSION);
     }
     return m_forwardCompatMode.value();
 }
 
 void Loader::Impl::createDirectories() {
-#ifdef GEODE_IS_MACOS
+#ifdef SAPFIRE_IS_MACOS
     std::filesystem::create_directory(dirs::getSaveDir());
 #endif
 
-    (void) utils::file::createDirectoryAll(dirs::getGeodeResourcesDir());
+    (void) utils::file::createDirectoryAll(dirs::getSapfireResourcesDir());
     (void) utils::file::createDirectoryAll(dirs::getModConfigDir());
     (void) utils::file::createDirectoryAll(dirs::getModsDir());
-    (void) utils::file::createDirectoryAll(dirs::getGeodeLogDir());
+    (void) utils::file::createDirectoryAll(dirs::getSapfireLogDir());
     (void) utils::file::createDirectoryAll(dirs::getTempDir());
     (void) utils::file::createDirectoryAll(dirs::getModRuntimeDir());
 
@@ -115,7 +115,7 @@ Result<> Loader::Impl::setup() {
 }
 
 void Loader::Impl::addSearchPaths() {
-    CCFileUtils::get()->addPriorityPath(dirs::getGeodeResourcesDir().string().c_str());
+    CCFileUtils::get()->addPriorityPath(dirs::getSapfireResourcesDir().string().c_str());
     CCFileUtils::get()->addPriorityPath(dirs::getModRuntimeDir().string().c_str());
 }
 
@@ -220,7 +220,7 @@ Mod* Loader::Impl::getLoadedMod(std::string const& id) const {
 
 void Loader::Impl::updateModResources(Mod* mod) {
     if (!mod->isInternal()) {
-        // geode.loader resource is stored somewhere else, which is already added anyway
+        // sapfire.loader resource is stored somewhere else, which is already added anyway
         auto searchPathRoot = dirs::getModRuntimeDir() / mod->getID() / "resources";
         CCFileUtils::get()->addSearchPath(searchPathRoot.string().c_str());
     }
@@ -270,13 +270,13 @@ void Loader::Impl::queueMods(std::vector<ModMetadata>& modQueue) {
         log::pushNest();
         for (auto const& entry : std::filesystem::directory_iterator(dir)) {
             if (!std::filesystem::is_regular_file(entry) ||
-                entry.path().extension() != GEODE_MOD_EXTENSION)
+                entry.path().extension() != SAPFIRE_MOD_EXTENSION)
                 continue;
 
             log::debug("Found {}", entry.path().filename());
             log::pushNest();
 
-            auto res = ModMetadata::createFromGeodeFile(entry.path());
+            auto res = ModMetadata::createFromSapfireFile(entry.path());
             if (!res) {
                 this->addProblem({
                     LoadProblem::Type::InvalidFile,
@@ -409,7 +409,7 @@ void Loader::Impl::loadModGraph(Mod* node, bool early) {
 
     auto unzipFunction = [this, node]() {
         log::debug("Unzip");
-        auto res = node->m_impl->unzipGeodeFile(node->getMetadata());
+        auto res = node->m_impl->unzipSapfireFile(node->getMetadata());
         return res;
     };
 
@@ -458,17 +458,17 @@ void Loader::Impl::loadModGraph(Mod* node, bool early) {
             return;
         }
 
-        if (!this->isModVersionSupported(node->getMetadata().getGeodeVersion())) {
+        if (!this->isModVersionSupported(node->getMetadata().getSapfireVersion())) {
             this->addProblem({
-                node->getMetadata().getGeodeVersion() > this->getVersion() ? LoadProblem::Type::NeedsNewerGeodeVersion : LoadProblem::Type::UnsupportedGeodeVersion,
+                node->getMetadata().getSapfireVersion() > this->getVersion() ? LoadProblem::Type::NeedsNewerSapfireVersion : LoadProblem::Type::UnsupportedSapfireVersion,
                 node,
                 fmt::format(
-                    "Geode version {}\nis required to run this mod\n(installed: {})",
-                    node->getMetadata().getGeodeVersion().toVString(),
+                    "Sapfire version {}\nis required to run this mod\n(installed: {})",
+                    node->getMetadata().getSapfireVersion().toVString(),
                     this->getVersion().toVString()
                 )
             });
-            log::error("Unsupported Geode version: {}", node->getMetadata().getGeodeVersion());
+            log::error("Unsupported Sapfire version: {}", node->getMetadata().getSapfireVersion());
             m_refreshingModCount -= 1;
             log::popNest();
             return;
@@ -900,7 +900,7 @@ void Loader::Impl::releaseNextMod() {
 }
 
 // TODO: Support for quoted launch args w/ spaces (this will be backwards compatible)
-// e.g. "--geode:arg=My spaced value"
+// e.g. "--sapfire:arg=My spaced value"
 void Loader::Impl::initLaunchArguments() {
     auto launchStr = this->getLaunchCommand();
     auto args = string::split(launchStr, " ");
@@ -955,7 +955,7 @@ Result<tulip::hook::HandlerHandle> Loader::Impl::getOrCreateHandler(void* addres
     if (m_handlerHandles.count(address)) {
         return Ok(m_handlerHandles[address]);
     }
-    GEODE_UNWRAP_INTO(auto handle, tulip::hook::createHandler(address, metadata));
+    SAPFIRE_UNWRAP_INTO(auto handle, tulip::hook::createHandler(address, metadata));
     m_handlerHandles[address] = handle;
     return Ok(handle);
 }

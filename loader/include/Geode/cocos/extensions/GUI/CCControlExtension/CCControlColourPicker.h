@@ -50,7 +50,7 @@ NS_CC_EXT_BEGIN
 
 class CC_DLL CCControlColourPicker : public CCControl
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
     
 public:
     // @note RobTop Addition
@@ -58,7 +58,7 @@ public:
     // @note RobTop Addition
     virtual void setColorValue(ccColor3B const&);
 
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCControlColourPicker, CCControl)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCControlColourPicker, CCControl)
     CCControlColourPicker();
     virtual ~CCControlColourPicker();
 

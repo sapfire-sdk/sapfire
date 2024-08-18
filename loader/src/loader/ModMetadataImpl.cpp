@@ -1,9 +1,9 @@
-#include <Geode/loader/Loader.hpp>
-#include <Geode/utils/JsonValidation.hpp>
-#include <Geode/utils/VersionInfo.hpp>
-#include <Geode/utils/file.hpp>
-#include <Geode/utils/string.hpp>
-#include <Geode/utils/general.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/utils/JsonValidation.hpp>
+#include <Sapfire/utils/VersionInfo.hpp>
+#include <Sapfire/utils/file.hpp>
+#include <Sapfire/utils/string.hpp>
+#include <Sapfire/utils/general.hpp>
 #include <about.hpp>
 #include <matjson.hpp>
 #include <utility>
@@ -12,7 +12,7 @@
 #include "ModMetadataImpl.hpp"
 #include "LoaderImpl.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 std::optional<std::string> ModMetadataLinks::getHomepageURL() const {
     return m_impl->m_homepage;
@@ -24,7 +24,7 @@ std::optional<std::string> ModMetadataLinks::getCommunityURL() const {
     return m_impl->m_community;
 }
 
-#if defined(GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
+#if defined(SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
 ModMetadataLinks::Impl* ModMetadataLinks::getImpl() {
     return m_impl.get();
 }
@@ -128,7 +128,7 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
     JsonChecker checker(impl->m_rawJSON);
     auto root = checker.root(checkerRoot).obj();
 
-    root.needs("geode").into(impl->m_geodeVersion);
+    root.needs("sapfire").into(impl->m_sapfireVersion);
     root.addKnownKey("gd");
 
     // Check GD version
@@ -136,7 +136,7 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
     if (rawJson.contains("gd")) {
         std::string ver;
         if (rawJson["gd"].is_object()) {
-            auto key = PlatformID::toShortString(GEODE_PLATFORM_TARGET, true);
+            auto key = PlatformID::toShortString(SAPFIRE_PLATFORM_TARGET, true);
             if (rawJson["gd"].contains(key) && rawJson["gd"][key].is_string())
                 ver = rawJson["gd"][key].as_string();
         } else if (rawJson["gd"].is_string()) {
@@ -196,9 +196,9 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
         impl->m_isAPI = true;
     }
 
-    if (info.getID() != "geode.loader") {
+    if (info.getID() != "sapfire.loader") {
         impl->m_dependencies.push_back({
-            "geode.loader",
+            "sapfire.loader",
             {about::getLoaderVersion(), VersionCompare::Exact},
             Dependency::Importance::Required,
             Mod::get()
@@ -210,7 +210,7 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
 
         bool onThisPlatform = !obj.has("platforms");
         for (auto& plat : obj.has("platforms").iterate()) {
-            if (PlatformID::coveredBy(plat.get<std::string>(), GEODE_PLATFORM_TARGET)) {
+            if (PlatformID::coveredBy(plat.get<std::string>(), SAPFIRE_PLATFORM_TARGET)) {
                 onThisPlatform = true;
             }
         }
@@ -265,7 +265,7 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
             auto obj = value.obj();
             bool onThisPlatform = !obj.has("platforms");
             for (auto& plat : obj.has("platforms").iterate()) {
-                if (PlatformID::coveredBy(plat.get<std::string>(), GEODE_PLATFORM_TARGET)) {
+                if (PlatformID::coveredBy(plat.get<std::string>(), SAPFIRE_PLATFORM_TARGET)) {
                     onThisPlatform = true;
                 }
             }
@@ -274,7 +274,7 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
             }
         }
 
-        GEODE_UNWRAP_INTO(auto sett, Setting::parse(key, impl->m_id, value));
+        SAPFIRE_UNWRAP_INTO(auto sett, Setting::parse(key, impl->m_id, value));
         impl->m_settings.emplace_back(key, sett);
     }
 
@@ -304,7 +304,7 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
     }
 
     // with new cli, binary name is always mod id
-    impl->m_binaryName = impl->m_id + GEODE_PLATFORM_EXTENSION;
+    impl->m_binaryName = impl->m_id + SAPFIRE_PLATFORM_EXTENSION;
 
     if (checker.isError()) {
         return Err(checker.getError());
@@ -317,10 +317,10 @@ Result<ModMetadata> ModMetadata::Impl::createFromSchemaV010(ModJson const& rawJs
 Result<ModMetadata> ModMetadata::Impl::create(ModJson const& json) {
     // Check mod.json target version
     auto schema = about::getLoaderVersion();
-    if (json.contains("geode") && json["geode"].is_string()) {
-        GEODE_UNWRAP_INTO(
+    if (json.contains("sapfire") && json["sapfire"].is_string()) {
+        SAPFIRE_UNWRAP_INTO(
             schema,
-            VersionInfo::parse(json["geode"].as_string())
+            VersionInfo::parse(json["sapfire"].as_string())
                 .expect("[mod.json] has invalid target loader version: {error}")
         );
     }
@@ -333,7 +333,7 @@ Result<ModMetadata> ModMetadata::Impl::create(ModJson const& json) {
     // if (schema < Loader::get()->minModVersion()) {
     //     return Err(
     //         "[mod.json] is built for an older version (" + schema.toString() +
-    //         ") of Geode (current: " + Loader::get()->getVersion().toString() +
+    //         ") of Sapfire (current: " + Loader::get()->getVersion().toString() +
     //         "). Please update the mod to the latest version, "
     //         "and if the problem persists, contact the developer "
     //         "to update it."
@@ -342,8 +342,8 @@ Result<ModMetadata> ModMetadata::Impl::create(ModJson const& json) {
     // if (schema > Loader::get()->maxModVersion()) {
     //     return Err(
     //         "[mod.json] is built for a newer version (" + schema.toString() +
-    //         ") of Geode (current: " + Loader::get()->getVersion().toString() +
-    //         "). You need to update Geode in order to use "
+    //         ") of Sapfire (current: " + Loader::get()->getVersion().toString() +
+    //         "). You need to update Sapfire in order to use "
     //         "this mod."
     //     );
     // }
@@ -354,8 +354,8 @@ Result<ModMetadata> ModMetadata::Impl::create(ModJson const& json) {
             "[mod.json] targets a version (" + schema.toVString() +
             ") that isn't supported by this version (v" +
             about::getLoaderVersionStr() +
-            ") of geode. This is probably a bug; report it to "
-            "the Geode Development Team."
+            ") of sapfire. This is probably a bug; report it to "
+            "the Sapfire Development Team."
         );
     }
 
@@ -363,7 +363,7 @@ Result<ModMetadata> ModMetadata::Impl::create(ModJson const& json) {
 }
 
 Result<ModMetadata> ModMetadata::Impl::createFromFile(std::filesystem::path const& path) {
-    GEODE_UNWRAP_INTO(auto read, utils::file::readString(path));
+    SAPFIRE_UNWRAP_INTO(auto read, utils::file::readString(path));
 
     std::string error;
     auto res = matjson::parse(read, error);
@@ -371,30 +371,30 @@ Result<ModMetadata> ModMetadata::Impl::createFromFile(std::filesystem::path cons
         return Err(std::string("Unable to parse mod.json: ") + error);
     }
 
-    GEODE_UNWRAP_INTO(auto info, ModMetadata::create(res.value()));
+    SAPFIRE_UNWRAP_INTO(auto info, ModMetadata::create(res.value()));
 
     auto impl = info.m_impl.get();
 
     impl->m_path = path;
     if (path.has_parent_path()) {
-        GEODE_UNWRAP(info.addSpecialFiles(path.parent_path()));
+        SAPFIRE_UNWRAP(info.addSpecialFiles(path.parent_path()));
     }
     return Ok(info);
 }
 
-Result<ModMetadata> ModMetadata::Impl::createFromGeodeFile(std::filesystem::path const& path) {
-    GEODE_UNWRAP_INTO(auto unzip, file::Unzip::create(path));
-    return ModMetadata::createFromGeodeZip(unzip);
+Result<ModMetadata> ModMetadata::Impl::createFromSapfireFile(std::filesystem::path const& path) {
+    SAPFIRE_UNWRAP_INTO(auto unzip, file::Unzip::create(path));
+    return ModMetadata::createFromSapfireZip(unzip);
 }
 
-Result<ModMetadata> ModMetadata::Impl::createFromGeodeZip(file::Unzip& unzip) {
+Result<ModMetadata> ModMetadata::Impl::createFromSapfireZip(file::Unzip& unzip) {
     // Check if mod.json exists in zip
     if (!unzip.hasEntry("mod.json")) {
         return Err("\"" + unzip.getPath().string() + "\" is missing mod.json");
     }
 
     // Read mod.json & parse if possible
-    GEODE_UNWRAP_INTO(
+    SAPFIRE_UNWRAP_INTO(
         auto jsonData, unzip.extract("mod.json").expect("Unable to read mod.json: {error}")
     );
 
@@ -413,7 +413,7 @@ Result<ModMetadata> ModMetadata::Impl::createFromGeodeZip(file::Unzip& unzip) {
     auto impl = info.m_impl.get();
     impl->m_path = unzip.getPath();
 
-    GEODE_UNWRAP(info.addSpecialFiles(unzip).expect("Unable to add extra files: {error}"));
+    SAPFIRE_UNWRAP(info.addSpecialFiles(unzip).expect("Unable to add extra files: {error}"));
 
     return Ok(info);
 }
@@ -422,7 +422,7 @@ Result<> ModMetadata::Impl::addSpecialFiles(file::Unzip& unzip) {
     // unzip known MD files
     for (auto& [file, target] : this->getSpecialFiles()) {
         if (unzip.hasEntry(file)) {
-            GEODE_UNWRAP_INTO(auto data, unzip.extract(file).expect("Unable to extract \"{}\"", file));
+            SAPFIRE_UNWRAP_INTO(auto data, unzip.extract(file).expect("Unable to extract \"{}\"", file));
             *target = sanitizeDetailsData(std::string(data.begin(), data.end()));
         }
     }
@@ -557,8 +557,8 @@ std::optional<std::string> ModMetadata::getGameVersion() const {
     if (m_impl->m_gdVersion.empty()) return std::nullopt;
     return m_impl->m_gdVersion;
 }
-VersionInfo ModMetadata::getGeodeVersion() const {
-    return m_impl->m_geodeVersion;
+VersionInfo ModMetadata::getSapfireVersion() const {
+    return m_impl->m_sapfireVersion;
 }
 Result<> ModMetadata::checkGameVersion() const {
     if (!m_impl->m_gdVersion.empty()) {
@@ -575,17 +575,17 @@ Result<> ModMetadata::checkGameVersion() const {
         }
 
         if (LoaderImpl::get()->isForwardCompatMode()) {
-            // this means current gd version is > GEODE_GD_VERSION
-            if (modTargetVer <= GEODE_GD_VERSION) {
+            // this means current gd version is > SAPFIRE_GD_VERSION
+            if (modTargetVer <= SAPFIRE_GD_VERSION) {
                 return Err(fmt::format("This mod doesn't support this version of Geometry Dash ({})", ver));
             }
-        } else if (ver != GEODE_STR(GEODE_GD_VERSION)) {
-            // we are not in forward compat mode, so GEODE_GD_VERSION is the current gd version
+        } else if (ver != SAPFIRE_STR(SAPFIRE_GD_VERSION)) {
+            // we are not in forward compat mode, so SAPFIRE_GD_VERSION is the current gd version
             return Err(
                 fmt::format(
                     "This mod was created for a different version of Geometry Dash ({}). You currently have version {}.",
                     ver,
-                    GEODE_STR(GEODE_GD_VERSION)
+                    SAPFIRE_STR(SAPFIRE_GD_VERSION)
                 )
             );
         }
@@ -593,7 +593,7 @@ Result<> ModMetadata::checkGameVersion() const {
     return Ok();
 }
 
-#if defined(GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
+#if defined(SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
 void ModMetadata::setPath(std::filesystem::path const& value) {
     m_impl->m_path = value;
 }
@@ -659,11 +659,11 @@ ModMetadataLinks& ModMetadata::getLinksMut() {
 }
 #endif
 
-Result<ModMetadata> ModMetadata::createFromGeodeZip(utils::file::Unzip& zip) {
-    return Impl::createFromGeodeZip(zip);
+Result<ModMetadata> ModMetadata::createFromSapfireZip(utils::file::Unzip& zip) {
+    return Impl::createFromSapfireZip(zip);
 }
-Result<ModMetadata> ModMetadata::createFromGeodeFile(std::filesystem::path const& path) {
-    return Impl::createFromGeodeFile(path);
+Result<ModMetadata> ModMetadata::createFromSapfireFile(std::filesystem::path const& path) {
+    return Impl::createFromSapfireFile(path);
 }
 Result<ModMetadata> ModMetadata::createFromFile(std::filesystem::path const& path) {
     return Impl::createFromFile(path);

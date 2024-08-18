@@ -1,6 +1,6 @@
 #include <crashlog.hpp>
 
-#include <Geode/utils/string.hpp>
+#include <Sapfire/utils/string.hpp>
 #include <array>
 #include <thread>
 #include <filesystem>
@@ -143,8 +143,8 @@ static Mod* modFromAddress(void const* addr) {
     if (!std::filesystem::exists(imagePath)) {
         return nullptr;
     }
-    auto geodePath = dirs::getGameDir() / "Frameworks" / "Geode.dylib";
-    if (std::filesystem::equivalent(imagePath, geodePath)) {
+    auto sapfirePath = dirs::getGameDir() / "Frameworks" / "Sapfire.dylib";
+    if (std::filesystem::equivalent(imagePath, sapfirePath)) {
         return Mod::get();
     }
 
@@ -173,7 +173,7 @@ extern "C" void signalHandler(int signal, siginfo_t* signalInfo, void* vcontext)
 	s_backtraceSize = backtrace(s_backtrace.data(), FRAME_SIZE);
 
     	// for some reason this is needed, dont ask me why
-	#ifdef GEODE_IS_INTEL_MAC
+	#ifdef SAPFIRE_IS_INTEL_MAC
 	s_backtrace[2] = reinterpret_cast<void*>(context->uc_mcontext->__ss.__rip);
 	#else
 	s_backtrace[2] = reinterpret_cast<void*>(context->uc_mcontext->__ss.__pc);
@@ -249,7 +249,7 @@ static std::string getStacktrace() {
         std::getline(stream, binary);
         auto cutoff = binary.find("0x");
         stream = std::stringstream(binary.substr(cutoff));
-        binary = geode::utils::string::trim(binary.substr(0, cutoff));
+        binary = sapfire::utils::string::trim(binary.substr(0, cutoff));
         stream >> std::hex >> address >> std::dec;
 
         if (!line.empty()) {
@@ -274,7 +274,7 @@ static std::string getStacktrace() {
             cutoff = function.find("+");
             stream = std::stringstream(function.substr(cutoff));
             stream >> offset;
-            function = geode::utils::string::trim(function.substr(0, cutoff));
+            function = sapfire::utils::string::trim(function.substr(0, cutoff));
 
             {
                 int status;
@@ -304,7 +304,7 @@ static std::string getRegisters() {
 
     // geez
     registers << std::showbase << std::hex /*<< std::setfill('0') << std::setw(16) */;
-    #ifdef GEODE_IS_INTEL_MAC
+    #ifdef SAPFIRE_IS_INTEL_MAC
     registers << "rax: " << ss.__rax << "\n";
     registers << "rbx: " << ss.__rbx << "\n";
     registers << "rcx: " << ss.__rcx << "\n";
@@ -370,7 +370,7 @@ static void handlerThread() {
     std::unique_lock<std::mutex> lock(s_mutex);
     s_cv.wait(lock, [] { return s_signal != 0; });
 
-    #ifdef GEODE_IS_INTEL_MAC
+    #ifdef SAPFIRE_IS_INTEL_MAC
     auto signalAddress = reinterpret_cast<void*>(s_context->uc_mcontext->__ss.__rip);
     #else // m1
     auto signalAddress = reinterpret_cast<void*>(s_context->uc_mcontext->__ss.__pc);
@@ -387,7 +387,7 @@ static void handlerThread() {
 
     auto text = crashlog::writeCrashlog(faultyMod, getInfo(signalAddress, faultyMod), getStacktrace(), getRegisters());
 
-    log::error("Geode crashed!\n{}", text);
+    log::error("Sapfire crashed!\n{}", text);
     
     s_signal = 0;
     s_cv.notify_all();
@@ -432,5 +432,5 @@ bool crashlog::didLastLaunchCrash() {
 }
 
 std::filesystem::path crashlog::getCrashLogDirectory() {
-    return dirs::getGeodeDir() / "crashlogs";
+    return dirs::getSapfireDir() / "crashlogs";
 }

@@ -7,10 +7,10 @@ ${LangFileString} MUI_UNTEXT_WELCOME_INFO_TEXT "Το setup θα σας καθο�
 
 ; installer
 
-${LangFileString} GEODE_TEXT_GD_MISSING "$\r$\n$\r$\nΑυτό το path δεν έχει το Geometry Dash εγκατεστημένο!"
-${LangFileString} GEODE_TEXT_GD_OLD "$\r$\n$\r$\nYour version of Geometry Dash is too old for this version of Geode!"
-${LangFileString} GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED "This path has other mods installed!$\r$\nThey will be overwritten by Geode. (the dll trademark)"
+${LangFileString} SAPFIRE_TEXT_GD_MISSING "$\r$\n$\r$\nΑυτό το path δεν έχει το Geometry Dash εγκατεστημένο!"
+${LangFileString} SAPFIRE_TEXT_GD_OLD "$\r$\n$\r$\nYour version of Geometry Dash is too old for this version of Sapfire!"
+${LangFileString} SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED "This path has other mods installed!$\r$\nThey will be overwritten by Sapfire. (the dll trademark)"
 
 ; uninstaller
 
-${LangFileString} GEODE_UNTEXT_GEODE_MISSING "Αυτό το path δεν έχει το Geode εγκατεστημένο!"
+${LangFileString} SAPFIRE_UNTEXT_SAPFIRE_MISSING "Αυτό το path δεν έχει το Sapfire εγκατεστημένο!"

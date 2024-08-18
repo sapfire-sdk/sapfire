@@ -1,7 +1,7 @@
 #include <FileWatcher.hpp>
 #include <iostream>
 #include <thread>
-#include <Geode/utils/general.hpp>
+#include <Sapfire/utils/general.hpp>
 
 static constexpr auto const notifyAttributes =
     FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_ATTRIBUTES | FILE_NOTIFY_CHANGE_SIZE;
@@ -33,7 +33,7 @@ FileWatcher::~FileWatcher() {
 }
 
 void FileWatcher::watch() {
-    geode::utils::thread::setName("File Watcher");
+    sapfire::utils::thread::setName("File Watcher");
 
     HANDLE handle = (HANDLE)m_platformHandle;
     while (WaitForSingleObject(handle, 10000) == WAIT_OBJECT_0) {

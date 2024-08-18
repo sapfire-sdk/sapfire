@@ -54,7 +54,7 @@ typedef enum _ccConfigurationType {
  */
 class CC_DLL CCConfiguration : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /** returns a shared instance of CCConfiguration */
     static CCConfiguration *sharedConfiguration(void);

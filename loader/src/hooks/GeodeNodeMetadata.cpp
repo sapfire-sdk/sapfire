@@ -1,12 +1,12 @@
-#include <Geode/modify/Field.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/modify/Field.hpp>
-#include <Geode/modify/CCNode.hpp>
+#include <Sapfire/modify/Field.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/modify/Field.hpp>
+#include <Sapfire/modify/CCNode.hpp>
 #include <cocos2d.h>
 #include <queue>
 
-using namespace geode::prelude;
-using namespace geode::modifier;
+using namespace sapfire::prelude;
+using namespace sapfire::modifier;
 
 #pragma warning(push)
 #pragma warning(disable : 4273)
@@ -15,7 +15,7 @@ constexpr auto METADATA_TAG = 0xB324ABC;
 
 struct ProxyCCNode;
 
-class GeodeNodeMetadata final : public cocos2d::CCObject {
+class SapfireNodeMetadata final : public cocos2d::CCObject {
 private:
     std::unordered_map<std::string, FieldContainer*> m_classFieldContainers;
     std::string m_id = "";
@@ -28,25 +28,25 @@ private:
     friend class ProxyCCNode;
     friend class cocos2d::CCNode;
 
-    GeodeNodeMetadata() {}
+    SapfireNodeMetadata() {}
 
-    virtual ~GeodeNodeMetadata() {
+    virtual ~SapfireNodeMetadata() {
         for (auto& [_, container] : m_classFieldContainers) {
             delete container;
         }
     }
 
 public:
-    static GeodeNodeMetadata* set(CCNode* target) {
+    static SapfireNodeMetadata* set(CCNode* target) {
         if (!target) return nullptr;
 
         auto old = target->m_pUserObject;
         // faster than dynamic_cast, technically can
         // but extremely unlikely to fail
         if (old && old->getTag() == METADATA_TAG) {
-            return static_cast<GeodeNodeMetadata*>(old);
+            return static_cast<SapfireNodeMetadata*>(old);
         }
-        auto meta = new GeodeNodeMetadata();
+        auto meta = new SapfireNodeMetadata();
         meta->autorelease();
         meta->setTag(METADATA_TAG);
 
@@ -75,7 +75,7 @@ public:
 };
 
 // proxy forwards
-#include <Geode/modify/CCNode.hpp>
+#include <Sapfire/modify/CCNode.hpp>
 struct ProxyCCNode : Modify<ProxyCCNode, CCNode> {
     virtual CCObject* getUserObject() {
         if (auto asNode = typeinfo_cast<CCNode*>(this)) {
@@ -106,19 +106,19 @@ size_t modifier::getFieldIndexForClass(char const* name) {
 
 // not const because might modify contents
 FieldContainer* CCNode::getFieldContainer() {
-    return GeodeNodeMetadata::set(this)->getFieldContainer();
+    return SapfireNodeMetadata::set(this)->getFieldContainer();
 }
 
 FieldContainer* CCNode::getFieldContainer(char const* forClass) {
-    return GeodeNodeMetadata::set(this)->getFieldContainer(forClass);
+    return SapfireNodeMetadata::set(this)->getFieldContainer(forClass);
 }
 
 std::string CCNode::getID() {
-    return GeodeNodeMetadata::set(this)->m_id;
+    return SapfireNodeMetadata::set(this)->m_id;
 }
 
 void CCNode::setID(std::string const& id) {
-    GeodeNodeMetadata::set(this)->m_id = id;
+    SapfireNodeMetadata::set(this)->m_id = id;
 }
 
 CCNode* CCNode::getChildByID(std::string const& id) {
@@ -311,32 +311,32 @@ void CCNode::setLayout(Layout* layout, bool apply, bool respectAnchor) {
         }
         this->ignoreAnchorPointForPosition(false);
     }
-    GeodeNodeMetadata::set(this)->m_layout = layout;
+    SapfireNodeMetadata::set(this)->m_layout = layout;
     if (apply) {
         this->updateLayout();
     }
 }
 
 Layout* CCNode::getLayout() {
-    return GeodeNodeMetadata::set(this)->m_layout.data();
+    return SapfireNodeMetadata::set(this)->m_layout.data();
 }
 
 void CCNode::setLayoutOptions(LayoutOptions* options, bool apply) {
-    GeodeNodeMetadata::set(this)->m_layoutOptions = options;
+    SapfireNodeMetadata::set(this)->m_layoutOptions = options;
     if (apply && m_pParent) {
         m_pParent->updateLayout();
     }
 }
 
 LayoutOptions* CCNode::getLayoutOptions() {
-    return GeodeNodeMetadata::set(this)->m_layoutOptions.data();
+    return SapfireNodeMetadata::set(this)->m_layoutOptions.data();
 }
 
 void CCNode::updateLayout(bool updateChildOrder) {
     if (updateChildOrder) {
         this->sortAllChildren();
     }
-    if (auto layout = GeodeNodeMetadata::set(this)->m_layout.data()) {
+    if (auto layout = SapfireNodeMetadata::set(this)->m_layout.data()) {
         layout->apply(this);
     }
 }
@@ -354,7 +354,7 @@ ListenerResult AttributeSetFilter::handle(MiniFunction<Callback> fn, UserObjectS
 AttributeSetFilter::AttributeSetFilter(std::string const& id) : m_targetID(id) {}
 
 void CCNode::setUserObject(std::string const& id, CCObject* value) {
-    auto meta = GeodeNodeMetadata::set(this);
+    auto meta = SapfireNodeMetadata::set(this);
     if (value) {
         meta->m_userObjects[id] = value;
     }
@@ -365,7 +365,7 @@ void CCNode::setUserObject(std::string const& id, CCObject* value) {
 }
 
 CCObject* CCNode::getUserObject(std::string const& id) {
-    auto meta = GeodeNodeMetadata::set(this);
+    auto meta = SapfireNodeMetadata::set(this);
     if (meta->m_userObjects.count(id)) {
         return meta->m_userObjects.at(id);
     }
@@ -373,7 +373,7 @@ CCObject* CCNode::getUserObject(std::string const& id) {
 }
 
 void CCNode::addEventListenerInternal(std::string const& id, EventListenerProtocol* listener) {
-    auto meta = GeodeNodeMetadata::set(this);
+    auto meta = SapfireNodeMetadata::set(this);
     if (id.size()) {
         if (meta->m_idEventListeners.contains(id)) {
             meta->m_idEventListeners.at(id).reset(listener);
@@ -391,7 +391,7 @@ void CCNode::addEventListenerInternal(std::string const& id, EventListenerProtoc
 }
 
 void CCNode::removeEventListener(EventListenerProtocol* listener) {
-    auto meta = GeodeNodeMetadata::set(this);
+    auto meta = SapfireNodeMetadata::set(this);
     std::erase_if(meta->m_eventListeners, [=](auto& l) {
         return l.get() == listener;
     });
@@ -401,11 +401,11 @@ void CCNode::removeEventListener(EventListenerProtocol* listener) {
 }
 
 void CCNode::removeEventListener(std::string const& id) {
-    GeodeNodeMetadata::set(this)->m_idEventListeners.erase(id);
+    SapfireNodeMetadata::set(this)->m_idEventListeners.erase(id);
 }
 
 EventListenerProtocol* CCNode::getEventListener(std::string const& id) {
-    auto meta = GeodeNodeMetadata::set(this);
+    auto meta = SapfireNodeMetadata::set(this);
     if (meta->m_idEventListeners.contains(id)) {
         return meta->m_idEventListeners.at(id).get();
     }
@@ -413,8 +413,8 @@ EventListenerProtocol* CCNode::getEventListener(std::string const& id) {
 }
 
 size_t CCNode::getEventListenerCount() {
-    return GeodeNodeMetadata::set(this)->m_idEventListeners.size() +
-        GeodeNodeMetadata::set(this)->m_eventListeners.size();
+    return SapfireNodeMetadata::set(this)->m_idEventListeners.size() +
+        SapfireNodeMetadata::set(this)->m_eventListeners.size();
 }
 
 void CCNode::addChildAtPosition(CCNode* child, Anchor anchor, CCPoint const& offset, bool useAnchorLayout) {
@@ -455,7 +455,7 @@ void CCNode::updateAnchoredPosition(Anchor anchor, CCPoint const& offset, CCPoin
     }
 }
 
-#ifdef GEODE_EXPORTING
+#ifdef SAPFIRE_EXPORTING
 
 void CCNode::setAttribute(std::string const& attr, matjson::Value const& value) {}
 std::optional<matjson::Value> CCNode::getAttributeInternal(std::string const& attr) {

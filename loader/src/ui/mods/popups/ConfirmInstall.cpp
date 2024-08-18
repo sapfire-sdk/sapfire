@@ -1,9 +1,9 @@
 #include "ConfirmInstall.hpp"
-#include <Geode/utils/ranges.hpp>
-#include <Geode/ui/Popup.hpp>
+#include <Sapfire/utils/ranges.hpp>
+#include <Sapfire/ui/Popup.hpp>
 #include <server/DownloadManager.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 using namespace server;
 
 void askConfirmModInstalls() {

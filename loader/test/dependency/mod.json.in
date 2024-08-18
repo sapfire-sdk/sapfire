@@ -1,15 +1,15 @@
 {
-    "geode":        "@GEODE_VERSION_FULL@",
+    "sapfire":        "@SAPFIRE_VERSION_FULL@",
     "gd": {
         "win": "*",
         "mac": "*",
         "android": "*"
     },
 	"version":      "1.0.0",
-	"id":           "geode.testdep",
-    "name":         "Geode Test Dependency",
-    "developer":    "Geode Team",
-    "description":  "Unit test dependency for Geode",
+	"id":           "sapfire.testdep",
+    "name":         "Sapfire Test Dependency",
+    "developer":    "Sapfire Team",
+    "description":  "Unit test dependency for Sapfire",
     "api": {
         "include": []
     },

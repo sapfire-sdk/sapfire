@@ -31,7 +31,7 @@ static ByteVector readMemory(void* address, size_t amount) {
     return ret;
 }
 
-std::shared_ptr<Patch> Patch::Impl::create(void* address, const geode::ByteVector& patch) {
+std::shared_ptr<Patch> Patch::Impl::create(void* address, const sapfire::ByteVector& patch) {
     auto impl = std::make_shared<Impl>(
         address, readMemory(address, patch.size()), patch
     );

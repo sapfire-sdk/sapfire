@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/binding/TextInputDelegate.hpp>
-#include <Geode/binding/CCTextInputNode.hpp>
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/binding/TextInputDelegate.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
 #include <cocos2d.h>
 
-namespace geode {
+namespace sapfire {
     enum class CommonFilter {
         // Allow an unsigned integer
         Uint,
@@ -27,7 +27,7 @@ namespace geode {
         Base64URL,
     };
 
-    GEODE_DLL const char* getCommonFilterAllowedChars(CommonFilter filter);
+    SAPFIRE_DLL const char* getCommonFilterAllowedChars(CommonFilter filter);
 
     enum class TextInputAlign {
         Center,
@@ -37,7 +37,7 @@ namespace geode {
     /**
      * A single-line text input node
      */
-    class GEODE_DLL TextInput : public cocos2d::CCNode, public TextInputDelegate {
+    class SAPFIRE_DLL TextInput : public cocos2d::CCNode, public TextInputDelegate {
     protected:
         cocos2d::extension::CCScale9Sprite* m_bgSprite;
         CCTextInputNode* m_input;

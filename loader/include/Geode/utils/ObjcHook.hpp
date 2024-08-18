@@ -3,7 +3,7 @@
 #include "../loader/Hook.hpp"
 #include "Result.hpp"
 
-namespace geode {
+namespace sapfire {
     namespace hook {
         /**
          * Add a new Objective-C method to a class. This method will be created
@@ -36,7 +36,7 @@ namespace geode {
          */
         template <class Func>
         static Result<std::shared_ptr<Hook>> create(std::string const& className, std::string const& selectorName, Func function, tulip::hook::HookMetadata const& metadata = tulip::hook::HookMetadata()) {
-            GEODE_UNWRAP_INTO(auto imp, geode::hook::getObjcMethodImp(className, selectorName));
+            SAPFIRE_UNWRAP_INTO(auto imp, sapfire::hook::getObjcMethodImp(className, selectorName));
 
             return Ok(Hook::create(
                 getMod(),
@@ -60,7 +60,7 @@ namespace geode {
          */
         template <class Func>
         static Result<std::shared_ptr<Hook>> create(std::string const& className, std::string const& selectorName, Func function, void(*empty)(), tulip::hook::HookMetadata const& metadata = tulip::hook::HookMetadata()) {
-            GEODE_UNWRAP(geode::hook::addObjcMethod(className, selectorName, (void*)empty));
+            SAPFIRE_UNWRAP(sapfire::hook::addObjcMethod(className, selectorName, (void*)empty));
 
             return ObjcHook::create(className, selectorName, function, metadata);
         }

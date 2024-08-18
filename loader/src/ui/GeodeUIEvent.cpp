@@ -1,4 +1,4 @@
-#include "GeodeUIEvent.hpp"
+#include "SapfireUIEvent.hpp"
 
 ModPopupUIEvent::ModPopupUIEvent(std::unique_ptr<Impl>&& impl) : m_impl(std::move(impl)) {}
 ModPopupUIEvent::~ModPopupUIEvent() = default;
@@ -46,7 +46,7 @@ std::optional<Mod*> ModLogoUIEvent::getMod() const {
 
 // $execute {
 //     new EventListener<EventFilter<ModLogoUIEvent>>(+[](ModLogoUIEvent* event) {
-//         if (event->getModID() == "geode.loader") {
+//         if (event->getModID() == "sapfire.loader") {
 //             auto fart = CCSprite::createWithSpriteFrameName("GJ_demonIcon_001.png");
 //             fart->setScaleX(5);
 //             fart->setScaleY(3);
@@ -55,7 +55,7 @@ std::optional<Mod*> ModLogoUIEvent::getMod() const {
 //         return ListenerResult::Propagate;
 //     });
 //     new EventListener<EventFilter<ModItemUIEvent>>(+[](ModItemUIEvent* event) {
-//         if (event->getModID() == "geode.loader") {
+//         if (event->getModID() == "sapfire.loader") {
 //             auto fart = CCSprite::createWithSpriteFrameName("GJ_demonIcon_001.png");
 //             fart->setScaleX(4);
 //             fart->setScaleY(2);

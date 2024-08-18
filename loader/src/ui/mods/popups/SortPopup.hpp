@@ -1,13 +1,13 @@
 #pragma once
 
-#include <Geode/ui/Popup.hpp>
+#include <Sapfire/ui/Popup.hpp>
 #include "../sources/ModListSource.hpp"
-#include "../GeodeStyle.hpp"
+#include "../SapfireStyle.hpp"
 #include <server/Server.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-class SortPopup : public GeodePopup<ModListSource*> {
+class SortPopup : public SapfirePopup<ModListSource*> {
 protected:
     ModListSource* m_source;
     std::vector<CCMenuItemToggler*> m_options;

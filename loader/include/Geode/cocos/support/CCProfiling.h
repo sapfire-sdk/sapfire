@@ -50,7 +50,7 @@ class CCProfilingTimer;
 
 class CC_DLL CCProfiler : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     ~CCProfiler(void);
     /** display the timers */

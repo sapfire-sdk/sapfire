@@ -7,14 +7,14 @@
 #include "../utils/casts.hpp"
 #include "casts.hpp"
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 #include <cocos-ext.h>
 #include <concepts>
 #include <cstdlib>
 #include <stddef.h>
 #include <type_traits>
 
-namespace geode::addresser {
+namespace sapfire::addresser {
 
     template <class Function>
     intptr_t getVirtual(Function func);
@@ -40,7 +40,7 @@ namespace geode::addresser {
         new Class(ZeroConstructor);
     };
 
-    class GEODE_DLL Addresser final {
+    class SAPFIRE_DLL Addresser final {
         template <char C>
         struct SingleInheritance {
             virtual ~SingleInheritance() {}
@@ -92,7 +92,7 @@ namespace geode::addresser {
          */
         template <class Return, class Class, class... Parameters>
         static intptr_t addressOfVirtual(Return (Class::*func)(Parameters...)) {
-            using geode::cast::reference_cast;
+            using sapfire::cast::reference_cast;
 
             auto ins = cachedInstance<Class>();
             // generateInstance will return nullptr on most abstract classes,
@@ -108,7 +108,7 @@ namespace geode::addresser {
                 *reinterpret_cast<intptr_t*>(reinterpret_cast<intptr_t>(ins) + thunk) + index
             );
 
-            #ifdef GEODE_IS_WINDOWS
+            #ifdef SAPFIRE_IS_WINDOWS
             // if the first instruction is a long jmp then this might still be a thunk
             if (*reinterpret_cast<uint8_t*>(address) == 0xE9) {
                 auto relative = *reinterpret_cast<uint32_t*>(address + 1);
@@ -130,7 +130,7 @@ namespace geode::addresser {
 
         template <class FnPtr>
         static intptr_t addressOfNonVirtual(FnPtr func) {
-            return followThunkFunction(geode::cast::reference_cast<intptr_t>(func));
+            return followThunkFunction(sapfire::cast::reference_cast<intptr_t>(func));
         }
 
         template <class Function>
@@ -186,7 +186,7 @@ namespace geode::addresser {
         // do NOT delete the line below.
         // doing so breaks thunk adjusting on windows.
         // why? bruh idk
-        auto _ = *geode::cast::template union_cast<ptrdiff_t*>(&func);
+        auto _ = *sapfire::cast::template union_cast<ptrdiff_t*>(&func);
         return (Class)((intptr_t)self + Addresser::thunkOf(func));
     }
 
@@ -198,7 +198,7 @@ namespace geode::addresser {
         // do NOT delete the line below.
         // doing so breaks thunk adjusting on windows.
         // why? bruh idk
-        auto _ = *geode::cast::template union_cast<ptrdiff_t*>(&func);
+        auto _ = *sapfire::cast::template union_cast<ptrdiff_t*>(&func);
         return (Class)((intptr_t)self - Addresser::thunkOf(func));
     }
 }

@@ -1,9 +1,9 @@
-#include <Geode/loader/IPC.hpp>
+#include <Sapfire/loader/IPC.hpp>
 #include "IPC.hpp"
 #include <matjson.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Mod.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 ipc::IPCEvent::IPCEvent(
     void* rawPipeHandle,

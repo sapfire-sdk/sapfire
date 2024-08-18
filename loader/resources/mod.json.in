@@ -1,21 +1,21 @@
 {
-    "geode": "@PROJECT_VERSION@@PROJECT_VERSION_SUFFIX@",
+    "sapfire": "@PROJECT_VERSION@@PROJECT_VERSION_SUFFIX@",
     "gd": {
         "win": "*",
         "mac": "*",
         "android": "*"
     },
-    "id": "geode.loader",
+    "id": "sapfire.loader",
     "version": "@PROJECT_VERSION@@PROJECT_VERSION_SUFFIX@",
-    "name": "Geode",
-    "developer": "Geode Team",
-    "description": "The Geode mod loader",
+    "name": "Sapfire",
+    "developer": "Sapfire Team",
+    "description": "The Sapfire mod loader",
     "links": {
         "community": "https://discord.com/invite/9e43WMKzhp",
         "homepage": "https://geode-sdk.org",
-        "source": "https://github.com/geode-sdk/geode"
+        "source": "https://github.com/sapfire-sdk/sapfire"
     },
-    "repository": "https://github.com/geode-sdk/geode",
+    "repository": "https://github.com/sapfire-sdk/sapfire",
     "resources": {
         "fonts": {
             "mdFont": {
@@ -75,7 +75,7 @@
             "type": "bool",
             "default": true,
             "name": "Check For Updates",
-            "description": "Automatically check for <cy>Geode</c> updates on startup"
+            "description": "Automatically check for <cy>Sapfire</c> updates on startup"
         },
         "disable-last-crashed-popup": {
             "type": "bool",
@@ -91,15 +91,15 @@
             "name": "Server Cache Size Limit",
             "description": "Limits the size of the cache used for loading mods. Higher values result in higher memory usage."
         },
-        "enable-geode-theme": {
+        "enable-sapfire-theme": {
             "type": "bool",
             "default": true,
-            "name": "Enable Geode-Themed Colors",
-            "description": "When enabled, the Geode menu has a <ca>Geode-themed color scheme</c>. <cy>This does not affect any other menus!</c>"
+            "name": "Enable Sapfire-Themed Colors",
+            "description": "When enabled, the Sapfire menu has a <ca>Sapfire-themed color scheme</c>. <cy>This does not affect any other menus!</c>"
         }
     },
     "issues": {
-        "info": "Post your issues on the <cp>Geode Github Repository</c>. <cy>Please follow the standard issue format</c>.",
-        "url": "https://github.com/geode-sdk/geode/issues/new"
+        "info": "Post your issues on the <cp>Sapfire Github Repository</c>. <cy>Please follow the standard issue format</c>.",
+        "url": "https://github.com/sapfire-sdk/sapfire/issues/new"
     }
 }

@@ -48,13 +48,13 @@ enum {
  */
 class CC_DLL CCAction : public CCObject 
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      * @js ctor
      */
     CCAction(void);
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCAction, CCObject);
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCAction, CCObject);
     /**
      * @js NA
      * @lua NA
@@ -145,9 +145,9 @@ protected:
  */
 class CC_DLL CCFiniteTimeAction : public CCAction
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCFiniteTimeAction, CCAction)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCFiniteTimeAction, CCAction)
 
     /**
      *  @js ctor
@@ -183,7 +183,7 @@ class CCRepeatForever;
  */
 class CC_DLL CCSpeed : public CCAction
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor
@@ -241,7 +241,7 @@ Instead of using CCCamera as a "follower", use this action instead.
 */
 class CC_DLL CCFollow : public CCAction
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor

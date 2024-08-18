@@ -1,8 +1,8 @@
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/ui/MDPopup.hpp>
-#include <Geode/utils/string.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/ui/MDPopup.hpp>
+#include <Sapfire/utils/string.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 bool MDPopup::setup(
     std::string const& title, std::string const& info, char const* btn1Text, char const* btn2Text,

@@ -1,4 +1,4 @@
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 
 #import <Cocoa/Cocoa.h>
 #include <objc/runtime.h>
@@ -9,13 +9,13 @@
 #include <tulip/TulipHook.hpp>
 #include <array>
 #include <filesystem>
-#include <Geode/Loader.hpp>
+#include <Sapfire/Loader.hpp>
 #include "../../loader/LoaderImpl.hpp"
 #include <thread>
 #include <variant>
 #include <loader/updater.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 std::length_error::~length_error() _NOEXCEPT {} // do not ask...
 
@@ -25,51 +25,51 @@ std::length_error::~length_error() _NOEXCEPT {} // do not ask...
 
 void updateFiles() {
     auto frameworkDir = dirs::getGameDir() / "Frameworks";
-    auto updatesDir = dirs::getGeodeDir() / "update";
-    auto resourcesDir = dirs::getGeodeResourcesDir();
+    auto updatesDir = dirs::getSapfireDir() / "update";
+    auto resourcesDir = dirs::getSapfireResourcesDir();
 
     if (std::filesystem::exists(frameworkDir) && std::filesystem::exists(updatesDir)) {
         std::error_code error;
-        auto bootFile = "GeodeBootstrapper.dylib";
-        auto geodeFile = "Geode.dylib";
+        auto bootFile = "SapfireBootstrapper.dylib";
+        auto sapfireFile = "Sapfire.dylib";
 
         if (std::filesystem::exists(updatesDir / bootFile)) {
             std::filesystem::remove(frameworkDir / bootFile, error);
             if (error) {
-                log::warn("Couldn't remove old GeodeBootstrapper.dylib: {}", error.message());
+                log::warn("Couldn't remove old SapfireBootstrapper.dylib: {}", error.message());
             }
             else {
                 std::filesystem::rename(updatesDir / bootFile, frameworkDir / bootFile, error);
                 if (error) {
-                    log::warn("Couldn't move new GeodeBootstrapper.dylib: {}", error.message());
+                    log::warn("Couldn't move new SapfireBootstrapper.dylib: {}", error.message());
                 }
                 else {
-                    log::info("Updated GeodeBootstrapper.dylib");
+                    log::info("Updated SapfireBootstrapper.dylib");
                 }
             }
         }
-        if (std::filesystem::exists(updatesDir / geodeFile)) {
-            std::filesystem::remove(frameworkDir / geodeFile, error);
+        if (std::filesystem::exists(updatesDir / sapfireFile)) {
+            std::filesystem::remove(frameworkDir / sapfireFile, error);
             if (error) {
-                log::warn("Couldn't remove old Geode.dylib: {}", error.message());
+                log::warn("Couldn't remove old Sapfire.dylib: {}", error.message());
             }
             else {
-                std::filesystem::rename(updatesDir / geodeFile, frameworkDir / geodeFile, error);
+                std::filesystem::rename(updatesDir / sapfireFile, frameworkDir / sapfireFile, error);
                 if (error) {
-                    log::warn("Couldn't move new Geode.dylib: {}", error.message());
+                    log::warn("Couldn't move new Sapfire.dylib: {}", error.message());
                 }
                 else {
-                    log::info("Updated Geode.dylib");
+                    log::info("Updated Sapfire.dylib");
                 }
             }
         }
         if (std::filesystem::exists(updatesDir / "resources")) {
-            std::filesystem::remove_all(resourcesDir / "geode.loader", error);
+            std::filesystem::remove_all(resourcesDir / "sapfire.loader", error);
             if (error) {
                 log::warn("Couldn't remove old resources: {}", error.message());
             }
             else {
-                std::filesystem::rename(updatesDir / "resources", resourcesDir / "geode.loader", error);
+                std::filesystem::rename(updatesDir / "resources", resourcesDir / "sapfire.loader", error);
                 if (error) {
                     log::warn("Couldn't move new resources: {}", error.message());
                 }
@@ -86,7 +86,7 @@ void updateFiles() {
 }
 
 $execute {
-    using namespace geode::updater;
+    using namespace sapfire::updater;
     new EventListener(+[](LoaderUpdateEvent* event) {
         if (std::holds_alternative<UpdateFinished>(event->status)) {
             updateFiles();
@@ -95,9 +95,9 @@ $execute {
     }, LoaderUpdateFilter());
 };
 
-void updateGeode() {
-    std::filesystem::path oldSavePath = "/Users/Shared/Geode/geode";
-    auto newSavePath = dirs::getSaveDir() / "geode";
+void updateSapfire() {
+    std::filesystem::path oldSavePath = "/Users/Shared/Sapfire/sapfire";
+    auto newSavePath = dirs::getSaveDir() / "sapfire";
     if (std::filesystem::exists(oldSavePath)) {
         std::error_code error;
 
@@ -115,9 +115,9 @@ extern "C" void fake() {}
 static void(*s_applicationDidFinishLaunchingOrig)(void*, SEL, NSNotification*);
 
 void applicationDidFinishLaunchingHook(void* self, SEL sel, NSNotification* notification) {
-    updateGeode();
+    updateSapfire();
 
-    int exitCode = geodeEntry(nullptr);
+    int exitCode = sapfireEntry(nullptr);
     if (exitCode != 0)
         return;
 
@@ -125,15 +125,15 @@ void applicationDidFinishLaunchingHook(void* self, SEL sel, NSNotification* noti
 }
 
 
-bool loadGeode() {
-    if (GEODE_STR(GEODE_GD_VERSION) != LoaderImpl::get()->getGameVersion()) {
+bool loadSapfire() {
+    if (SAPFIRE_STR(SAPFIRE_GD_VERSION) != LoaderImpl::get()->getGameVersion()) {
         console::messageBox(
-            "Unable to Load Geode!",
+            "Unable to Load Sapfire!",
             fmt::format(
-                "This version of Geode is made for Geometry Dash {} "
+                "This version of Sapfire is made for Geometry Dash {} "
                 "but you're trying to play with GD {}.\n"
                 "Please, update your game.",
-                GEODE_STR(GEODE_GD_VERSION),
+                SAPFIRE_STR(SAPFIRE_GD_VERSION),
                 LoaderImpl::get()->getGameVersion()
             )
         );
@@ -152,6 +152,6 @@ bool loadGeode() {
 }
 
 __attribute__((constructor)) void _entry() {
-    if (!loadGeode())
+    if (!loadSapfire())
         return;
 }

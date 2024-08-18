@@ -39,7 +39,7 @@ NS_CC_BEGIN
 
 class CC_DLL CCKeypadDelegate
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     // The back key clicked
     virtual void keyBackClicked() {}
@@ -57,9 +57,9 @@ public:
  */
 class CC_DLL CCKeypadHandler : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
-	GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCKeypadHandler, CCObject)
+	SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCKeypadHandler, CCObject)
 	inline CCKeypadHandler() = default;
     virtual ~CCKeypadHandler(void);
 

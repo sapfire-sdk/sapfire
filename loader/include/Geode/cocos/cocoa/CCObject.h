@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "../include/ccMacros.h"
 #include <unordered_map>
 
-// Geode macros
+// Sapfire macros
 #include "../../DefaultInclude.hpp"
 
 #ifdef EMSCRIPTEN
@@ -67,7 +67,7 @@ class CCEvent;
  */
 class CC_DLL CCCopying
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     virtual CCObject* copyWithZone(CCZone* pZone)  { return 0; }
 };
@@ -91,7 +91,7 @@ public:
  */
 class CC_DLL CCObject : public CCDestructor
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     // object id, CCScriptSupport need public m_uID
     unsigned int        m_uID;
@@ -117,7 +117,7 @@ protected:
     int m_uOrderOfArrival; // moved from CCNode, why rob
     int m_unknown5;
 public:
-	GEODE_CUSTOM_CONSTRUCTOR_BEGIN(CCObject)
+	SAPFIRE_CUSTOM_CONSTRUCTOR_BEGIN(CCObject)
     CCObject(void);
     /**
      *  @lua NA

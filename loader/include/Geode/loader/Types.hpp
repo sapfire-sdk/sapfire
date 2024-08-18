@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace geode {
+namespace sapfire {
     /**
      * Describes the severity of the log
      * message.
@@ -86,7 +86,7 @@ namespace geode {
         }
     };
 
-    constexpr std::string_view GEODE_MOD_EXTENSION = ".geode";
+    constexpr std::string_view SAPFIRE_MOD_EXTENSION = ".sapfire";
 
     class Mod;
     class Setting;
@@ -109,4 +109,4 @@ namespace geode {
 /**
  * The predeclaration of the implicit entry
  */
-GEODE_API void GEODE_CALL geode_implicit_load(geode::Mod*);
+SAPFIRE_API void SAPFIRE_CALL sapfire_implicit_load(sapfire::Mod*);

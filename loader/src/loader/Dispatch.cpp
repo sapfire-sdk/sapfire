@@ -1,8 +1,8 @@
-#include <Geode/loader/Dispatch.hpp>
+#include <Sapfire/loader/Dispatch.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-std::unordered_map<std::string, EventListenerPool*>& geode::dispatchPools() {
+std::unordered_map<std::string, EventListenerPool*>& sapfire::dispatchPools() {
     static std::unordered_map<std::string, EventListenerPool*> pools;
     return pools;
 }

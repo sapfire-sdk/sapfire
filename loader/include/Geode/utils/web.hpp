@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Geode/loader/Loader.hpp> // another great circular dependency fix
+#include <Sapfire/loader/Loader.hpp> // another great circular dependency fix
 #include <matjson.hpp>
 #include "Result.hpp"
 #include "Task.hpp"
 #include <chrono>
 #include <optional>
 
-namespace geode::utils::web {
-    GEODE_DLL void openLinkInBrowser(std::string const& url);
+namespace sapfire::utils::web {
+    SAPFIRE_DLL void openLinkInBrowser(std::string const& url);
     
     // https://curl.se/libcurl/c/CURLOPT_HTTPAUTH.html
     namespace http_auth {
@@ -61,7 +61,7 @@ namespace geode::utils::web {
 
     class WebRequest;
 
-    class GEODE_DLL WebResponse final {
+    class SAPFIRE_DLL WebResponse final {
     private:
         class Impl;
 
@@ -85,7 +85,7 @@ namespace geode::utils::web {
         std::optional<std::string> header(std::string_view name) const;
     };
 
-    class GEODE_DLL WebProgress final {
+    class SAPFIRE_DLL WebProgress final {
     private:
         class Impl;
 
@@ -108,7 +108,7 @@ namespace geode::utils::web {
 
     using WebTask = Task<WebResponse, WebProgress>;
 
-    class GEODE_DLL WebRequest final {
+    class SAPFIRE_DLL WebRequest final {
     private:
         class Impl;
 

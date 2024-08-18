@@ -54,7 +54,7 @@ class CCZone;
  */
 class CC_DLL CCSpriteFrame : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     // attributes
 

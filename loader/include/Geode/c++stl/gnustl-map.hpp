@@ -1,6 +1,6 @@
 #pragma once
 
-namespace geode::stl {
+namespace sapfire::stl {
     struct _rb_tree_base {
         bool m_isblack;
         _rb_tree_base* m_parent;

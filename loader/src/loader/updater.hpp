@@ -2,10 +2,10 @@
 
 #include <string>
 #include <matjson.hpp>
-#include <Geode/utils/MiniFunction.hpp>
-#include <Geode/loader/Event.hpp>
+#include <Sapfire/utils/MiniFunction.hpp>
+#include <Sapfire/loader/Event.hpp>
 
-namespace geode::updater {
+namespace sapfire::updater {
     using UpdateFinished = std::monostate;
     using UpdateProgress = std::pair<uint8_t, std::string>;
     using UpdateFailed = std::string;

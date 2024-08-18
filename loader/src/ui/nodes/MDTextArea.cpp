@@ -1,24 +1,24 @@
-#include <Geode/binding/ProfilePage.hpp>
-#include <Geode/binding/LevelTools.hpp>
-#include <Geode/binding/LevelInfoLayer.hpp>
-#include <Geode/binding/CCContentLayer.hpp>
-#include <Geode/binding/GJSearchObject.hpp>
-#include <Geode/binding/LevelBrowserLayer.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/ui/MDTextArea.hpp>
-#include <Geode/utils/casts.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/web.hpp>
-#include <Geode/utils/ranges.hpp>
-#include <Geode/utils/string.hpp>
+#include <Sapfire/binding/ProfilePage.hpp>
+#include <Sapfire/binding/LevelTools.hpp>
+#include <Sapfire/binding/LevelInfoLayer.hpp>
+#include <Sapfire/binding/CCContentLayer.hpp>
+#include <Sapfire/binding/GJSearchObject.hpp>
+#include <Sapfire/binding/LevelBrowserLayer.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/ui/MDTextArea.hpp>
+#include <Sapfire/utils/casts.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/web.hpp>
+#include <Sapfire/utils/ranges.hpp>
+#include <Sapfire/utils/string.hpp>
 #include <md4c.h>
 #include <charconv>
-#include <Geode/loader/Log.hpp>
-#include <Geode/ui/GeodeUI.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/ui/SapfireUI.hpp>
 #include <server/Server.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 static constexpr float g_fontScale = .5f;
 static constexpr float g_paragraphPadding = 7.f;
@@ -228,7 +228,7 @@ void MDTextArea::onGDLevel(CCObject* pSender) {
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, scene));
 }
 
-void MDTextArea::onGeodeMod(CCObject* sender) {
+void MDTextArea::onSapfireMod(CCObject* sender) {
     auto href = as<CCString*>(as<CCNode*>(sender)->getUserObject());
     auto modID = std::string(href->getCString());
     (void)openInfoPopup(modID.substr(modID.find(":") + 1));
@@ -292,7 +292,7 @@ struct MDParser {
                                 : utils::string::startsWith(s_lastLink, "level:")
                                     ? menu_selector(MDTextArea::onGDLevel)
                                     : utils::string::startsWith(s_lastLink, "mod:")
-                                        ? menu_selector(MDTextArea::onGeodeMod)
+                                        ? menu_selector(MDTextArea::onSapfireMod)
                                         : menu_selector(MDTextArea::onLink)
                         );
                         for (auto const& label : rendered) {
@@ -355,7 +355,7 @@ struct MDParser {
                         else {
                             spr = CCSprite::create(s_lastImage.c_str());
                         }
-                        if (spr && spr->getUserObject("geode.texture-loader/fallback") == nullptr) {
+                        if (spr && spr->getUserObject("sapfire.texture-loader/fallback") == nullptr) {
                             spr->setScale(spriteScale);
                             renderer->renderNode(spr);
                         }

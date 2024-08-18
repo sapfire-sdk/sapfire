@@ -1,22 +1,22 @@
 #pragma once
 
-#include <Geode/binding/CCContentLayer.hpp>
-#include <Geode/binding/CCScrollLayerExt.hpp>
+#include <Sapfire/binding/CCContentLayer.hpp>
+#include <Sapfire/binding/CCScrollLayerExt.hpp>
 
-namespace geode {
+namespace sapfire {
     /**
      * CCContentLayer expects all of its children
      * to be TableViewCells, which is not ideal for
      * a generic content layer
      */
-    class GEODE_DLL GenericContentLayer : public CCContentLayer {
+    class SAPFIRE_DLL GenericContentLayer : public CCContentLayer {
     public:
         static GenericContentLayer* create(float width, float height);
 
         void setPosition(cocos2d::CCPoint const& pos) override;
     };
 
-    class GEODE_DLL ScrollLayer : public CCScrollLayerExt {
+    class SAPFIRE_DLL ScrollLayer : public CCScrollLayerExt {
     protected:
         bool m_scrollWheelEnabled;
 

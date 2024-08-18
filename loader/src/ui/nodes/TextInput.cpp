@@ -1,13 +1,13 @@
-#include <Geode/binding/CCTextInputNode.hpp>
-#include <Geode/binding/TextInputDelegate.hpp>
-#include <Geode/modify/CCTextInputNode.hpp>
-#include <Geode/ui/TextInput.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
+#include <Sapfire/binding/TextInputDelegate.hpp>
+#include <Sapfire/modify/CCTextInputNode.hpp>
+#include <Sapfire/ui/TextInput.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 struct TextInputNodeFix : Modify<TextInputNodeFix, CCTextInputNode> {
-    GEODE_FORWARD_COMPAT_DISABLE_HOOKS("TextInputNode fix")
+    SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS("TextInputNode fix")
 
     bool ccTouchBegan(CCTouch* touch, CCEvent* event) {
         if (!this->getUserObject("fix-text-input")) {
@@ -39,7 +39,7 @@ struct TextInputNodeFix : Modify<TextInputNodeFix, CCTextInputNode> {
     }
 };
 
-const char* geode::getCommonFilterAllowedChars(CommonFilter filter) {
+const char* sapfire::getCommonFilterAllowedChars(CommonFilter filter) {
     switch (filter) {
         default:
         case CommonFilter::Uint:         return "0123456789";

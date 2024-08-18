@@ -21,12 +21,12 @@ jobs:
         id: ref
         shell: bash
         run: |
-          VERSION=$(unzip -p ${{ github.workspace }}/dev/geode-nightly.zip geode-sdk-geode-*/VERSION | xargs)
+          VERSION=$(unzip -p ${{ github.workspace }}/dev/sapfire-nightly.zip sapfire-sdk-sapfire-*/VERSION | xargs)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           # test if release already exists
           set +e
-          curl --fail "https://api.github.com/repos/geode-sdk/geode/releases/tags/v$VERSION" --silent --output /dev/null
+          curl --fail "https://api.github.com/repos/sapfire-sdk/sapfire/releases/tags/v$VERSION" --silent --output /dev/null
           RESULT=$?
           set -e
           
@@ -37,12 +37,12 @@ jobs:
 
       - name: Move Files
         run: |
-          mv dev/geode-installer-*-win.exe geode-installer-v${{ steps.ref.outputs.version }}-win.exe
-          mv dev/geode-installer-*-mac.pkg geode-installer-v${{ steps.ref.outputs.version }}-mac.pkg
-          mv dev/geode-*-win.zip geode-v${{ steps.ref.outputs.version }}-win.zip
-          mv dev/geode-*-mac.zip geode-v${{ steps.ref.outputs.version }}-mac.zip
-          mv dev/geode-*-android32.zip geode-v${{ steps.ref.outputs.version }}-android32.zip
-          mv dev/geode-*-android64.zip geode-v${{ steps.ref.outputs.version }}-android64.zip
+          mv dev/sapfire-installer-*-win.exe sapfire-installer-v${{ steps.ref.outputs.version }}-win.exe
+          mv dev/sapfire-installer-*-mac.pkg sapfire-installer-v${{ steps.ref.outputs.version }}-mac.pkg
+          mv dev/sapfire-*-win.zip sapfire-v${{ steps.ref.outputs.version }}-win.zip
+          mv dev/sapfire-*-mac.zip sapfire-v${{ steps.ref.outputs.version }}-mac.zip
+          mv dev/sapfire-*-android32.zip sapfire-v${{ steps.ref.outputs.version }}-android32.zip
+          mv dev/sapfire-*-android64.zip sapfire-v${{ steps.ref.outputs.version }}-android64.zip
           mv dev/resources.zip resources.zip
 
       - name: Create Draft Release
@@ -51,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ steps.ref.outputs.version }}
-          name: Geode v${{ steps.ref.outputs.version }}
+          name: Sapfire v${{ steps.ref.outputs.version }}
           body: |
             TODO before publishing:
              - mark if pre-release
@@ -59,10 +59,10 @@ jobs:
              - remove this
           draft: true
           files: |
-            ./geode-installer-v${{ steps.ref.outputs.version }}-win.exe
-            ./geode-installer-v${{ steps.ref.outputs.version }}-mac.pkg
-            ./geode-v${{ steps.ref.outputs.version }}-win.zip
-            ./geode-v${{ steps.ref.outputs.version }}-mac.zip
-            ./geode-v${{ steps.ref.outputs.version }}-android32.zip
-            ./geode-v${{ steps.ref.outputs.version }}-android64.zip
+            ./sapfire-installer-v${{ steps.ref.outputs.version }}-win.exe
+            ./sapfire-installer-v${{ steps.ref.outputs.version }}-mac.pkg
+            ./sapfire-v${{ steps.ref.outputs.version }}-win.zip
+            ./sapfire-v${{ steps.ref.outputs.version }}-mac.zip
+            ./sapfire-v${{ steps.ref.outputs.version }}-android32.zip
+            ./sapfire-v${{ steps.ref.outputs.version }}-android64.zip
             ./resources.zip

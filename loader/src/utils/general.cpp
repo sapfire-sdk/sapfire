@@ -1,8 +1,8 @@
-#include <Geode/utils/general.hpp>
+#include <Sapfire/utils/general.hpp>
 
-#ifndef GEODE_IS_MACOS
+#ifndef SAPFIRE_IS_MACOS
 // feel free to properly implement this for other platforms
-float geode::utils::getDisplayFactor() {
+float sapfire::utils::getDisplayFactor() {
     return 1.0f;
 }
 #endif

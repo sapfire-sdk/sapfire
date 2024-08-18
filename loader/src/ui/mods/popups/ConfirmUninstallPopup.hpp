@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Geode/ui/Popup.hpp>
+#include <Sapfire/ui/Popup.hpp>
 #include "../UpdateModListState.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class ConfirmUninstallPopup : public Popup<Mod*> {
 protected:

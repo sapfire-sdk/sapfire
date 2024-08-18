@@ -48,12 +48,12 @@ struct CCTexturePack {
 //! @brief  Helper class to handle file operations
 class CC_DLL CCFileUtils : public TypeInfo
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
     friend class CCArray;
     friend class CCDictionary;
 public:
 
-    GEODE_CUSTOM_CONSTRUCTOR_BEGIN(CCFileUtils) 
+    SAPFIRE_CUSTOM_CONSTRUCTOR_BEGIN(CCFileUtils) 
     /**
      *  Returns an unique ID for this class.
      *  @note It's only used for JSBindings now.
@@ -72,7 +72,7 @@ public:
      */
     static CCFileUtils* sharedFileUtils();
 
-    static GEODE_DLL CCFileUtils* get();
+    static SAPFIRE_DLL CCFileUtils* get();
     
     /**
      *  Destroys the instance of CCFileUtils.
@@ -282,27 +282,27 @@ public:
      * it's moved to the front of the list (equivalent to removing and 
      * re-adding the pack)
      * @param pack Pack to add
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    void GEODE_DLL addTexturePack(CCTexturePack const& pack);
+    void SAPFIRE_DLL addTexturePack(CCTexturePack const& pack);
     /**
      * Remove texture pack by ID
      * @param id ID of the texture pack
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    void GEODE_DLL removeTexturePack(std::string const& id);
+    void SAPFIRE_DLL removeTexturePack(std::string const& id);
     /**
      * Add a search path to the front of the list
      * @param path Path to add
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    void GEODE_DLL addPriorityPath(const char* path);
+    void SAPFIRE_DLL addPriorityPath(const char* path);
     /**
      * Update search path order; texture packs are added first, then other  
      * paths
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    void GEODE_DLL updatePaths();
+    void SAPFIRE_DLL updatePaths();
     
     /**
       * Adds a path to search paths.

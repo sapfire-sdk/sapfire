@@ -1,4 +1,4 @@
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 
 #include "../load.hpp"
 #include <dlfcn.h>
@@ -7,7 +7,7 @@
 
 #include <thread>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 std::length_error::~length_error() _NOEXCEPT {} // do not ask...
 
@@ -16,23 +16,23 @@ std::length_error::~length_error() _NOEXCEPT {} // do not ask...
 // this is what old versions does to a silly girl
 
 void dynamicEntry() {
-    auto dylib = dlopen("GeodeBootstrapper.dylib", RTLD_NOLOAD);
+    auto dylib = dlopen("SapfireBootstrapper.dylib", RTLD_NOLOAD);
     dlclose(dylib);
 
     auto workingDir = dirs::getGameDir();
     auto libDir = workingDir / "Frameworks";
-    auto updatesDir = workingDir / "geode" / "update";
+    auto updatesDir = workingDir / "sapfire" / "update";
 
     auto error = std::error_code();
 
-    if (std::filesystem::exists(updatesDir / "GeodeBootstrapper.dylib", error) && !error) {
+    if (std::filesystem::exists(updatesDir / "SapfireBootstrapper.dylib", error) && !error) {
         std::filesystem::rename(
-            updatesDir / "GeodeBootstrapper.dylib", libDir / "GeodeBootstrapper.dylib", error
+            updatesDir / "SapfireBootstrapper.dylib", libDir / "SapfireBootstrapper.dylib", error
         );
         if (error) return;
     }
 
-    geodeEntry(nullptr);
+    sapfireEntry(nullptr);
 }
 
 extern "C" __attribute__((visibility("default"))) void dynamicTrigger() {

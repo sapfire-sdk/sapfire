@@ -2,8 +2,8 @@
 
 #include <cocos2d.h>
 
-namespace geode {
-    class GEODE_DLL Border : public cocos2d::CCLayerColor {
+namespace sapfire {
+    class SAPFIRE_DLL Border : public cocos2d::CCLayerColor {
     public:
         struct Padding {
             float top;

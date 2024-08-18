@@ -1,15 +1,15 @@
 #pragma once
 #include "AsStaticFunction.hpp"
 #include "Field.hpp"
-#include <Geode/Enums.hpp>
+#include <Sapfire/Enums.hpp>
 #include "IDManager.hpp"
 
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include <iostream>
 #include <tulip/TulipHook.hpp>
 
-#define GEODE_APPLY_MODIFY_FOR_FUNCTION(AddressInline_, Convention_, ClassName_, FunctionName_, ...)          \
+#define SAPFIRE_APPLY_MODIFY_FOR_FUNCTION(AddressInline_, Convention_, ClassName_, FunctionName_, ...)          \
     do {                                                                                                      \
         static auto constexpr different = Unique::different<                                                  \
             Resolve<__VA_ARGS__>::func(&Base::FunctionName_),                                                 \
@@ -42,7 +42,7 @@
         }                                                                                                     \
     } while (0);
 
-#define GEODE_APPLY_MODIFY_FOR_FUNCTION_ERROR(ClassName_, FunctionName_, ...)                                 \
+#define SAPFIRE_APPLY_MODIFY_FOR_FUNCTION_ERROR(ClassName_, FunctionName_, ...)                                 \
     do {                                                                                                      \
         static_assert(!FunctionExists_##FunctionName_<Derived __VA_ARGS__>,                                   \
             "Function " #ClassName_ "::" #FunctionName_ " does not have an available address in the"          \
@@ -50,7 +50,7 @@
         );                                                                                                    \
     } while (0);
 
-#define GEODE_APPLY_MODIFY_FOR_FUNCTION_ERROR_DEFINED(ClassName_, FunctionName_, ...)                         \
+#define SAPFIRE_APPLY_MODIFY_FOR_FUNCTION_ERROR_DEFINED(ClassName_, FunctionName_, ...)                         \
     do {                                                                                                      \
         static auto constexpr different = Unique::different<                                                  \
             Resolve<__VA_ARGS__>::func(&Base::FunctionName_),                                                 \
@@ -62,7 +62,7 @@
         );                                                                                                    \
     } while (0);
 
-#define GEODE_APPLY_MODIFY_FOR_FUNCTION_ERROR_INLINE(ClassName_, FunctionName_, ...)                          \
+#define SAPFIRE_APPLY_MODIFY_FOR_FUNCTION_ERROR_INLINE(ClassName_, FunctionName_, ...)                          \
     do {                                                                                                      \
         static auto constexpr different = Unique::different<                                                  \
             Resolve<__VA_ARGS__>::func(&Base::FunctionName_),                                                 \
@@ -74,7 +74,7 @@
         );                                                                                                    \
     } while (0);
 
-#define GEODE_APPLY_MODIFY_FOR_CONSTRUCTOR(AddressInline_, Convention_, ClassName_, ...)  \
+#define SAPFIRE_APPLY_MODIFY_FOR_CONSTRUCTOR(AddressInline_, Convention_, ClassName_, ...)  \
     do {                                                                                  \
         if constexpr (HasConstructor<Derived>) {                                          \
             static auto address = AddressInline_;                                         \
@@ -90,7 +90,7 @@
         }                                                                                 \
     } while (0);
 
-#define GEODE_APPLY_MODIFY_FOR_DESTRUCTOR(AddressInline_, Convention_, ClassName_)                               \
+#define SAPFIRE_APPLY_MODIFY_FOR_DESTRUCTOR(AddressInline_, Convention_, ClassName_)                               \
     do {                                                                                                         \
         if constexpr (HasDestructor<Derived>) {                                                                  \
             static auto address = AddressInline_;                                                                \
@@ -104,7 +104,7 @@
         }                                                                                                        \
     } while (0);
 
-namespace geode::modifier {
+namespace sapfire::modifier {
 
     template <class Derived, class Base>
     class ModifyDerive;
@@ -181,14 +181,14 @@ namespace geode::modifier {
         ModifyDerive() {
             static_assert(
                 alwaysFalse<Derived>,
-                "Modified class not recognized, please include <Geode/modify/ClassName.hpp> to be "
+                "Modified class not recognized, please include <Sapfire/modify/ClassName.hpp> to be "
                 "able to use it."
             );
         }
     };
 }
 
-namespace geode {
+namespace sapfire {
 
 // The intellisense compiler is quite dumb, and will very often error on modify classes
 // with an error of "incomplete type is not allowed", despite not being an issue in actual compilation.
@@ -245,7 +245,7 @@ namespace geode {
  *     struct hook0Parent {};
  * }
  * template<>
- * struct GEODE_HIDDEN hook0<hook0Parent> : Modify<hook0<hook0Parent>, MenuLayer> {
+ * struct SAPFIRE_HIDDEN hook0<hook0Parent> : Modify<hook0<hook0Parent>, MenuLayer> {
  *     // code stuff idk
  * };
  *
@@ -255,7 +255,7 @@ namespace geode {
 
 #if __INTELLISENSE__ != 1 && !defined(__CLION_IDE__)
 
-#define GEODE_MODIFY_DECLARE_ANONYMOUS(base, derived) \
+#define SAPFIRE_MODIFY_DECLARE_ANONYMOUS(base, derived) \
     derived##Dummy;                                   \
     template <class>                                  \
     struct derived {};                                \
@@ -263,28 +263,28 @@ namespace geode {
         struct derived##Parent {};                    \
     }                                                 \
     template <>                                       \
-    struct GEODE_HIDDEN derived<derived##Parent> : geode::Modify<derived<derived##Parent>, base>
+    struct SAPFIRE_HIDDEN derived<derived##Parent> : sapfire::Modify<derived<derived##Parent>, base>
 
-#define GEODE_MODIFY_DECLARE(base, derived) \
+#define SAPFIRE_MODIFY_DECLARE(base, derived) \
     derived##Dummy;                         \
-    struct GEODE_HIDDEN derived : geode::Modify<derived, base>
+    struct SAPFIRE_HIDDEN derived : sapfire::Modify<derived, base>
 
 #else
 
 // Simplify the modify macro for intellisense, to hopefully help perfomance a bit
 
-#define GEODE_MODIFY_DECLARE(base, derived) \
+#define SAPFIRE_MODIFY_DECLARE(base, derived) \
     derived##Dummy; \
-    struct derived : geode::Modify<derived, base>
+    struct derived : sapfire::Modify<derived, base>
 
-#define GEODE_MODIFY_DECLARE_ANONYMOUS(base, derived) GEODE_MODIFY_DECLARE(base, derived)
+#define SAPFIRE_MODIFY_DECLARE_ANONYMOUS(base, derived) SAPFIRE_MODIFY_DECLARE(base, derived)
 
 #endif
 
-#define GEODE_MODIFY_REDIRECT4(base, derived) GEODE_MODIFY_DECLARE(base, derived)
-#define GEODE_MODIFY_REDIRECT3(base, derived) GEODE_MODIFY_DECLARE_ANONYMOUS(base, derived)
-#define GEODE_MODIFY_REDIRECT2(base) GEODE_MODIFY_REDIRECT3(base, GEODE_CONCAT(hook, __LINE__))
-#define GEODE_MODIFY_REDIRECT1(base) GEODE_MODIFY_REDIRECT2(base)
+#define SAPFIRE_MODIFY_REDIRECT4(base, derived) SAPFIRE_MODIFY_DECLARE(base, derived)
+#define SAPFIRE_MODIFY_REDIRECT3(base, derived) SAPFIRE_MODIFY_DECLARE_ANONYMOUS(base, derived)
+#define SAPFIRE_MODIFY_REDIRECT2(base) SAPFIRE_MODIFY_REDIRECT3(base, SAPFIRE_CONCAT(hook, __LINE__))
+#define SAPFIRE_MODIFY_REDIRECT1(base) SAPFIRE_MODIFY_REDIRECT2(base)
 
 /**
  * Interfaces for the class implementation
@@ -293,10 +293,10 @@ namespace geode {
  * class $modify(MyMenuLayerInterface, MenuLayer) {};
  */
 
-#define GEODE_CRTP1(base) GEODE_MODIFY_REDIRECT1(base)
-#define GEODE_CRTP2(derived, base) GEODE_MODIFY_REDIRECT4(base, derived)
+#define SAPFIRE_CRTP1(base) SAPFIRE_MODIFY_REDIRECT1(base)
+#define SAPFIRE_CRTP2(derived, base) SAPFIRE_MODIFY_REDIRECT4(base, derived)
 #define $modify(...) \
-    GEODE_INVOKE(GEODE_CONCAT(GEODE_CRTP, GEODE_NUMBER_OF_ARGS(__VA_ARGS__)), __VA_ARGS__)
+    SAPFIRE_INVOKE(SAPFIRE_CONCAT(SAPFIRE_CRTP, SAPFIRE_NUMBER_OF_ARGS(__VA_ARGS__)), __VA_ARGS__)
 
 /** 
  * This function is meant to hook / override a GD function in a Modified class. 

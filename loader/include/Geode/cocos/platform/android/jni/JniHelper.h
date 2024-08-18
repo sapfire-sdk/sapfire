@@ -39,7 +39,7 @@ typedef struct JniMethodInfo_
 
 class CC_DLL JniHelper
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     static JavaVM* getJavaVM();
     static void setJavaVM(JavaVM *javaVM);

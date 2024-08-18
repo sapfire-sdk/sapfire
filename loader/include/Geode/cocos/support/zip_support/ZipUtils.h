@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-#ifndef GEODE_IS_MEMBER_TEST
+#ifndef SAPFIRE_IS_MEMBER_TEST
 #ifndef __SUPPORT_ZIPUTILS_H__
 #define __SUPPORT_ZIPUTILS_H__
 
@@ -58,7 +58,7 @@ namespace cocos2d
 
     class CC_DLL ZipUtils
     {
-        GEODE_FRIEND_MODIFY;
+        SAPFIRE_FRIEND_MODIFY;
     public:
         /** 
         * Inflates either zlib or gzip deflated memory. The inflated memory is
@@ -187,7 +187,7 @@ namespace cocos2d
     *
     * @since v2.0.5
     */
-    class GEODE_DLL ZipFile
+    class SAPFIRE_DLL ZipFile
     {
     public:
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -207,13 +207,13 @@ namespace cocos2d
         virtual ~ZipFile();
     
         /**
-         * Custom function added for geode; returns if the 
+         * Custom function added for sapfire; returns if the 
          * zip file was succesfully decoded.
          * 
          * @return true if the zip was succesfully loaded, 
          *         false otherwise.
          * 
-         * @since geode v1.0.0
+         * @since sapfire v1.0.0
          */
         bool isLoaded() const;
 
@@ -252,12 +252,12 @@ namespace cocos2d
         unsigned char *getFileData(const std::string &fileName, unsigned long *pSize);
 
         /**
-         * Custom function added for geode; returns all of 
+         * Custom function added for sapfire; returns all of 
          * the files in the zip that match the current filter.
          * 
          * @return Vector of filenames
          * 
-         * @since geode v1.0.0
+         * @since sapfire v1.0.0
          */
         std::vector<std::string> getAllFiles() const;
 

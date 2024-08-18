@@ -2,7 +2,7 @@
 
 // Because C++ doesn't like using
 // namespaces that don't exist
-namespace geode {
+namespace sapfire {
     namespace addresser {}
     namespace cast {}
     namespace cocos {}
@@ -17,17 +17,17 @@ namespace cocos2d {
     namespace extension {}
 }
 
-namespace geode {
+namespace sapfire {
     namespace prelude {
-        using namespace ::geode;
-        using namespace ::geode::addresser;
-        using namespace ::geode::cast;
-        using namespace ::geode::cocos;
-        using namespace ::geode::helper;
-        using namespace ::geode::utils;
-        using namespace ::geode::op;
-        using namespace ::geode::stream;
-        using namespace ::geode::view;
+        using namespace ::sapfire;
+        using namespace ::sapfire::addresser;
+        using namespace ::sapfire::cast;
+        using namespace ::sapfire::cocos;
+        using namespace ::sapfire::helper;
+        using namespace ::sapfire::utils;
+        using namespace ::sapfire::op;
+        using namespace ::sapfire::stream;
+        using namespace ::sapfire::view;
         using namespace ::cocos2d;
         using namespace ::cocos2d::extension;
     }

@@ -1,7 +1,7 @@
-#include <Geode/ui/ScrollLayer.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/ui/ScrollLayer.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 GenericContentLayer* GenericContentLayer::create(float width, float height) {
     auto ret = new GenericContentLayer();

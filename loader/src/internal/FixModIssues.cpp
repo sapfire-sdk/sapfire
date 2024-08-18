@@ -1,6 +1,6 @@
 #include "FixModIssues.hpp"
-#include <Geode/loader/Loader.hpp>
-#include <Geode/ui/Popup.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/ui/Popup.hpp>
 #include <server/DownloadManager.hpp>
 #include <ui/mods/sources/ModSource.hpp>
 #include <vector>
@@ -11,7 +11,7 @@
 // I just didn't feel like the engineering effort is worth it.
 // The point of this is to be a mod load issue auto-resolver
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class AutoFixStatus final {
 protected:
@@ -81,7 +81,7 @@ public:
     void start() {
         for (auto problem : Loader::get()->getProblems()) {
             switch (problem.type) {
-                // Errors where the correct solution is to just delete the invalid .geode package
+                // Errors where the correct solution is to just delete the invalid .sapfire package
                 case LoadProblem::Type::InvalidFile:
                 // todo: maybe duplicate should prompt which one to delete?
                 // or maybe the user can just figure that one out since that only happens 
@@ -91,8 +91,8 @@ public:
                 case LoadProblem::Type::SetupFailed:
                 case LoadProblem::Type::LoadFailed:
                 case LoadProblem::Type::EnableFailed:
-                case LoadProblem::Type::UnsupportedGeodeVersion:
-                case LoadProblem::Type::NeedsNewerGeodeVersion:
+                case LoadProblem::Type::UnsupportedSapfireVersion:
+                case LoadProblem::Type::NeedsNewerSapfireVersion:
                 case LoadProblem::Type::UnsupportedVersion:
                 {
                     auto path = getPath(problem);

@@ -1,13 +1,13 @@
-#include <Geode/ui/SceneManager.hpp>
+#include <Sapfire/ui/SceneManager.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 
-#include <Geode/modify/AppDelegate.hpp>
+#include <Sapfire/modify/AppDelegate.hpp>
 struct SceneSwitch : Modify<SceneSwitch, AppDelegate> {
-    GEODE_FORWARD_COMPAT_DISABLE_HOOKS("persist disabled")
+    SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS("persist disabled")
     void willSwitchToScene(CCScene* scene) {
         AppDelegate::willSwitchToScene(scene);
         SceneManager::get()->willSwitchToScene(scene);
@@ -16,9 +16,9 @@ struct SceneSwitch : Modify<SceneSwitch, AppDelegate> {
 
 #else
 
-#include <Geode/modify/AchievementNotifier.hpp>
+#include <Sapfire/modify/AchievementNotifier.hpp>
 struct SceneSwitch : Modify<SceneSwitch, AchievementNotifier> {
-    GEODE_FORWARD_COMPAT_DISABLE_HOOKS("persist disabled")
+    SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS("persist disabled")
     void willSwitchToScene(CCScene* scene) {
         AchievementNotifier::willSwitchToScene(scene);
         SceneManager::get()->willSwitchToScene(scene);

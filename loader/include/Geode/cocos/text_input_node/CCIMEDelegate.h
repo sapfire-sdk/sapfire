@@ -48,9 +48,9 @@ typedef struct
 */
 class CC_DLL CCIMEDelegate
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
-    GEODE_CUSTOM_CONSTRUCTOR_BEGIN(CCIMEDelegate)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_BEGIN(CCIMEDelegate)
     virtual ~CCIMEDelegate();
 
     virtual bool attachWithIME();

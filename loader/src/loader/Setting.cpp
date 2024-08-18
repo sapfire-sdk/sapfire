@@ -1,13 +1,13 @@
-#include <ui/mods/settings/GeodeSettingNode.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/loader/Setting.hpp>
-#include <Geode/loader/SettingEvent.hpp>
-#include <Geode/loader/SettingNode.hpp>
-#include <Geode/utils/general.hpp>
-#include <Geode/utils/JsonValidation.hpp>
+#include <ui/mods/settings/SapfireSettingNode.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/loader/Setting.hpp>
+#include <Sapfire/loader/SettingEvent.hpp>
+#include <Sapfire/loader/SettingNode.hpp>
+#include <Sapfire/utils/general.hpp>
+#include <Sapfire/utils/JsonValidation.hpp>
 #include <regex>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 template<class T>
 static void parseCommon(T& sett, JsonMaybeObject& obj) {
@@ -17,7 +17,7 @@ static void parseCommon(T& sett, JsonMaybeObject& obj) {
         // Platform-specific default value
         if (defValue.template is<matjson::Object>()) {
             auto def = defValue.obj();
-            if (auto plat = def.has(PlatformID::toShortString(GEODE_PLATFORM_TARGET, true))) {
+            if (auto plat = def.has(PlatformID::toShortString(SAPFIRE_PLATFORM_TARGET, true))) {
                 plat.into(sett.defaultValue);
             }
             else {
@@ -128,31 +128,31 @@ Result<Setting> Setting::parse(
         if (type.size()) {
             switch (hash(type.c_str())) {
                 case hash("bool"): {
-                    GEODE_UNWRAP_INTO(sett.m_kind, BoolSetting::parse(obj));
+                    SAPFIRE_UNWRAP_INTO(sett.m_kind, BoolSetting::parse(obj));
                 } break;
 
                 case hash("int"): {
-                    GEODE_UNWRAP_INTO(sett.m_kind, IntSetting::parse(obj));
+                    SAPFIRE_UNWRAP_INTO(sett.m_kind, IntSetting::parse(obj));
                 } break;
 
                 case hash("float"): {
-                    GEODE_UNWRAP_INTO(sett.m_kind, FloatSetting::parse(obj));
+                    SAPFIRE_UNWRAP_INTO(sett.m_kind, FloatSetting::parse(obj));
                 } break;
 
                 case hash("string"): {
-                    GEODE_UNWRAP_INTO(sett.m_kind, StringSetting::parse(obj));
+                    SAPFIRE_UNWRAP_INTO(sett.m_kind, StringSetting::parse(obj));
                 } break;
 
                 case hash("rgb"): case hash("color"): {
-                    GEODE_UNWRAP_INTO(sett.m_kind, ColorSetting::parse(obj));
+                    SAPFIRE_UNWRAP_INTO(sett.m_kind, ColorSetting::parse(obj));
                 } break;
 
                 case hash("rgba"): {
-                    GEODE_UNWRAP_INTO(sett.m_kind, ColorAlphaSetting::parse(obj));
+                    SAPFIRE_UNWRAP_INTO(sett.m_kind, ColorAlphaSetting::parse(obj));
                 } break;
 
                 case hash("path"): case hash("file"): {
-                    GEODE_UNWRAP_INTO(sett.m_kind, FileSetting::parse(obj));
+                    SAPFIRE_UNWRAP_INTO(sett.m_kind, FileSetting::parse(obj));
                 } break;
 
                 case hash("custom"): {
@@ -286,24 +286,24 @@ void SettingValue::valueChanged() {
     }
 }
 
-// GeodeSettingValue & SettingValueSetter specializations
+// SapfireSettingValue & SettingValueSetter specializations
 
 #define IMPL_NODE_AND_SETTERS(type_) \
     template<>                                                          \
-    SettingNode* GeodeSettingValue<                                     \
+    SettingNode* SapfireSettingValue<                                     \
         type_##Setting                                                  \
     >::createNode(float width) {                                        \
         return type_##SettingNode::create(this, width);                 \
     }                                                                   \
     template<>                                                          \
-    void GeodeSettingValue<                                             \
+    void SapfireSettingValue<                                             \
         type_##Setting                                                  \
     >::setValue(ValueType const& value) {                               \
         m_value = this->toValid(value).first;                           \
         this->valueChanged();                                           \
     }                                                                   \
     template<>                                                          \
-    Result<> GeodeSettingValue<                                         \
+    Result<> SapfireSettingValue<                                         \
         type_##Setting                                                  \
     >::validate(ValueType const& value) const {                         \
         auto reason = this->toValid(value).second;                      \
@@ -335,21 +335,21 @@ void SettingValue::valueChanged() {
 
 #define IMPL_TO_VALID(type_) \
     template<>                                          \
-    typename GeodeSettingValue<type_##Setting>::Valid   \
-    GeodeSettingValue<type_##Setting>::toValid(         \
+    typename SapfireSettingValue<type_##Setting>::Valid   \
+    SapfireSettingValue<type_##Setting>::toValid(         \
         typename type_##Setting::ValueType const& value \
     ) const
 
 // instantiate values
 
-namespace geode {
-    template class GeodeSettingValue<BoolSetting>;
-    template class GeodeSettingValue<IntSetting>;
-    template class GeodeSettingValue<FloatSetting>;
-    template class GeodeSettingValue<StringSetting>;
-    template class GeodeSettingValue<FileSetting>;
-    template class GeodeSettingValue<ColorSetting>;
-    template class GeodeSettingValue<ColorAlphaSetting>;
+namespace sapfire {
+    template class SapfireSettingValue<BoolSetting>;
+    template class SapfireSettingValue<IntSetting>;
+    template class SapfireSettingValue<FloatSetting>;
+    template class SapfireSettingValue<StringSetting>;
+    template class SapfireSettingValue<FileSetting>;
+    template class SapfireSettingValue<ColorSetting>;
+    template class SapfireSettingValue<ColorAlphaSetting>;
 }
 
 IMPL_TO_VALID(Bool) {
@@ -440,7 +440,7 @@ IMPL_NODE_AND_SETTERS(ColorAlpha);
 
 // instantiate value setters
 
-namespace geode {
+namespace sapfire {
     template struct SettingValueSetter<typename BoolSetting::ValueType>;
     template struct SettingValueSetter<typename IntSetting::ValueType>;
     template struct SettingValueSetter<typename FloatSetting::ValueType>;

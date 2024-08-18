@@ -71,7 +71,7 @@ struct ccTouchHandlerHelperData {
  */
 class CC_DLL EGLTouchDelegate
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      * @lua NA
@@ -116,7 +116,7 @@ struct _ccCArray;
  */
 class CC_DLL CCTouchDispatcher : public CCObject, public EGLTouchDelegate
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      * @lua NA
@@ -138,7 +138,7 @@ public:
     {}
 
 public:
-    static GEODE_DLL CCTouchDispatcher* get();
+    static SAPFIRE_DLL CCTouchDispatcher* get();
 
     /** Whether or not the events are going to be dispatched. Default: true */
     bool isDispatchEvents(void);

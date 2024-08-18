@@ -9,26 +9,26 @@
 #include <type_traits>
 #include <typeinfo>
 
-namespace geode {
+namespace sapfire {
     struct PlatformInfo {
         HMODULE m_hmod;
     };
 }
 
-namespace geode::base {
-    GEODE_NOINLINE inline uintptr_t get() {
+namespace sapfire::base {
+    SAPFIRE_NOINLINE inline uintptr_t get() {
         static uintptr_t base = reinterpret_cast<uintptr_t>(GetModuleHandle(0));
         return base;
     }
 
-    GEODE_NOINLINE inline uintptr_t getCocos() {
+    SAPFIRE_NOINLINE inline uintptr_t getCocos() {
         static uintptr_t base = reinterpret_cast<uintptr_t>(GetModuleHandleA("libcocos2d.dll"));
         return base;
     }
 }
 
 
-namespace geode::cast {
+namespace sapfire::cast {
     template <class Type>
     struct ShrunkPointer {
         uint32_t m_ptrOffset;
@@ -71,7 +71,7 @@ namespace geode::cast {
         int32_t m_cdOffset;
         ShrunkPointer<TypeDescriptorType> m_typeDescriptor;
         ShrunkPointer<ClassDescriptorType> m_classDescriptor;
-    #ifdef GEODE_IS_X64
+    #ifdef SAPFIRE_IS_X64
         int32_t m_locatorOffset;
     #endif
     };
@@ -106,7 +106,7 @@ namespace geode::cast {
 
         auto afterIdent = static_cast<char const*>(afterDesc->m_typeDescriptorName);
 
-    #ifdef GEODE_IS_X64
+    #ifdef SAPFIRE_IS_X64
         auto locatorOffset = metaPtr->m_completeLocator->m_locatorOffset;
         auto base = reinterpret_cast<uintptr_t>(metaPtr->m_completeLocator) - locatorOffset;
     #else

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Geode/binding/CCMenuItemSpriteExtra.hpp>
+#include <Sapfire/binding/CCMenuItemSpriteExtra.hpp>
 
-namespace geode {
+namespace sapfire {
 
     template <class T>
     T do_nothing(T t) {

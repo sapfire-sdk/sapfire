@@ -53,14 +53,14 @@ extern "C" DWORD XInputGetCapabilities(DWORD dwUserIndex, DWORD dwFlags, XINPUT_
 }
 
 static std::wstring getErrorString(DWORD error) {
-    return L"Could not load Geode! Error code: " + std::to_wstring(error);
+    return L"Could not load Sapfire! Error code: " + std::to_wstring(error);
 }
 
 static DWORD errorThread(LPVOID param) {
-    constexpr wchar_t REDIST_ERROR[] = L"Could not load Geode!\n"
+    constexpr wchar_t REDIST_ERROR[] = L"Could not load Sapfire!\n"
         "This is likely due to an outdated redist package.\n"
         "Do you want to update Microsoft Visual C++ Redistributable 2022 to try to fix this issue?";
-    constexpr wchar_t ALT_REDIST_ERROR[] = L"Could not load Geode!\n\n"
+    constexpr wchar_t ALT_REDIST_ERROR[] = L"Could not load Sapfire!\n\n"
         "Please **delete** the following files from your Geometry Dash directory and try again: ";
     const DWORD error = reinterpret_cast<DWORD64>(param);
 
@@ -107,7 +107,7 @@ BOOL WINAPI DllMain(HINSTANCE module, DWORD reason, LPVOID _) {
         DisableThreadLibraryCalls(module);
 
         // This is UB.
-        if (LoadLibraryW(L"Geode.dll") == NULL) {
+        if (LoadLibraryW(L"Sapfire.dll") == NULL) {
             const auto param = reinterpret_cast<LPVOID>(static_cast<DWORD64>(GetLastError()));
             CreateThread(NULL, 0, &errorThread, param, 0, NULL);
         }

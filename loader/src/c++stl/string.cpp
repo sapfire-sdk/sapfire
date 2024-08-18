@@ -1,4 +1,4 @@
-#include <Geode/c++stl/gdstdlib.hpp>
+#include <Sapfire/c++stl/gdstdlib.hpp>
 #include "string-impl.hpp"
 #include <compare>
 #include <stdexcept>
@@ -8,13 +8,13 @@ Type& intoMutRef(const Type& x) {
     return const_cast<Type&>(x);
 }
 
-using geode::stl::StringImpl;
+using sapfire::stl::StringImpl;
 
 #define implFor(x) StringImpl{intoMutRef(x.m_data)}
 #define impl implFor((*this))
 
 namespace gd {
-#if !defined(GEODE_IS_MACOS) && !defined(GEODE_IS_IOS) && !defined(GEODE_IS_WINDOWS)
+#if !defined(SAPFIRE_IS_MACOS) && !defined(SAPFIRE_IS_IOS) && !defined(SAPFIRE_IS_WINDOWS)
     string::string() {
         impl.setEmpty();
     }

@@ -1,32 +1,32 @@
 #pragma once
 
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/ui/General.hpp>
-#include <Geode/ui/IconButtonSprite.hpp>
-#include <Geode/ui/BasedButtonSprite.hpp>
-#include <Geode/ui/Popup.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/ui/General.hpp>
+#include <Sapfire/ui/IconButtonSprite.hpp>
+#include <Sapfire/ui/BasedButtonSprite.hpp>
+#include <Sapfire/ui/Popup.hpp>
+#include <Sapfire/loader/Mod.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-enum class GeodePopupStyle {
+enum class SapfirePopupStyle {
     Default,
     Alt,
     Alt2,
 };
 
 template <class... Args>
-class GeodePopup : public Popup<Args...> {
+class SapfirePopup : public Popup<Args...> {
 protected:
-    bool init(float width, float height, Args... args, GeodePopupStyle style = GeodePopupStyle::Default) {
-        const bool geodeTheme = Mod::get()->template getSettingValue<bool>("enable-geode-theme");
+    bool init(float width, float height, Args... args, SapfirePopupStyle style = SapfirePopupStyle::Default) {
+        const bool sapfireTheme = Mod::get()->template getSettingValue<bool>("enable-sapfire-theme");
         const char* bg;
         switch (style) {
             default:
-            case GeodePopupStyle::Default: bg = geodeTheme ? "GE_square01.png"_spr : "GJ_square01.png"; break;
-            case GeodePopupStyle::Alt:     bg = geodeTheme ? "GE_square02.png"_spr : "GJ_square02.png"; break;
-            case GeodePopupStyle::Alt2:    bg = geodeTheme ? "GE_square03.png"_spr : "GJ_square02.png"; break;
+            case SapfirePopupStyle::Default: bg = sapfireTheme ? "GE_square01.png"_spr : "GJ_square01.png"; break;
+            case SapfirePopupStyle::Alt:     bg = sapfireTheme ? "GE_square02.png"_spr : "GJ_square02.png"; break;
+            case SapfirePopupStyle::Alt2:    bg = sapfireTheme ? "GE_square03.png"_spr : "GJ_square02.png"; break;
         }
         if (!Popup<Args...>::initAnchored(width, height, std::forward<Args>(args)..., bg))
             return false;
@@ -34,8 +34,8 @@ protected:
         this->setCloseButtonSpr(
             CircleButtonSprite::createWithSpriteFrameName(
                 "close.png"_spr, .85f,
-                (geodeTheme ? 
-                    (style == GeodePopupStyle::Default ? CircleBaseColor::DarkPurple : CircleBaseColor::DarkAqua) : 
+                (sapfireTheme ? 
+                    (style == SapfirePopupStyle::Default ? CircleBaseColor::DarkPurple : CircleBaseColor::DarkAqua) : 
                     CircleBaseColor::Green
                 )
             )
@@ -45,7 +45,7 @@ protected:
     }
 };
 
-class GeodeSquareSprite : public CCSprite {
+class SapfireSquareSprite : public CCSprite {
 protected:
     bool* m_stateSrc = nullptr;
     bool m_state = false;
@@ -57,8 +57,8 @@ protected:
     void updateImage();
 
 public:
-    static GeodeSquareSprite* create(const char* top, bool* state = nullptr);
-    static GeodeSquareSprite* createWithSpriteFrameName(const char* top, bool* state = nullptr);
+    static SapfireSquareSprite* create(const char* top, bool* state = nullptr);
+    static SapfireSquareSprite* createWithSpriteFrameName(const char* top, bool* state = nullptr);
 
     CCSprite* getTopSprite() const;
     void setState(bool state);
@@ -66,27 +66,27 @@ public:
 
 CCNode* createLoadingCircle(float sideLength, const char* id = "loading-spinner");
 
-enum class GeodeButtonSprite {
+enum class SapfireButtonSprite {
     Default,
     Install,
     Delete,
     Enable,
 };
-const char* getGeodeButtonSpriteName(GeodeButtonSprite spr);
-IconButtonSprite* createGeodeButton(CCNode* icon, std::string const& text, GeodeButtonSprite bg = GeodeButtonSprite::Default);
-ButtonSprite* createGeodeButton(std::string const& text, int width, bool absolute = false, bool gold = false, GeodeButtonSprite bg = GeodeButtonSprite::Default);
-ButtonSprite* createGeodeButton(std::string const& text, bool gold = false, GeodeButtonSprite bg = GeodeButtonSprite::Default);
+const char* getSapfireButtonSpriteName(SapfireButtonSprite spr);
+IconButtonSprite* createSapfireButton(CCNode* icon, std::string const& text, SapfireButtonSprite bg = SapfireButtonSprite::Default);
+ButtonSprite* createSapfireButton(std::string const& text, int width, bool absolute = false, bool gold = false, SapfireButtonSprite bg = SapfireButtonSprite::Default);
+ButtonSprite* createSapfireButton(std::string const& text, bool gold = false, SapfireButtonSprite bg = SapfireButtonSprite::Default);
 
-CircleButtonSprite* createGeodeCircleButton(CCSprite* top, float scale = 1.f, CircleBaseSize size = CircleBaseSize::Medium, bool altColor = false);
+CircleButtonSprite* createSapfireCircleButton(CCSprite* top, float scale = 1.f, CircleBaseSize size = CircleBaseSize::Medium, bool altColor = false);
 
-ButtonSprite* createGeodeTagLabel(std::string const& text, std::optional<std::pair<ccColor3B, ccColor3B>> const& color = std::nullopt);
-std::pair<ccColor3B, ccColor3B> geodeTagColor(std::string_view const& text);
+ButtonSprite* createSapfireTagLabel(std::string const& text, std::optional<std::pair<ccColor3B, ccColor3B>> const& color = std::nullopt);
+std::pair<ccColor3B, ccColor3B> sapfireTagColor(std::string_view const& text);
 
-ListBorders* createGeodeListBorders(CCSize const& size);
+ListBorders* createSapfireListBorders(CCSize const& size);
 
-bool isGeodeTheme();
+bool isSapfireTheme();
 
-class GeodeTabSprite : public CCNode {
+class SapfireTabSprite : public CCNode {
 protected:
     CCScale9Sprite* m_deselectedBG;
     CCScale9Sprite* m_selectedBG;
@@ -96,7 +96,7 @@ protected:
     bool init(const char* iconFrame, const char* text, float width, bool altColor);
 
 public:
-    static GeodeTabSprite* create(const char* iconFrame, const char* text, float width, bool altColor = false);
+    static SapfireTabSprite* create(const char* iconFrame, const char* text, float width, bool altColor = false);
 
     void select(bool selected);
     void disable(bool disabled);

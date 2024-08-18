@@ -1,7 +1,7 @@
 #include "DownloadManager.hpp"
-#include "Geode/loader/Mod.hpp"
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/utils/map.hpp>
+#include "Sapfire/loader/Mod.hpp"
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/utils/map.hpp>
 #include <optional>
 #include <hash/hash.hpp>
 
@@ -121,13 +121,13 @@ public:
                         if (ec) {
                             removingInstalledWasError = true;
                             m_status = DownloadStatusError {
-                                .details = fmt::format("Unable to delete existing .geode package (code {})", ec),
+                                .details = fmt::format("Unable to delete existing .sapfire package (code {})", ec),
                             };
                         }
                     }
                     // If this was an update, delete the old file first
                     if (!removingInstalledWasError) {
-                        auto ok = file::writeBinary(dirs::getModsDir() / (m_id + ".geode"), value->data());
+                        auto ok = file::writeBinary(dirs::getModsDir() / (m_id + ".sapfire"), value->data());
                         if (!ok) {
                             m_status = DownloadStatusError {
                                 .details = ok.unwrapErr(),

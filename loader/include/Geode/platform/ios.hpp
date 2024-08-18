@@ -6,7 +6,7 @@
 #include <typeinfo>
 #include "ItaniumCast.hpp"
 
-namespace geode {
+namespace sapfire {
     using dylib_t = void*;
 
     struct PlatformInfo {
@@ -14,13 +14,13 @@ namespace geode {
     };
 }
 
-namespace geode::base {
-    GEODE_NOINLINE inline uintptr_t get() {
+namespace sapfire::base {
+    SAPFIRE_NOINLINE inline uintptr_t get() {
         static uintptr_t base = _dyld_get_image_vmaddr_slide(0) + 0x100000000;
         return base;
     }
 }
 
-extern "C" inline uintptr_t _geode_ios_base() {
-    return geode::base::get();
+extern "C" inline uintptr_t _sapfire_ios_base() {
+    return sapfire::base::get();
 }

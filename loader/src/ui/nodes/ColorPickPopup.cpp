@@ -1,14 +1,14 @@
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/binding/CCTextInputNode.hpp>
-#include <Geode/binding/Slider.hpp>
-#include <Geode/binding/SliderThumb.hpp>
-#include <Geode/ui/ColorPickPopup.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
+#include <Sapfire/binding/Slider.hpp>
+#include <Sapfire/binding/SliderThumb.hpp>
+#include <Sapfire/ui/ColorPickPopup.hpp>
+#include <Sapfire/utils/cocos.hpp>
 #include <charconv>
 #include <clocale>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Mod.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 bool ColorPickPopup::setup(ccColor4B const& color, bool isRGBA) {
     m_noElasticity = true;

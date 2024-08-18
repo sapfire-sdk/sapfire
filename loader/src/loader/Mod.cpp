@@ -1,12 +1,12 @@
 #include "ModImpl.hpp"
 
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include <optional>
 #include <string_view>
 #include <server/Server.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 Mod::Mod(ModMetadata const& metadata) : m_impl(std::make_unique<Impl>(this, metadata)) {}
 
@@ -91,7 +91,7 @@ std::filesystem::path Mod::getResourcesDir() const {
     return dirs::getModRuntimeDir() / this->getID() / "resources" / this->getID();
 }
 
-#if defined(GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
+#if defined(SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
 void Mod::setMetadata(ModMetadata const& metadata) {
     m_impl->setMetadata(metadata);
 }
@@ -111,7 +111,7 @@ Mod::CheckUpdatesTask Mod::checkUpdates() const {
                 if (auto value = result->unwrap()) {
                     if (value->replacement) {
                         return Err(
-                            "Mod has been replaced by {} - please visit the Geode "
+                            "Mod has been replaced by {} - please visit the Sapfire "
                             "menu to install the replacement",
                             value->replacement->id
                         );

@@ -9,8 +9,8 @@ namespace cocos2d {
     class CCNode;
 }
 
-namespace geode {
-    class GEODE_DLL SceneManager final {
+namespace sapfire {
+    class SAPFIRE_DLL SceneManager final {
     protected:
         cocos2d::CCArray* m_persistedNodes;
         cocos2d::CCScene* m_lastScene = nullptr;

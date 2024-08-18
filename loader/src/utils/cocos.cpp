@@ -1,11 +1,11 @@
-#include <Geode/modify/LoadingLayer.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/modify/LoadingLayer.hpp>
+#include <Sapfire/utils/cocos.hpp>
 #include <matjson.hpp>
 #include <charconv>
-#include <Geode/binding/CCTextInputNode.hpp>
-#include <Geode/binding/GameManager.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
+#include <Sapfire/binding/GameManager.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 bool matjson::Serialize<ccColor3B>::is_json(matjson::Value const& json) {
     if (json.is_array()) {
@@ -120,7 +120,7 @@ ccColor4B matjson::Serialize<ccColor4B>::from_json(matjson::Value const& json) {
     return color;
 }
 
-Result<ccColor3B> geode::cocos::cc3bFromHexString(std::string const& rawHexValue, bool permissive) {
+Result<ccColor3B> sapfire::cocos::cc3bFromHexString(std::string const& rawHexValue, bool permissive) {
     if (permissive && rawHexValue.empty()) {
         return Ok(ccc3(255, 255, 255));
     }
@@ -178,7 +178,7 @@ Result<ccColor3B> geode::cocos::cc3bFromHexString(std::string const& rawHexValue
     }
 }
 
-Result<ccColor4B> geode::cocos::cc4bFromHexString(std::string const& rawHexValue, bool requireAlpha, bool permissive) {
+Result<ccColor4B> sapfire::cocos::cc4bFromHexString(std::string const& rawHexValue, bool requireAlpha, bool permissive) {
     if (permissive && rawHexValue.empty()) {
         return Ok(ccc4(255, 255, 255, 255));
     }
@@ -267,7 +267,7 @@ Result<ccColor4B> geode::cocos::cc4bFromHexString(std::string const& rawHexValue
     }
 }
 
-std::string geode::cocos::cc3bToHexString(ccColor3B const& color) {
+std::string sapfire::cocos::cc3bToHexString(ccColor3B const& color) {
     static constexpr auto digits = "0123456789ABCDEF";
     std::string output;
     output += digits[color.r >> 4 & 0xF];
@@ -279,7 +279,7 @@ std::string geode::cocos::cc3bToHexString(ccColor3B const& color) {
     return output;
 }
 
-std::string geode::cocos::cc4bToHexString(ccColor4B const& color) {
+std::string sapfire::cocos::cc4bToHexString(ccColor4B const& color) {
     static constexpr auto digits = "0123456789ABCDEF";
     std::string output;
     output += digits[color.r >> 4 & 0xF];
@@ -339,7 +339,7 @@ std::shared_ptr<WeakRefController> WeakRefPool::manage(CCObject* obj) {
     return m_pool.at(obj);
 }
 
-bool geode::cocos::isSpriteFrameName(CCNode* node, const char* name) {
+bool sapfire::cocos::isSpriteFrameName(CCNode* node, const char* name) {
     if (!node) return false;
 
     auto cache = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name);
@@ -363,7 +363,7 @@ bool geode::cocos::isSpriteFrameName(CCNode* node, const char* name) {
     return false;
 }
 
-CCNode* geode::cocos::getChildBySpriteFrameName(CCNode* parent, const char* name) {
+CCNode* sapfire::cocos::getChildBySpriteFrameName(CCNode* parent, const char* name) {
     for (auto child : CCArrayExt<CCNode*>(parent->getChildren())) {
         if (::isSpriteFrameName(static_cast<CCNode*>(child), name)) {
             return child;
@@ -372,7 +372,7 @@ CCNode* geode::cocos::getChildBySpriteFrameName(CCNode* parent, const char* name
     return nullptr;
 }
 
-bool geode::cocos::isSpriteName(CCNode* node, const char* name) {
+bool sapfire::cocos::isSpriteName(CCNode* node, const char* name) {
     if (!node) return false;
 
     auto texture = CCTextureCache::sharedTextureCache()->textureForKey(name);
@@ -394,7 +394,7 @@ bool geode::cocos::isSpriteName(CCNode* node, const char* name) {
     return false;
 }
 
-CCNode* geode::cocos::getChildBySpriteName(CCNode* parent, const char* name) {
+CCNode* sapfire::cocos::getChildBySpriteName(CCNode* parent, const char* name) {
     for (auto child : CCArrayExt<CCNode*>(parent->getChildren())) {
         if (::isSpriteName(static_cast<CCNode*>(child), name)) {
             return child;
@@ -403,7 +403,7 @@ CCNode* geode::cocos::getChildBySpriteName(CCNode* parent, const char* name) {
     return nullptr;
 }
 
-CCRect geode::cocos::calculateNodeCoverage(std::vector<CCNode*> const& nodes) {
+CCRect sapfire::cocos::calculateNodeCoverage(std::vector<CCNode*> const& nodes) {
     CCRect coverage;
     for (auto child : nodes) {
         auto pos = child->getPosition() - child->getScaledContentSize() * child->getAnchorPoint();
@@ -425,7 +425,7 @@ CCRect geode::cocos::calculateNodeCoverage(std::vector<CCNode*> const& nodes) {
     return coverage;
 }
 
-CCRect geode::cocos::calculateNodeCoverage(CCArray* nodes) {
+CCRect sapfire::cocos::calculateNodeCoverage(CCArray* nodes) {
     CCRect coverage;
     for (auto child : CCArrayExt<CCNode*>(nodes)) {
         auto pos = child->getPosition() - child->getScaledContentSize() * child->getAnchorPoint();
@@ -447,15 +447,15 @@ CCRect geode::cocos::calculateNodeCoverage(CCArray* nodes) {
     return coverage;
 }
 
-CCRect geode::cocos::calculateChildCoverage(CCNode* parent) {
+CCRect sapfire::cocos::calculateChildCoverage(CCNode* parent) {
     return calculateNodeCoverage(parent->getChildren());
 }
 
-void geode::cocos::limitNodeSize(CCNode* spr, CCSize const& size, float def, float min) {
+void sapfire::cocos::limitNodeSize(CCNode* spr, CCSize const& size, float def, float min) {
     spr->setScale(clamp(std::min(size.height / spr->getContentHeight(), size.width / spr->getContentWidth()), min, def));
 }
 
-bool geode::cocos::nodeIsVisible(CCNode* node) {
+bool sapfire::cocos::nodeIsVisible(CCNode* node) {
     if (!node->isVisible()) {
         return false;
     }
@@ -465,7 +465,7 @@ bool geode::cocos::nodeIsVisible(CCNode* node) {
     return true;
 }
 
-CCNode* geode::cocos::getChildByTagRecursive(cocos2d::CCNode* node, int tag) {
+CCNode* sapfire::cocos::getChildByTagRecursive(cocos2d::CCNode* node, int tag) {
     if (node->getTag() == tag) return node;
     auto children = node->getChildren();
     for (int i = 0; i < children->count(); ++i) {
@@ -476,12 +476,12 @@ CCNode* geode::cocos::getChildByTagRecursive(cocos2d::CCNode* node, int tag) {
     return nullptr;
 }
 
-bool geode::cocos::fileExistsInSearchPaths(char const* filename) {
+bool sapfire::cocos::fileExistsInSearchPaths(char const* filename) {
     auto utils = CCFileUtils::sharedFileUtils();
     return utils->isFileExist(utils->fullPathForFilename(filename, false));
 }
 
-CCScene* geode::cocos::switchToScene(CCLayer* layer) {
+CCScene* sapfire::cocos::switchToScene(CCLayer* layer) {
     auto scene = CCScene::create();
     scene->addChild(layer);
     CCDirector::get()->replaceScene(CCTransitionFade::create(.5f, scene));
@@ -490,12 +490,12 @@ CCScene* geode::cocos::switchToScene(CCLayer* layer) {
 
 static CreateLayerFunc LOADING_FINISHED_SCENE = nullptr;
 
-void geode::cocos::reloadTextures(CreateLayerFunc returnTo) {
+void sapfire::cocos::reloadTextures(CreateLayerFunc returnTo) {
     LOADING_FINISHED_SCENE = returnTo;
     GameManager::get()->reloadAll(false, false, true);
 }
 
-void GEODE_DLL geode::cocos::handleTouchPriorityWith(cocos2d::CCNode* node, int priority, bool force) {
+void SAPFIRE_DLL sapfire::cocos::handleTouchPriorityWith(cocos2d::CCNode* node, int priority, bool force) {
     if (node == nullptr) return;
     if (node->getChildrenCount() == 0) return;
     
@@ -514,7 +514,7 @@ void GEODE_DLL geode::cocos::handleTouchPriorityWith(cocos2d::CCNode* node, int 
         handleTouchPriorityWith(child, priority, force);
     }
 }
-void GEODE_DLL geode::cocos::handleTouchPriority(cocos2d::CCNode* node, bool force) {
+void SAPFIRE_DLL sapfire::cocos::handleTouchPriority(cocos2d::CCNode* node, bool force) {
     Loader::get()->queueInMainThread([node = Ref(node), force]() {
         if (auto delegate = typeinfo_cast<CCTouchDelegate*>(*node)) {
             if (auto handler = CCTouchDispatcher::get()->findHandler(delegate)) {
@@ -526,7 +526,7 @@ void GEODE_DLL geode::cocos::handleTouchPriority(cocos2d::CCNode* node, bool for
 }
 
 struct LoadingFinished : Modify<LoadingFinished, LoadingLayer> {
-    GEODE_FORWARD_COMPAT_DISABLE_HOOKS("geode::cocos::reloadTextures disabled")
+    SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS("sapfire::cocos::reloadTextures disabled")
     void loadAssets() {
         // loadFinished is inlined on Macchew OS :sob:
 

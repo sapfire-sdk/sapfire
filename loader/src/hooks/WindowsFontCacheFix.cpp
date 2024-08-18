@@ -1,10 +1,10 @@
-#include <Geode/Geode.hpp>
+#include <Sapfire/Sapfire.hpp>
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 
 #include <loader/LoaderImpl.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // https://github.com/cocos2d/cocos2d-x/blob/5a25fe75cb8b26b61b14b070e757ec3b17ff7791/cocos2dx/platform/win32/CCImage.cpp#L96
 // stop setFont from caching fonts on Windows
@@ -26,7 +26,7 @@ int __stdcall RemoveFontResourceWHook(LPCWSTR p0) {
  */
 static void patchCall(uintptr_t addr, uintptr_t newCall) {
     ByteVector patch = { 0xE8 }; // CALL near & relative
-    addr += (uintptr_t)geode::base::getCocos();
+    addr += (uintptr_t)sapfire::base::getCocos();
     uintptr_t callAddr = newCall - (addr + 5);
     for (auto i = 0; i < sizeof(int); ++i)
         patch.push_back(callAddr >> (8 * i));
@@ -38,7 +38,7 @@ $execute {
     if (LoaderImpl::get()->isForwardCompatMode()) return;
     
     // BitmapDC::~BitmapDC
-#if 0 // TODO: mat GEODE_COMP_GD_VERSION == 22040
+#if 0 // TODO: mat SAPFIRE_COMP_GD_VERSION == 22040
     patchCall(0xC9A56, (uintptr_t)&RemoveFontResourceWHook);
 
     // BitmapDC::setFont

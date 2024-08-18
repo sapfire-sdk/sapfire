@@ -4,7 +4,7 @@ Mod* ModPatch::getOwner() const {
     return m_owner;
 }
 
-Result<> ModPatch::setOwner(geode::Mod* mod) {
+Result<> ModPatch::setOwner(sapfire::Mod* mod) {
     if (mod && m_owner) {
         return Err("Cannot directly replace owner of an already owned mod");
     }

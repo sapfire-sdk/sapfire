@@ -2,63 +2,63 @@
  * Adapted from https://gist.github.com/altalk23/29b97969e9f0624f783b673f6c1cd279
  */
 
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/utils/addresser.hpp>
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/utils/addresser.hpp>
 #include <cstdlib>
 #include <stddef.h>
 
-#define GEODE_ADDRESSER_NEST1(macro, begin)                                                      \
-    macro(GEODE_CONCAT(begin, 0)), macro(GEODE_CONCAT(begin, 1)), macro(GEODE_CONCAT(begin, 2)), \
-        macro(GEODE_CONCAT(begin, 3)), macro(GEODE_CONCAT(begin, 4)),                            \
-        macro(GEODE_CONCAT(begin, 5)), macro(GEODE_CONCAT(begin, 6)),                            \
-        macro(GEODE_CONCAT(begin, 7)), macro(GEODE_CONCAT(begin, 8)),                            \
-        macro(GEODE_CONCAT(begin, 9)), macro(GEODE_CONCAT(begin, a)),                            \
-        macro(GEODE_CONCAT(begin, b)), macro(GEODE_CONCAT(begin, c)),                            \
-        macro(GEODE_CONCAT(begin, d)), macro(GEODE_CONCAT(begin, e)), macro(GEODE_CONCAT(begin, f))
+#define SAPFIRE_ADDRESSER_NEST1(macro, begin)                                                      \
+    macro(SAPFIRE_CONCAT(begin, 0)), macro(SAPFIRE_CONCAT(begin, 1)), macro(SAPFIRE_CONCAT(begin, 2)), \
+        macro(SAPFIRE_CONCAT(begin, 3)), macro(SAPFIRE_CONCAT(begin, 4)),                            \
+        macro(SAPFIRE_CONCAT(begin, 5)), macro(SAPFIRE_CONCAT(begin, 6)),                            \
+        macro(SAPFIRE_CONCAT(begin, 7)), macro(SAPFIRE_CONCAT(begin, 8)),                            \
+        macro(SAPFIRE_CONCAT(begin, 9)), macro(SAPFIRE_CONCAT(begin, a)),                            \
+        macro(SAPFIRE_CONCAT(begin, b)), macro(SAPFIRE_CONCAT(begin, c)),                            \
+        macro(SAPFIRE_CONCAT(begin, d)), macro(SAPFIRE_CONCAT(begin, e)), macro(SAPFIRE_CONCAT(begin, f))
 
-#define GEODE_ADDRESSER_NEST2(macro, begin)                   \
-    GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 0)),     \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 1)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 2)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 3)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 4)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 5)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 6)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 7)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 8)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, 9)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, a)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, b)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, c)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, d)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, e)), \
-        GEODE_ADDRESSER_NEST1(macro, GEODE_CONCAT(begin, f))
+#define SAPFIRE_ADDRESSER_NEST2(macro, begin)                   \
+    SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 0)),     \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 1)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 2)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 3)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 4)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 5)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 6)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 7)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 8)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, 9)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, a)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, b)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, c)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, d)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, e)), \
+        SAPFIRE_ADDRESSER_NEST1(macro, SAPFIRE_CONCAT(begin, f))
 
-#define GEODE_ADDRESSER_THUNK0_DEFINE(hex) (intptr_t) & f<hex * sizeof(intptr_t)>
-#define GEODE_ADDRESSER_TABLE_DEFINE(hex) (intptr_t) & ThunkTable::table
+#define SAPFIRE_ADDRESSER_THUNK0_DEFINE(hex) (intptr_t) & f<hex * sizeof(intptr_t)>
+#define SAPFIRE_ADDRESSER_TABLE_DEFINE(hex) (intptr_t) & ThunkTable::table
 
-#define GEODE_ADDRESSER_THUNK0_SET() GEODE_ADDRESSER_NEST2(GEODE_ADDRESSER_THUNK0_DEFINE, 0x)
-#define GEODE_ADDRESSER_TABLE_SET() GEODE_ADDRESSER_NEST2(GEODE_ADDRESSER_TABLE_DEFINE, 0x)
+#define SAPFIRE_ADDRESSER_THUNK0_SET() SAPFIRE_ADDRESSER_NEST2(SAPFIRE_ADDRESSER_THUNK0_DEFINE, 0x)
+#define SAPFIRE_ADDRESSER_TABLE_SET() SAPFIRE_ADDRESSER_NEST2(SAPFIRE_ADDRESSER_TABLE_DEFINE, 0x)
 
-using namespace geode::addresser;
+using namespace sapfire::addresser;
 
 namespace {
     template <ptrdiff_t index>
-    GEODE_HIDDEN ptrdiff_t f() {
+    SAPFIRE_HIDDEN ptrdiff_t f() {
         return index;
     }
 
     using thunk0_table_t = intptr_t[0x100];
     using table_table_t = intptr_t[0x100];
 
-    struct GEODE_HIDDEN ThunkTable {
-        static inline thunk0_table_t table = {GEODE_ADDRESSER_THUNK0_SET()};
+    struct SAPFIRE_HIDDEN ThunkTable {
+        static inline thunk0_table_t table = {SAPFIRE_ADDRESSER_THUNK0_SET()};
     };
 
-    class GEODE_HIDDEN TableTable {
-        friend class geode::addresser::Addresser;
+    class SAPFIRE_HIDDEN TableTable {
+        friend class sapfire::addresser::Addresser;
 
-        static inline table_table_t table = {GEODE_ADDRESSER_TABLE_SET()};
+        static inline table_table_t table = {SAPFIRE_ADDRESSER_TABLE_SET()};
     };
 }
 
@@ -66,7 +66,7 @@ Addresser::MultipleInheritance* Addresser::instance() {
     return reinterpret_cast<Addresser::MultipleInheritance*>(&TableTable::table);
 }
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 #include <delayimp.h>
 extern "C" FARPROC WINAPI __delayLoadHelper2(PCImgDelayDescr pidd, FARPROC* ppfnIATEntry); // NOLINT(*-reserved-identifier)
 
@@ -86,7 +86,7 @@ extern "C" const PfnDliHook __pfnDliFailureHook2 = delayLoadHook;
 #endif
 
 intptr_t Addresser::followThunkFunction(intptr_t address) {
-#ifdef GEODE_IS_WINDOWS32
+#ifdef SAPFIRE_IS_WINDOWS32
     // if theres a jmp at the start
     if (address && *reinterpret_cast<uint8_t*>(address) == 0xE9) {
         auto relative = *reinterpret_cast<uint32_t*>(address + 1);
@@ -131,7 +131,7 @@ intptr_t Addresser::followThunkFunction(intptr_t address) {
         }
     }
 #endif
-#ifdef GEODE_IS_WINDOWS64
+#ifdef SAPFIRE_IS_WINDOWS64
     static constexpr auto checkByteSequence = [](uintptr_t address, const std::initializer_list<uint8_t>& bytes) {
         for (auto byte : bytes) {
             if (*reinterpret_cast<uint8_t*>(address++) != byte) {

@@ -8,7 +8,7 @@ NS_CC_BEGIN
 
 class CC_DLL CCControllerState
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     DWORD m_packetNumber;
     WORD m_buttons;

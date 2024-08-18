@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Geode/DefaultInclude.hpp>
-#include <Geode/binding/CCTextInputNode.hpp>
+#include <Sapfire/DefaultInclude.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
 #include <cocos2d.h>
 
-namespace geode {
-    class GEODE_DLL InputNode : public cocos2d::CCMenuItem {
+namespace sapfire {
+    class SAPFIRE_DLL InputNode : public cocos2d::CCMenuItem {
     protected:
         cocos2d::extension::CCScale9Sprite* m_bgSprite;
         CCTextInputNode* m_input;
@@ -14,20 +14,20 @@ namespace geode {
         bool init(float, char const*, char const*, std::string const&, int);
 
     public:
-        [[deprecated("Use geode::TextInput from the ui/TextInput.hpp header instead")]]
+        [[deprecated("Use sapfire::TextInput from the ui/TextInput.hpp header instead")]]
         static InputNode* create(
             float width, char const* placeholder, char const* fontFile, std::string const& filter,
             int limit
         );
-        [[deprecated("Use geode::TextInput from the ui/TextInput.hpp header instead")]]
+        [[deprecated("Use sapfire::TextInput from the ui/TextInput.hpp header instead")]]
         static InputNode* create(
             float width, char const* placeholder, std::string const& filter, int limit
         );
-        [[deprecated("Use geode::TextInput from the ui/TextInput.hpp header instead")]]
+        [[deprecated("Use sapfire::TextInput from the ui/TextInput.hpp header instead")]]
         static InputNode* create(float width, char const* placeholder, std::string const& filter);
-        [[deprecated("Use geode::TextInput from the ui/TextInput.hpp header instead")]]
+        [[deprecated("Use sapfire::TextInput from the ui/TextInput.hpp header instead")]]
         static InputNode* create(float width, char const* placeholder, char const* fontFile);
-        [[deprecated("Use geode::TextInput from the ui/TextInput.hpp header instead")]]
+        [[deprecated("Use sapfire::TextInput from the ui/TextInput.hpp header instead")]]
         static InputNode* create(float width, char const* placeholder);
 
         CCTextInputNode* getInput() const;

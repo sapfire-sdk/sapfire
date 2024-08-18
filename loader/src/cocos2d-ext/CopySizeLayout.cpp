@@ -1,11 +1,11 @@
 #include <cocos2d.h>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/ranges.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/binding/CCMenuItemSpriteExtra.hpp>
-#include <Geode/binding/CCMenuItemToggler.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/ranges.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/binding/CCMenuItemSpriteExtra.hpp>
+#include <Sapfire/binding/CCMenuItemToggler.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 CopySizeLayout* CopySizeLayout::create() {
     auto ret = new CopySizeLayout();

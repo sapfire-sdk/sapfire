@@ -14,7 +14,7 @@ class CC_DLL ObjectDecoder : public cocos2d::CCNode {
 public:
 	ObjectDecoder();
 	~ObjectDecoder() {}
-	GEODE_CUSTOM_CONSTRUCTOR_BEGIN(ObjectDecoder)
+	SAPFIRE_CUSTOM_CONSTRUCTOR_BEGIN(ObjectDecoder)
 
 	static ObjectDecoder* sharedDecoder();
 

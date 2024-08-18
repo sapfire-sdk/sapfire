@@ -1,10 +1,10 @@
-#include <Geode/utils/terminate.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/utils/terminate.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include "../loader/Log.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-void geode::utils::detail::logTerminationError(const char* reason, Mod* mod) {
+void sapfire::utils::detail::logTerminationError(const char* reason, Mod* mod) {
     // invoke logImpl directly to indicate what mod it came from
     log::logImpl(
         Severity::Error, mod,

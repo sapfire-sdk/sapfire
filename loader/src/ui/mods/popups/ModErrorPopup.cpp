@@ -1,12 +1,12 @@
 #include "ModErrorPopup.hpp"
-#include "Geode/cocos/base_nodes/Layout.hpp"
-#include "ui/mods/GeodeStyle.hpp"
+#include "Sapfire/cocos/base_nodes/Layout.hpp"
+#include "ui/mods/SapfireStyle.hpp"
 #include "ui/mods/list/ModProblemList.hpp"
 
-#include <Geode/cocos/platform/CCPlatformMacros.h>
-#include <Geode/cocos/cocoa/CCGeometry.h>
-#include <Geode/cocos/cocoa/CCArray.h>
-#include <Geode/loader/Loader.hpp>
+#include <Sapfire/cocos/platform/CCPlatformMacros.h>
+#include <Sapfire/cocos/cocoa/CCGeometry.h>
+#include <Sapfire/cocos/cocoa/CCArray.h>
+#include <Sapfire/loader/Loader.hpp>
 #include <fmt/core.h>
 
 bool ModErrorPopup::setup(Mod* mod) {
@@ -32,7 +32,7 @@ void ModErrorPopup::createList() {
 
 ModErrorPopup* ModErrorPopup::create(Mod *mod) {
     ModErrorPopup* ret = new ModErrorPopup();
-    if (ret->init(440.f, 280.f, mod, GeodePopupStyle::Default)) {
+    if (ret->init(440.f, 280.f, mod, SapfirePopupStyle::Default)) {
         ret->autorelease();
         return ret;
     }

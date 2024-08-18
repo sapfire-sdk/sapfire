@@ -1,11 +1,11 @@
-#include <Geode/Loader.hpp>
-#include <Geode/modify/MenuLayer.hpp>
-#include <Geode/loader/SettingNode.hpp>
-#include <Geode/loader/Dispatch.hpp>
-#include <Geode/Bindings.hpp>
+#include <Sapfire/Loader.hpp>
+#include <Sapfire/modify/MenuLayer.hpp>
+#include <Sapfire/loader/SettingNode.hpp>
+#include <Sapfire/loader/Dispatch.hpp>
+#include <Sapfire/Bindings.hpp>
 #include "main.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 std::string TestEvent::getData() const {
     return data;
@@ -170,5 +170,5 @@ $on_mod(Loaded) {
     	label->setZOrder(99999);
     	gl->addChild(label);
         return ListenerResult::Propagate;
-    }, MyDispatchFilter("geode.test/test-garage-open"));
+    }, MyDispatchFilter("sapfire.test/test-garage-open"));
 }

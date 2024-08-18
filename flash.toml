@@ -1,13 +1,13 @@
 
 # Configuration file for the Flash C++ documentation generator.
-# https://github.com/geode-sdk/flash
+# https://github.com/sapfire-sdk/flash
 
 [project]
-name = "Geode"
+name = "Sapfire"
 version = "v3.0.0"
-repository = "https://github.com/geode-sdk/geode"
-tree = "https://github.com/geode-sdk/geode/tree/main"
-icon = "loader/resources/logos/geode-circle.png"
+repository = "https://github.com/sapfire-sdk/sapfire"
+tree = "https://github.com/sapfire-sdk/sapfire/tree/main"
+icon = "loader/resources/logos/sapfire-circle.png"
 
 [tutorials]
 dir = "docs"
@@ -18,25 +18,25 @@ assets = [
 ]
 
 [[sources]]
-name = "Geode"
+name = "Sapfire"
 dir = "loader/include"
 include = [
-    "Geode/**/*.hpp",
-    "Geode/**/*.h",
+    "Sapfire/**/*.hpp",
+    "Sapfire/**/*.h",
 ]
 exclude = [
-    "Geode/modify/Comparer.hpp",
-    "Geode/platform/*.hpp",
-    "Geode/c++stl/*.hpp",
-    # All of the relevant cocos headers are included through Geode headers
-    "Geode/cocos/**/*.h"
+    "Sapfire/modify/Comparer.hpp",
+    "Sapfire/platform/*.hpp",
+    "Sapfire/c++stl/*.hpp",
+    # All of the relevant cocos headers are included through Sapfire headers
+    "Sapfire/cocos/**/*.h"
 ]
 
 [[sources]]
 name = "Bindings"
 dir = "build-docs/bindings/bindings"
 include = [
-    "Geode/binding/*.hpp"
+    "Sapfire/binding/*.hpp"
 ]
 # Bindings are generated at compile time
 exists-online = false
@@ -48,9 +48,9 @@ config-args = [
     "-G", "Ninja",
     "-DCMAKE_CXX_COMPILER=Clang",
     "-DCMAKE_C_COMPILER=Clang",
-    "-DGEODE_BUILDING_DOCS=On",
-    "-DGEODE_PLATFORM_NAME=Win64",
-    "-DGEODE_CODEGEN_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=Clang;-DCMAKE_C_COMPILER=Clang",
+    "-DSAPFIRE_BUILDING_DOCS=On",
+    "-DSAPFIRE_PLATFORM_NAME=Win64",
+    "-DSAPFIRE_CODEGEN_CMAKE_ARGS=-DCMAKE_CXX_COMPILER=Clang;-DCMAKE_C_COMPILER=Clang",
     "-DWIN32=On"
 ]
 build-dir = "build-docs"

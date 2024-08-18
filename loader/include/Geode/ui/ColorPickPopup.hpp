@@ -4,15 +4,15 @@
 #include "TextInput.hpp"
 #include "Popup.hpp"
 
-#include <Geode/binding/TextInputDelegate.hpp>
+#include <Sapfire/binding/TextInputDelegate.hpp>
 
-namespace geode {
-    class GEODE_DLL ColorPickPopupDelegate {
+namespace sapfire {
+    class SAPFIRE_DLL ColorPickPopupDelegate {
     public:
         virtual void updateColor(cocos2d::ccColor4B const& color) {}
     };
 
-    class GEODE_DLL ColorPickPopup :
+    class SAPFIRE_DLL ColorPickPopup :
         public Popup<cocos2d::ccColor4B const&, bool>,
         public cocos2d::extension::ColorPickerDelegate,
         public TextInputDelegate {

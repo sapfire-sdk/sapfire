@@ -34,9 +34,9 @@ class CCRect;
 
 class CC_DLL CCApplication : public CCApplicationProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
-	GEODE_CUSTOM_CONSTRUCTOR_BEGIN(CCApplication)
+	SAPFIRE_CUSTOM_CONSTRUCTOR_BEGIN(CCApplication)
     CCApplication();
     /**
      *  @js NA
@@ -58,7 +58,7 @@ public:
     */
     static CCApplication* sharedApplication();
 
-    static GEODE_DLL CCApplication* get();
+    static SAPFIRE_DLL CCApplication* get();
     
     /**
      @brief    Callback by CCDirector for limit FPS.

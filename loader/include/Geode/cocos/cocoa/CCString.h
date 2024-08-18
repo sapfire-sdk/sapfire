@@ -45,13 +45,13 @@ NS_CC_BEGIN
 
 class CC_DLL CCString : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCString, CCObject)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCString, CCObject)
     /**
      * @lua NA
      */
-#ifndef GEODE_IS_ANDROID
+#ifndef SAPFIRE_IS_ANDROID
     inline CCString() : m_sString("") {}
 #else
     // Make sure its imported because of gd::string stuff,
@@ -120,7 +120,7 @@ public:
      *  @return A CCString pointer which is an autorelease object pointer,
      *          it means that you needn't do a release operation unless you retain it.
      */
-    // Geode change: this is kind of a hack but i think it will work
+    // Sapfire change: this is kind of a hack but i think it will work
     static inline CCString* create(gd::string const& str) {
     	return CCString::createWithData(reinterpret_cast<unsigned char const*>(str.c_str()), str.size());
     }

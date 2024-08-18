@@ -7,10 +7,10 @@ ${LangFileString} MUI_UNTEXT_WELCOME_INFO_TEXT "Ця програма допом
 
 ; installer
 
-${LangFileString} GEODE_TEXT_GD_MISSING "$\r$\n$\r$\nУ цій теці не встановлено Geometry Dash!"
-${LangFileString} GEODE_TEXT_GD_OLD "$\r$\n$\r$\nВаша версія Geometry Dash занадто стара для цієї версії Geode!"
-${LangFileString} GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED "Ця тека вже містить інші моди!$\r$\nВони будуть замінені Geode. (the dll trademark)"
+${LangFileString} SAPFIRE_TEXT_GD_MISSING "$\r$\n$\r$\nУ цій теці не встановлено Geometry Dash!"
+${LangFileString} SAPFIRE_TEXT_GD_OLD "$\r$\n$\r$\nВаша версія Geometry Dash занадто стара для цієї версії Sapfire!"
+${LangFileString} SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED "Ця тека вже містить інші моди!$\r$\nВони будуть замінені Sapfire. (the dll trademark)"
 
 ; uninstaller
 
-${LangFileString} GEODE_UNTEXT_GEODE_MISSING "У цій теці не встановлено Geode!"
+${LangFileString} SAPFIRE_UNTEXT_SAPFIRE_MISSING "У цій теці не встановлено Sapfire!"

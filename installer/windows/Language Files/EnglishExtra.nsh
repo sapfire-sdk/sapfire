@@ -17,10 +17,10 @@ ${LangFileString} MUI_UNTEXT_WELCOME_INFO_TEXT "Setup will guide you through the
 
 ; installer
 
-${LangFileString} GEODE_TEXT_GD_MISSING "$\r$\n$\r$\nThis path does not have Geometry Dash installed!"
-${LangFileString} GEODE_TEXT_GD_OLD "$\r$\n$\r$\nYour version of Geometry Dash is too old for this version of Geode!"
-${LangFileString} GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED "This path has other mods installed!$\r$\nThey will be overwritten by Geode. (the dll trademark)"
+${LangFileString} SAPFIRE_TEXT_GD_MISSING "$\r$\n$\r$\nThis path does not have Geometry Dash installed!"
+${LangFileString} SAPFIRE_TEXT_GD_OLD "$\r$\n$\r$\nYour version of Geometry Dash is too old for this version of Sapfire!"
+${LangFileString} SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED "This path has other mods installed!$\r$\nThey will be overwritten by Sapfire. (the dll trademark)"
 
 ; uninstaller
 
-${LangFileString} GEODE_UNTEXT_GEODE_MISSING "This path does not have Geode installed!"
+${LangFileString} SAPFIRE_UNTEXT_SAPFIRE_MISSING "This path does not have Sapfire installed!"

@@ -3,12 +3,12 @@
 #include "ScrollLayer.hpp"
 #include "TextRenderer.hpp"
 
-#include <Geode/binding/FLAlertLayerProtocol.hpp>
+#include <Sapfire/binding/FLAlertLayerProtocol.hpp>
 
 struct MDParser;
 class CCScrollLayerExt;
 
-namespace geode {
+namespace sapfire {
     /**
      * TextArea for static markdown content. Supports the
      * following features:
@@ -28,9 +28,9 @@ namespace geode {
      * Note that links also have some special protocols.
      * Use `user:<accountID>` to link to a GD
      * account; `level:<id>` to link to a GD level and
-     * `mod:<id>` to link to another Geode mod.
+     * `mod:<id>` to link to another Sapfire mod.
      */
-    class GEODE_DLL MDTextArea :
+    class SAPFIRE_DLL MDTextArea :
         public cocos2d::CCLayer,
         public cocos2d::CCLabelProtocol,
         public FLAlertLayerProtocol {
@@ -49,7 +49,7 @@ namespace geode {
         void onLink(CCObject*);
         void onGDProfile(CCObject*);
         void onGDLevel(CCObject*);
-        void onGeodeMod(CCObject*);
+        void onSapfireMod(CCObject*);
         void FLAlert_Clicked(FLAlertLayer*, bool btn) override;
 
         friend struct ::MDParser;

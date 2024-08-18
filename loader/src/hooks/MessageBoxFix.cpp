@@ -1,13 +1,13 @@
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 
     #include <loader/LoaderImpl.hpp>
-    #include <Geode/loader/Mod.hpp>
-    #include <Geode/modify/Modify.hpp>
+    #include <Sapfire/loader/Mod.hpp>
+    #include <Sapfire/modify/Modify.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // for some reason RobTop uses MessageBoxW in his GLFW error handler.
 // no one knows how this is possible (he passes char* to wchar_t*).
@@ -41,18 +41,18 @@ $execute {
     // hook them to call our own handler
     if (LoaderImpl::get()->isForwardCompatMode()) return;
 
-#if GEODE_COMP_GD_VERSION == 22060
+#if SAPFIRE_COMP_GD_VERSION == 22060
     const uintptr_t offset1 = 0x75d00; // member function in CCEGLView
     const uintptr_t offset2 = 0x75d60; // static function
     
     (void) Mod::get()->hook(
-        reinterpret_cast<void*>(geode::base::getCocos() + offset1),
+        reinterpret_cast<void*>(sapfire::base::getCocos() + offset1),
         fixedErrorHandler,
         "onGLFWError"
     );
     
     (void) Mod::get()->hook(
-        reinterpret_cast<void*>(geode::base::getCocos() + offset2),
+        reinterpret_cast<void*>(sapfire::base::getCocos() + offset2),
         fixedErrorHandler2,
         "onGLFWError2"
     );

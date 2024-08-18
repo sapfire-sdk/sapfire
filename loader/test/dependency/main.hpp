@@ -1,22 +1,22 @@
 #pragma once
 
-#include <Geode/loader/Event.hpp>
-#include <Geode/loader/Dispatch.hpp>
-#include <Geode/binding/GJGarageLayer.hpp>
+#include <Sapfire/loader/Event.hpp>
+#include <Sapfire/loader/Dispatch.hpp>
+#include <Sapfire/binding/GJGarageLayer.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
     #ifdef EXPORTING_MOD
-        #define GEODE_TESTDEP_DLL __declspec(dllexport)
+        #define SAPFIRE_TESTDEP_DLL __declspec(dllexport)
     #else
-        #define GEODE_TESTDEP_DLL __declspec(dllimport)
+        #define SAPFIRE_TESTDEP_DLL __declspec(dllimport)
     #endif
 #else
-    #define GEODE_TESTDEP_DLL
+    #define SAPFIRE_TESTDEP_DLL
 #endif
 
-class GEODE_TESTDEP_DLL TestEvent : public Event {
+class SAPFIRE_TESTDEP_DLL TestEvent : public Event {
 protected:
     std::string data;
 
@@ -25,7 +25,7 @@ public:
     TestEvent(std::string const& data);
 };
 
-class GEODE_TESTDEP_DLL TestEventFilter : public EventFilter<TestEvent> {
+class SAPFIRE_TESTDEP_DLL TestEventFilter : public EventFilter<TestEvent> {
 public:
     using Callback = void(TestEvent*);
 
@@ -34,5 +34,5 @@ public:
     TestEventFilter(TestEventFilter const&) = default;
 };
 
-using MyDispatchEvent = geode::DispatchEvent<GJGarageLayer*>;
-using MyDispatchFilter = geode::DispatchFilter<GJGarageLayer*>;
+using MyDispatchEvent = sapfire::DispatchEvent<GJGarageLayer*>;
+using MyDispatchFilter = sapfire::DispatchFilter<GJGarageLayer*>;

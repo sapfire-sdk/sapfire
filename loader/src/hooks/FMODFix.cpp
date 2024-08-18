@@ -1,6 +1,6 @@
-#include <Geode/Geode.hpp>
+#include <Sapfire/Sapfire.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 auto g_systemInitialized = false;
 
@@ -24,18 +24,18 @@ $execute {
     //   uninitialized (invalid) channel pointers from FMODAudioEngine.
     // This creates a very annoying crash during load in some cases.
 
-    (void)geode::Mod::get()->hook(
-        reinterpret_cast<void*>(geode::addresser::getNonVirtual(&FMOD::System::init)),
+    (void)sapfire::Mod::get()->hook(
+        reinterpret_cast<void*>(sapfire::addresser::getNonVirtual(&FMOD::System::init)),
         &FMOD_System_init_hook,
         "FMOD::System::init"
-        GEODE_WINDOWS32(, tulip::hook::TulipConvention::Stdcall)
+        SAPFIRE_WINDOWS32(, tulip::hook::TulipConvention::Stdcall)
     );
 
-    (void)geode::Mod::get()->hook(
-        reinterpret_cast<void*>(geode::addresser::getNonVirtual(&FMOD::ChannelControl::setVolume)),
+    (void)sapfire::Mod::get()->hook(
+        reinterpret_cast<void*>(sapfire::addresser::getNonVirtual(&FMOD::ChannelControl::setVolume)),
         &FMOD_ChannelControl_setVolume_hook,
         "FMOD::ChannelControl::setVolume"
-        GEODE_WINDOWS32(, tulip::hook::TulipConvention::Stdcall)
+        SAPFIRE_WINDOWS32(, tulip::hook::TulipConvention::Stdcall)
     );
 }
 
@@ -43,7 +43,7 @@ $execute {
 // this hook requires a tuliphook update
 // (setEffectsVolume is too small to hook, so it overwrites the stopAllMusic call below it)
 
-#include <Geode/modify/FMODAudioEngine.hpp>
+#include <Sapfire/modify/FMODAudioEngine.hpp>
 
 struct AndroidFMODFix : Modify<AndroidFMODFix, FMODAudioEngine> {
     void setEffectsVolume(float volume) {

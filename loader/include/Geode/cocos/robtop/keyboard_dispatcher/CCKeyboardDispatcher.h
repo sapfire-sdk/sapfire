@@ -37,7 +37,7 @@ public:
 		return m_bShiftPressed;
 	}
 
-	static GEODE_DLL CCKeyboardDispatcher* get();
+	static SAPFIRE_DLL CCKeyboardDispatcher* get();
 
 	const char* keyToString(enumKeyCodes key);
 

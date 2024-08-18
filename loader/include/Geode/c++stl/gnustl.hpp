@@ -8,16 +8,16 @@
 #include <set>
 #include <vector>
 
-namespace geode::base {
+namespace sapfire::base {
     uintptr_t get();
 }
 
-#if defined(GEODE_IS_ANDROID)
+#if defined(SAPFIRE_IS_ANDROID)
 
     #include "gnustl-map.hpp"
 
 namespace gd {
-    using namespace geode::stl;
+    using namespace sapfire::stl;
 
     void* operatorNew(size_t size);
     void operatorDelete(void* ptr);
@@ -50,7 +50,7 @@ namespace gd {
     };
 
     template <typename K, typename V>
-    class GEODE_DLL map {
+    class SAPFIRE_DLL map {
     protected:
         std::less<K> compare;
         _rb_tree_base m_header;
@@ -284,7 +284,7 @@ namespace gd {
     // using vector = std::vector<Type>;
 
     template <typename T>
-    class GEODE_DLL vector {
+    class SAPFIRE_DLL vector {
     public:
         using value_type = T;
         using iterator = T*;
@@ -693,9 +693,9 @@ namespace gd {
     using unordered_set = void*[7];
 };
 
-#elif defined(GEODE_IS_IOS)
+#elif defined(SAPFIRE_IS_IOS)
 namespace gd {
-    class GEODE_DLL string {
+    class SAPFIRE_DLL string {
     public:
         string() {}
 
@@ -734,7 +734,7 @@ namespace gd {
     };
 
     template <typename T>
-    class GEODE_DLL vector {
+    class SAPFIRE_DLL vector {
     public:
         using value_type = T;
 
@@ -767,7 +767,7 @@ namespace gd {
     };
 
     template <typename K, typename V>
-    class GEODE_DLL map {
+    class SAPFIRE_DLL map {
     protected:
         std::map<K, V> m_internal;
 

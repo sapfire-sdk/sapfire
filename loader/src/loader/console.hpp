@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include <string>
-#include <Geode/loader/Types.hpp>
+#include <Sapfire/loader/Types.hpp>
 
-namespace geode::console {
+namespace sapfire::console {
     // intended for setting up an already attached console
     // for example, if the game was launched with a debugger, it'd already have a console attached
     // so we can setup that console regardless of the setting

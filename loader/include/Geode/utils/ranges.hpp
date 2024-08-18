@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 #include <algorithm>
 #include <string>
 #include <concepts>
@@ -20,7 +20,7 @@ namespace std {
 #undef min
 #undef max
 
-namespace geode::utils::ranges {
+namespace sapfire::utils::ranges {
     template <class C>
     concept ValidConstContainer = requires(C const& c) {
         c.begin();

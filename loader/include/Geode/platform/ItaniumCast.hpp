@@ -1,6 +1,6 @@
 #pragma once
 
-namespace geode::cast {
+namespace sapfire::cast {
 
     struct DummyClass {
         virtual ~DummyClass() {}

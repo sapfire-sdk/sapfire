@@ -6,10 +6,10 @@
 #include <string>
 #include <tuple>
 
-namespace geode {
+namespace sapfire {
     // Mod interoperability
 
-    GEODE_DLL std::unordered_map<std::string, EventListenerPool*>& dispatchPools();
+    SAPFIRE_DLL std::unordered_map<std::string, EventListenerPool*>& dispatchPools();
 
     template <class... Args>
     class DispatchEvent : public Event {

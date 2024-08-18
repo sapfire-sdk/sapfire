@@ -1,8 +1,8 @@
-#include <Geode/binding/LoadingCircle.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/ui/Notification.hpp>
+#include <Sapfire/binding/LoadingCircle.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/ui/Notification.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 constexpr auto NOTIFICATION_FADEIN = .3f;
 constexpr auto NOTIFICATION_FADEOUT = 1.f;

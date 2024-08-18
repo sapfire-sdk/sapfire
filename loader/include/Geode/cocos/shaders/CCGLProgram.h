@@ -100,14 +100,14 @@ typedef void (*GLLogFunction) (GLuint program, GLsizei bufsize, GLsizei* length,
  */
 class CC_DLL CCGLProgram : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      * @js  ctor
      * @lua NA
      */
     CCGLProgram();
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCGLProgram, CCObject);
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCGLProgram, CCObject);
     /**
      * @js NA
      * @lua NA

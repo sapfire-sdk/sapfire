@@ -1,9 +1,9 @@
 ﻿#include <loader/console.hpp>
 #include <loader/LogImpl.hpp>
 #include <io.h>
-#include <Geode/utils/string.hpp>
+#include <Sapfire/utils/string.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 HANDLE s_outHandle = nullptr;
 bool s_useEscapeCodes = false;
@@ -61,7 +61,7 @@ void WINAPI CompletedReadRoutine(DWORD error, DWORD read, LPOVERLAPPED overlap) 
 }
 
 bool redirectStd(FILE* which, std::string const& name, const Severity sev) {
-    auto pipeName = fmt::format(R"(\\.\pipe\geode-{}-{})", name, GetCurrentProcessId());
+    auto pipeName = fmt::format(R"(\\.\pipe\sapfire-{}-{})", name, GetCurrentProcessId());
     auto pipe = CreateNamedPipeA(
         pipeName.c_str(),
         PIPE_ACCESS_INBOUND | FILE_FLAG_OVERLAPPED,

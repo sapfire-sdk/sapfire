@@ -4,13 +4,13 @@
 #include <type_traits>
 #include "ItaniumCast.hpp"
 
-namespace geode {
+namespace sapfire {
     struct PlatformInfo {
         void* m_so;
     };
 }
 
-namespace geode::base {
-    /*GEODE_NOINLINE inline*/ uintptr_t get();
+namespace sapfire::base {
+    /*SAPFIRE_NOINLINE inline*/ uintptr_t get();
 }
 

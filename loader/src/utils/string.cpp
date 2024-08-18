@@ -1,9 +1,9 @@
-#include <Geode/utils/string.hpp>
+#include <Sapfire/utils/string.hpp>
 #include <algorithm>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 
     #include <Windows.h>
     #include <cwctype>

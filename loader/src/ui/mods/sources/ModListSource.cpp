@@ -2,7 +2,7 @@
 #include <server/DownloadManager.hpp>
 
 #define FTS_FUZZY_MATCH_IMPLEMENTATION
-#include <Geode/external/fts/fts_fuzzy_match.h>
+#include <Sapfire/external/fts/fts_fuzzy_match.h>
 
 static constexpr size_t PER_PAGE = 10;
 static std::vector<ModListSource*> ALL_EXTANT_SOURCES {};

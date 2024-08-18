@@ -43,13 +43,13 @@ class CCSet;
 
 class CC_DLL CCEGLViewProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      * @lua NA
      */
     CCEGLViewProtocol();
-    GEODE_CUSTOM_CONSTRUCTOR_BEGIN(CCEGLViewProtocol)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_BEGIN(CCEGLViewProtocol)
     /**
      * @lua NA
      */

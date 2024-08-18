@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Geode/ui/Popup.hpp>
-#include <Geode/ui/TextInput.hpp>
+#include <Sapfire/ui/Popup.hpp>
+#include <Sapfire/ui/TextInput.hpp>
 #include "../sources/ModListSource.hpp"
-#include "../GeodeStyle.hpp"
+#include "../SapfireStyle.hpp"
 #include <server/Server.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-class FiltersPopup : public GeodePopup<ModListSource*> {
+class FiltersPopup : public SapfirePopup<ModListSource*> {
 protected:
     ModListSource* m_source;
     CCMenu* m_tagsMenu;

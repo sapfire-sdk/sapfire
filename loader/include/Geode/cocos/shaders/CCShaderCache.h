@@ -44,7 +44,7 @@ class CCGLProgram;
  */
 class CC_DLL CCShaderCache : public CCObject 
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      * @js ctor

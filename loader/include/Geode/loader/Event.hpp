@@ -3,14 +3,14 @@
 #include "../utils/casts.hpp"
 #include "../utils/MiniFunction.hpp"
 
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 #include <type_traits>
 #include <mutex>
 #include <deque>
 #include <unordered_set>
 #include <atomic>
 
-namespace geode {
+namespace sapfire {
     class Mod;
     class Event;
     class EventListenerProtocol;
@@ -22,7 +22,7 @@ namespace geode {
         Stop
     };
 
-    struct GEODE_DLL EventListenerPool {
+    struct SAPFIRE_DLL EventListenerPool {
         virtual bool add(EventListenerProtocol* listener) = 0;
         virtual void remove(EventListenerProtocol* listener) = 0;
         virtual ListenerResult handle(Event* event) = 0;
@@ -39,9 +39,9 @@ namespace geode {
     template <class... Args>
     class DispatchFilter;
     
-    class GEODE_DLL DefaultEventListenerPool : public EventListenerPool {
+    class SAPFIRE_DLL DefaultEventListenerPool : public EventListenerPool {
     protected:
-        // fix this in Geode 4.0.0
+        // fix this in Sapfire 4.0.0
         struct Data {
             std::atomic_size_t m_locked = 0;
             std::mutex m_mutex;
@@ -66,11 +66,11 @@ namespace geode {
         template <class... Args>
         friend class DispatchFilter;
 
-        // todo: make this private in Geode 4.0.0
+        // todo: make this private in Sapfire 4.0.0
         DefaultEventListenerPool();
     };
 
-    class GEODE_DLL EventListenerProtocol {
+    class SAPFIRE_DLL EventListenerProtocol {
     private:
         EventListenerPool* m_pool = nullptr;
 
@@ -227,7 +227,7 @@ namespace geode {
         T m_filter;
     };
 
-    class GEODE_DLL [[nodiscard]] Event {
+    class SAPFIRE_DLL [[nodiscard]] Event {
     private:
         friend EventListenerProtocol;
 

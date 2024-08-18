@@ -1,6 +1,6 @@
-#include <Geode/modify/IDManager.hpp>
+#include <Sapfire/modify/IDManager.hpp>
 
-using namespace geode;
+using namespace sapfire;
 
 NodeIDs* NodeIDs::get() {
     static auto inst = new NodeIDs;

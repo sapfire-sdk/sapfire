@@ -2,7 +2,7 @@
 
 #include <array>
 
-namespace geode {
+namespace sapfire {
     class BaseSeedValue {
     public:
         BaseSeedValue() = default;
@@ -12,7 +12,7 @@ namespace geode {
         BaseSeedValue& operator=(BaseSeedValue&& other) = default;
     };
 
-#define GEODE_SEED_VALUE_COMMON_OPS()                        \
+#define SAPFIRE_SEED_VALUE_COMMON_OPS()                        \
     SeedValue& operator=(int value) {                        \
         internalValue() = value;                             \
         internalRandom() = value + internalSeed();           \
@@ -111,7 +111,7 @@ namespace geode {
 
         SeedValueVRS(int value, int seed) : m_values({value, value + seed, seed}) {}
 
-        GEODE_SEED_VALUE_COMMON_OPS();
+        SAPFIRE_SEED_VALUE_COMMON_OPS();
     };
 
     class SeedValueVSR : public BaseSeedValue {
@@ -136,7 +136,7 @@ namespace geode {
 
         SeedValueVSR(int value, int seed) : m_values({value, seed, value + seed}) {}
 
-        GEODE_SEED_VALUE_COMMON_OPS();
+        SAPFIRE_SEED_VALUE_COMMON_OPS();
     };
 
     class SeedValueRVS : public BaseSeedValue {
@@ -161,7 +161,7 @@ namespace geode {
 
         SeedValueRVS(int value, int seed) : m_values({value + seed, value, seed}) {}
 
-        GEODE_SEED_VALUE_COMMON_OPS();
+        SAPFIRE_SEED_VALUE_COMMON_OPS();
     };
 
     class SeedValueRSV : public BaseSeedValue {
@@ -186,7 +186,7 @@ namespace geode {
 
         SeedValueRSV(int value, int seed) : m_values({value + seed, seed, value}) {}
 
-        GEODE_SEED_VALUE_COMMON_OPS();
+        SAPFIRE_SEED_VALUE_COMMON_OPS();
     };
 
     class SeedValueSVR : public BaseSeedValue {
@@ -211,7 +211,7 @@ namespace geode {
 
         SeedValueSVR(int value, int seed) : m_values({seed, value, value + seed}) {}
 
-        GEODE_SEED_VALUE_COMMON_OPS();
+        SAPFIRE_SEED_VALUE_COMMON_OPS();
     };
 
     class SeedValueSRV : public BaseSeedValue {
@@ -236,8 +236,8 @@ namespace geode {
 
         SeedValueSRV(int value, int seed) : m_values({seed, value + seed, value}) {}
 
-        GEODE_SEED_VALUE_COMMON_OPS();
+        SAPFIRE_SEED_VALUE_COMMON_OPS();
     };
 
-#undef GEODE_SEED_VALUE_COMMON_OPS
-} // namespace geode
+#undef SAPFIRE_SEED_VALUE_COMMON_OPS
+} // namespace sapfire

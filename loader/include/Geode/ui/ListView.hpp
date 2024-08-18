@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Geode/binding/CustomListView.hpp>
-#include <Geode/binding/CCIndexPath.hpp>
-#include <Geode/binding/TableViewCell.hpp>
+#include <Sapfire/binding/CustomListView.hpp>
+#include <Sapfire/binding/CCIndexPath.hpp>
+#include <Sapfire/binding/TableViewCell.hpp>
 
-namespace geode {
-    class GEODE_DLL GenericListCell : public TableViewCell {
+namespace sapfire {
+    class SAPFIRE_DLL GenericListCell : public TableViewCell {
     protected:
         cocos2d::ccColor3B m_primaryColor;
         cocos2d::ccColor3B m_secondaryColor;
@@ -30,7 +30,7 @@ namespace geode {
      * Class for a generic scrollable list of
      * items like the level list in GD
      */
-    class GEODE_DLL ListView : public CustomListView {
+    class SAPFIRE_DLL ListView : public CustomListView {
     protected:
         cocos2d::ccColor3B m_primaryCellColor;
         cocos2d::ccColor3B m_secondaryCellColor;

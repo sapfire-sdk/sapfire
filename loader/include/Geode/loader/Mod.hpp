@@ -22,7 +22,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace geode {
+namespace sapfire {
     template <class T>
     struct HandleToSaved : public T {
         Mod* m_mod;
@@ -67,7 +67,7 @@ namespace geode {
         return false;
     }
 
-    GEODE_HIDDEN Mod* takeNextLoaderMod();
+    SAPFIRE_HIDDEN Mod* takeNextLoaderMod();
 
     class ModImpl;
 
@@ -75,7 +75,7 @@ namespace geode {
      * Represents a Mod ingame.
      * @class Mod
      */
-    class GEODE_DLL Mod final {
+    class SAPFIRE_DLL Mod final {
     protected:
         class Impl;
         std::unique_ptr<Impl> m_impl;
@@ -83,15 +83,15 @@ namespace geode {
         friend class Loader;
 
         template <class = void>
-        static inline GEODE_HIDDEN Mod* sharedMod = nullptr;
+        static inline SAPFIRE_HIDDEN Mod* sharedMod = nullptr;
 
-        // used internally in geode_implicit_load
+        // used internally in sapfire_implicit_load
         template <class = void>
-        static inline GEODE_HIDDEN void setSharedMod(Mod* mod) {
+        static inline SAPFIRE_HIDDEN void setSharedMod(Mod* mod) {
             sharedMod<> = mod;
         }
 
-        friend void GEODE_CALL ::geode_implicit_load(Mod*);
+        friend void SAPFIRE_CALL ::sapfire_implicit_load(Mod*);
 
     public:
         // no copying
@@ -129,7 +129,7 @@ namespace geode {
          */
         std::filesystem::path getResourcesDir() const;
 
-#if defined(GEODE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
+#if defined(SAPFIRE_EXPOSE_SECRET_INTERNALS_IN_HEADERS_DO_NOT_DEFINE_PLEASE)
         void setMetadata(ModMetadata const& metadata);
         std::vector<Mod*> getDependants() const;
 #endif
@@ -137,7 +137,7 @@ namespace geode {
         /**
          * Check if this Mod has updates available on the mods index. If 
          * you're using this for automatic update checking, use 
-         * `openInfoPopup` or `openIndexPopup` from the `ui/GeodeUI.hpp` 
+         * `openInfoPopup` or `openIndexPopup` from the `ui/SapfireUI.hpp` 
          * header to open the Mod's page to let the user install the update
          * @returns The latest available version on the index if there are 
          * updates for this mod
@@ -149,7 +149,7 @@ namespace geode {
         /**
          * Check if this Mod has updates available on the mods index. If 
          * you're using this for automatic update checking, use 
-         * `openInfoPopup` from the `ui/GeodeUI.hpp` header to open the Mod's 
+         * `openInfoPopup` from the `ui/SapfireUI.hpp` header to open the Mod's 
          * page to let the user install the update
          * @returns A task that resolves to an option, either the latest 
          * available version on the index if there are updates available, or 
@@ -222,7 +222,7 @@ namespace geode {
         /**
          * Get a mod-specific launch argument. This is equivalent to `Loader::getLaunchArgument`
          * with the argument name prefixed by the mod ID. For example, a launch argument named
-         * `mod-arg` for the mod `author.test` would be specified with `--geode:author.test.mod-arg=value`.
+         * `mod-arg` for the mod `author.test` would be specified with `--sapfire:author.test.mod-arg=value`.
          * @param name The argument name
          * @return The value, if present
          */
@@ -268,7 +268,7 @@ namespace geode {
 
         template <class T>
         T getSavedValue(std::string_view const key) {
-            static_assert(geode::typeImplementsIsJSON<T>(), "T must implement is_json in matjson::Serialize<T>, otherwise this always returns default value.");
+            static_assert(sapfire::typeImplementsIsJSON<T>(), "T must implement is_json in matjson::Serialize<T>, otherwise this always returns default value.");
             auto& saved = this->getSaveContainer();
             if (saved.contains(key)) {
                 if (auto value = saved.try_get<T>(key)) {
@@ -280,7 +280,7 @@ namespace geode {
 
         template <class T>
         T getSavedValue(std::string_view const key, T const& defaultValue) {
-            static_assert(geode::typeImplementsIsJSON<T>(), "T must implement is_json in matjson::Serialize<T>, otherwise this always returns default value.");
+            static_assert(sapfire::typeImplementsIsJSON<T>(), "T must implement is_json in matjson::Serialize<T>, otherwise this always returns default value.");
             auto& saved = this->getSaveContainer();
             if (saved.contains(key)) {
                 if (auto value = saved.try_get<T>(key)) {
@@ -311,7 +311,7 @@ namespace geode {
          * @returns The current mod
          */
         template <class = void>
-        static inline GEODE_HIDDEN Mod* get() {
+        static inline SAPFIRE_HIDDEN Mod* get() {
             if (!sharedMod<>) {
                 sharedMod<> = takeNextLoaderMod();
             }
@@ -340,7 +340,7 @@ namespace geode {
             tulip::hook::HookMetadata const& hookMetadata = tulip::hook::HookMetadata()
         ) {
             auto hook = Hook::create(address, detour, displayName, convention, hookMetadata);
-            GEODE_UNWRAP_INTO(auto ptr, this->claimHook(std::move(hook)));
+            SAPFIRE_UNWRAP_INTO(auto ptr, this->claimHook(std::move(hook)));
             return Ok(ptr);
         }
 
@@ -350,7 +350,7 @@ namespace geode {
             tulip::hook::HookMetadata const& hookMetadata
         ) {
             auto hook = Hook::create(address, detour, displayName, handlerMetadata, hookMetadata);
-            GEODE_UNWRAP_INTO(auto ptr, this->claimHook(std::move(hook)));
+            SAPFIRE_UNWRAP_INTO(auto ptr, this->claimHook(std::move(hook)));
             return Ok(ptr);
         }
 
@@ -385,7 +385,7 @@ namespace geode {
          */
         Result<Patch*> patch(void* address, ByteVector const& data) {
             auto patch = Patch::create(address, data);
-            GEODE_UNWRAP_INTO(auto ptr, this->claimPatch(std::move(patch)));
+            SAPFIRE_UNWRAP_INTO(auto ptr, this->claimPatch(std::move(patch)));
             return Ok(ptr);
         }
 
@@ -426,7 +426,7 @@ namespace geode {
         Result<> disable();
 
         /**
-         * Delete the mod's .geode package.
+         * Delete the mod's .sapfire package.
          * @param deleteSaveData Whether should also delete the mod's save data
          * @returns Successful result on success,
          * errorful result with info on error
@@ -480,14 +480,14 @@ namespace geode {
     };
 }
 
-namespace geode::geode_internal {
-    // this impl relies on the GEODE_MOD_ID macro set by cmake
+namespace sapfire::sapfire_internal {
+    // this impl relies on the SAPFIRE_MOD_ID macro set by cmake
     template <size_t N>
     struct StringConcatModIDSlash {
-        static constexpr size_t extra = sizeof(GEODE_MOD_ID);
+        static constexpr size_t extra = sizeof(SAPFIRE_MOD_ID);
         char buffer[extra + N]{};
         constexpr StringConcatModIDSlash(const char (&pp)[N]) {
-            char id[] = GEODE_MOD_ID;
+            char id[] = SAPFIRE_MOD_ID;
             for (int i = 0; i < sizeof(id); ++i) {
                 buffer[i] = id[i];
             }
@@ -499,7 +499,7 @@ namespace geode::geode_internal {
     };
 }
 
-template <geode::geode_internal::StringConcatModIDSlash Str>
+template <sapfire::sapfire_internal::StringConcatModIDSlash Str>
 constexpr auto operator""_spr() {
     return Str.buffer;
 }

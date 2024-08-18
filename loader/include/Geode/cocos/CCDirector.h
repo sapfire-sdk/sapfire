@@ -118,13 +118,13 @@ and when to execute the Scenes.
 */
 class CC_DLL CCDirector : public CCObject, public TypeInfo
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor
      */
     CCDirector(void);
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCDirector, CCObject)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCDirector, CCObject)
     /**
      *  @js NA
      *  @lua NA
@@ -140,7 +140,7 @@ public:
 		return id;
     }
 
-    static GEODE_DLL CCDirector* get();
+    static SAPFIRE_DLL CCDirector* get();
 
     // attribute
 
@@ -172,7 +172,7 @@ public:
     /** Whether or not the Director is paused */
     inline bool isPaused(void) { return m_bPaused; }
 
-    // geode addition
+    // sapfire addition
     inline void setPaused(bool p) { m_bPaused = p; }
 
     /** How many frames were called since the director started */
@@ -580,7 +580,7 @@ public:
     // @note RobTop Addition
     CC_SYNTHESIZE_NV(bool, m_bDontCallWillSwitch, DontCallWillSwitch);
 
-#if GEODE_COMP_GD_VERSION >= 22003
+#if SAPFIRE_COMP_GD_VERSION >= 22003
     // @note RobTop Addition
     CC_SYNTHESIZE_NV(bool, m_bFastMenu, FastMenu);
 #else

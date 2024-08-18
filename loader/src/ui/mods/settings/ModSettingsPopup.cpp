@@ -1,12 +1,12 @@
 #include "ModSettingsPopup.hpp"
 
-#include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/loader/Setting.hpp>
-#include <Geode/ui/ScrollLayer.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/ui/General.hpp>
-#include "GeodeSettingNode.hpp"
+#include <Sapfire/binding/ButtonSprite.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/loader/Setting.hpp>
+#include <Sapfire/ui/ScrollLayer.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/ui/General.hpp>
+#include "SapfireSettingNode.hpp"
 
 bool ModSettingsPopup::setup(Mod* mod) {
     m_noElasticity = true;
@@ -81,11 +81,11 @@ bool ModSettingsPopup::setup(Mod* mod) {
 
     // layer borders
 
-    m_mainLayer->addChildAtPosition(createGeodeListBorders({layerSize.width, layerSize.height - 2}), Anchor::Center);
+    m_mainLayer->addChildAtPosition(createSapfireListBorders({layerSize.width, layerSize.height - 2}), Anchor::Center);
 
     // buttons
 
-    m_applyBtnSpr = createGeodeButton("Apply", true);
+    m_applyBtnSpr = createSapfireButton("Apply", true);
     m_applyBtnSpr->setScale(.6f);
 
     m_applyBtn = CCMenuItemSpriteExtra::create(
@@ -93,7 +93,7 @@ bool ModSettingsPopup::setup(Mod* mod) {
     );
     m_buttonMenu->addChildAtPosition(m_applyBtn, Anchor::Bottom, ccp(0, 20));
 
-    auto resetBtnSpr = createGeodeButton("Reset All", true);
+    auto resetBtnSpr = createSapfireButton("Reset All", true);
     resetBtnSpr->setScale(.6f);
 
     auto resetBtn = CCMenuItemSpriteExtra::create(
@@ -101,7 +101,7 @@ bool ModSettingsPopup::setup(Mod* mod) {
     );
     m_buttonMenu->addChildAtPosition(resetBtn, Anchor::BottomLeft, ccp(45, 20));
 
-    auto openDirBtnSpr = createGeodeButton("Open Folder", true);
+    auto openDirBtnSpr = createSapfireButton("Open Folder", true);
     openDirBtnSpr->setScale(.6f);
 
     auto openDirBtn = CCMenuItemSpriteExtra::create(

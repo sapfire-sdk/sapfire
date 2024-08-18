@@ -3,7 +3,7 @@
 #include "../utils/MiniFunction.hpp"
 #include "Traits.hpp"
 
-#include <Geode/loader/Loader.hpp>
+#include <Sapfire/loader/Loader.hpp>
 #include <cocos2d.h>
 #include <vector>
 
@@ -11,12 +11,12 @@ namespace cocos2d {
     class CCNode;
 }
 
-namespace geode {
+namespace sapfire {
     template <class, class>
     class Modify;
 }
 
-namespace geode::modifier {
+namespace sapfire::modifier {
     class FieldContainer {
     private:
         std::vector<void*> m_containedFields;
@@ -51,7 +51,7 @@ namespace geode::modifier {
         }
     };
 
-    GEODE_DLL size_t getFieldIndexForClass(char const* name);
+    SAPFIRE_DLL size_t getFieldIndexForClass(char const* name);
 
     template <class Parent, class Base>
     class FieldIntermediate {

@@ -1,16 +1,16 @@
-# Geode SDK
+# Sapfire SDK
  
-This mod is the internal representation of **Geode SDK**. You can customize Geode's settings through this mod.
+This mod is the internal representation of **Sapfire SDK**. You can customize Sapfire's settings through this mod.
 
 ## About
 
-**Geode** is a [Geometry Dash](https://store.steampowered.com/app/322170/Geometry_Dash/) mod loader and modding SDK with a modern approach towards mod development. Unlike previous mod loaders, which merely inject the DLLs and let devs handle the rest, Geode aims to be a more comprehensive project, which manages loaded mods & hooks itself. Geode has been built to ensure compatibility, portability and ease of use while retaining performance. For devs, Geode means easy development and portability; for end users, Geode means an uniform and easy experience using mods.
+**Sapfire** is a [Geometry Dash](https://store.steampowered.com/app/322170/Geometry_Dash/) mod loader and modding SDK with a modern approach towards mod development. Unlike previous mod loaders, which merely inject the DLLs and let devs handle the rest, Sapfire aims to be a more comprehensive project, which manages loaded mods & hooks itself. Sapfire has been built to ensure compatibility, portability and ease of use while retaining performance. For devs, Sapfire means easy development and portability; for end users, Sapfire means an uniform and easy experience using mods.
 
 ## Help, Contributing, Etc.
 
-If you need help using Geode or would like to contribute, feel free to join our [Discord Server](https://discord.gg/9e43WMKzhp).
+If you need help using Sapfire or would like to contribute, feel free to join our [Discord Server](https://discord.gg/9e43WMKzhp).
 
-See [Documentation](https://geode-sdk.github.io/docs) for info about developing mods for Geode.
+See [Documentation](https://sapfire-sdk.github.io/docs) for info about developing mods for Sapfire.
 
 ## Credits
 
@@ -26,7 +26,7 @@ Developed by
  * PoweredByPie - [GitHub](https://github.com/poweredbypie/)
  * [fig](user:107269) - [GitHub](https://github.com/FigmentBoy)
  * FireCubez - [GitHub](https://github.com/FireCubez)
- * [And more!](https://github.com/geode-sdk/geode/graphs/contributors)
+ * [And more!](https://github.com/sapfire-sdk/sapfire/graphs/contributors)
 
 Using
 

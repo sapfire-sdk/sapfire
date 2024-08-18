@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#include <Geode/loader/Hook.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Hook.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include "ModImpl.hpp"
 #include "ModPatch.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 class Patch::Impl final : ModPatch {
 public:

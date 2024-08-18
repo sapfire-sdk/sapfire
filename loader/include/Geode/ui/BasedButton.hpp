@@ -2,12 +2,12 @@
 
 #include "BasedButtonSprite.hpp"
 
-#include <Geode/binding/CCMenuItemToggler.hpp>
+#include <Sapfire/binding/CCMenuItemToggler.hpp>
 
 #pragma warning(disable : 4275)
 
-namespace geode {
-    class GEODE_DLL TabButton : public CCMenuItemToggler {
+namespace sapfire {
+    class SAPFIRE_DLL TabButton : public CCMenuItemToggler {
     public:
         static TabButton* create(
             TabBaseColor unselected, TabBaseColor selected, char const* text,

@@ -1,9 +1,9 @@
-#include <Geode/Loader.hpp>
-#include <Geode/loader/ModEvent.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/Loader.hpp>
+#include <Sapfire/loader/ModEvent.hpp>
+#include <Sapfire/utils/cocos.hpp>
 #include "../dependency/main.hpp"
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 auto test = []() {
     log::info("Static logged");
@@ -25,7 +25,7 @@ $execute {
     });
 }
 
-#include <Geode/modify/MenuLayer.hpp>
+#include <Sapfire/modify/MenuLayer.hpp>
 struct $modify(MenuLayer) {
     bool init() {
         if (!MenuLayer::init())
@@ -62,7 +62,7 @@ struct $modify(MenuLayer) {
 };
 
 // Modify
-#include <Geode/modify/GJGarageLayer.hpp>
+#include <Sapfire/modify/GJGarageLayer.hpp>
 
 struct GJGarageLayerTest : Modify<GJGarageLayerTest, GJGarageLayer> {
     struct Fields {
@@ -101,7 +101,7 @@ struct GJGarageLayerTest : Modify<GJGarageLayerTest, GJGarageLayer> {
         addChild(label2);
 
         // Dispatch system pt. 1
-        MyDispatchEvent("geode.test/test-garage-open", this).post();
+        MyDispatchEvent("sapfire.test/test-garage-open", this).post();
 
         if (s_recievedEvent.size() > 0) {
             auto label = CCLabelBMFont::create("Event works!", "bigFont.fnt");
@@ -116,7 +116,7 @@ struct GJGarageLayerTest : Modify<GJGarageLayerTest, GJGarageLayer> {
 };
 
 
-#include <Geode/modify/GJGarageLayer.hpp>
+#include <Sapfire/modify/GJGarageLayer.hpp>
 
 struct GJGarageLayerTest2 : Modify<GJGarageLayerTest2, GJGarageLayer> {
     struct Fields {

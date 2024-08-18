@@ -14,7 +14,7 @@
 #include <clocale>
 #include <type_traits>
 
-namespace geode {
+namespace sapfire {
     using ByteVector = std::vector<uint8_t>;
 
     template <typename T>
@@ -50,10 +50,10 @@ namespace geode {
         }
 
         constexpr size_t operator"" _h(char const* txt, size_t) {
-            return geode::utils::hash(txt);
+            return sapfire::utils::hash(txt);
         }
         constexpr size_t operator"" _h(wchar_t const* txt, size_t) {
-            return geode::utils::hash(txt);
+            return sapfire::utils::hash(txt);
         }
 
         template <typename T>
@@ -136,37 +136,37 @@ namespace geode {
             }
         }
 
-        GEODE_DLL std::string timePointAsString(std::chrono::system_clock::time_point const& tp);
+        SAPFIRE_DLL std::string timePointAsString(std::chrono::system_clock::time_point const& tp);
 
         /**
          * Gets the display pixel factor for the current screen,
          * i.e. the ratio between physical pixels and logical pixels on one axis.
          * On most platforms this is 1.0, but on retina displays for example this returns 2.0.
         */
-        GEODE_DLL float getDisplayFactor();
+        SAPFIRE_DLL float getDisplayFactor();
     }
 }
 
 template<>
-struct matjson::Serialize<geode::ByteVector> {
-    static matjson::Value to_json(geode::ByteVector const& bytes) {
+struct matjson::Serialize<sapfire::ByteVector> {
+    static matjson::Value to_json(sapfire::ByteVector const& bytes) {
         return matjson::Array(bytes.begin(), bytes.end());
     }
 };
 
-namespace geode::utils::clipboard {
-    GEODE_DLL bool write(std::string const& data);
-    GEODE_DLL std::string read();
+namespace sapfire::utils::clipboard {
+    SAPFIRE_DLL bool write(std::string const& data);
+    SAPFIRE_DLL std::string read();
 }
 
-namespace geode::utils::game {
-    GEODE_DLL void exit();
-    GEODE_DLL void restart();
-    GEODE_DLL void launchLoaderUninstaller(bool deleteSaveData);
+namespace sapfire::utils::game {
+    SAPFIRE_DLL void exit();
+    SAPFIRE_DLL void restart();
+    SAPFIRE_DLL void launchLoaderUninstaller(bool deleteSaveData);
 }
 
-namespace geode::utils::thread {
-    GEODE_DLL std::string getName();
-    GEODE_DLL std::string getDefaultName();
-    GEODE_DLL void setName(std::string const& name);
+namespace sapfire::utils::thread {
+    SAPFIRE_DLL std::string getName();
+    SAPFIRE_DLL std::string getDefaultName();
+    SAPFIRE_DLL void setName(std::string const& name);
 }

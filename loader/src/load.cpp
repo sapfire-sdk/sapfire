@@ -3,23 +3,23 @@
 #include <loader/IPC.hpp>
 #include <loader/updater.hpp>
 
-#include <Geode/loader/IPC.hpp>
-#include <Geode/loader/Loader.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/loader/SettingEvent.hpp>
-#include <Geode/utils/JsonValidation.hpp>
+#include <Sapfire/loader/IPC.hpp>
+#include <Sapfire/loader/Loader.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/loader/SettingEvent.hpp>
+#include <Sapfire/utils/JsonValidation.hpp>
 #include <loader/LogImpl.hpp>
 
 #include <array>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 #include "load.hpp"
 
 $on_mod(Loaded) {
     ipc::listen("ipc-test", [](ipc::IPCEvent* event) -> matjson::Value {
-        return "Hello from Geode!";
+        return "Hello from Sapfire!";
     });
 
     ipc::listen("loader-info", [](ipc::IPCEvent* event) -> matjson::Value {
@@ -55,9 +55,9 @@ void tryLogForwardCompat() {
     if (!LoaderImpl::get()->isForwardCompatMode()) return;
     // TODO: change text later
     log::warn("+-----------------------------------------------------------------------------------------------+");
-    log::warn("| Geode is running in a newer version of GD than Geode targets.                                 |");
+    log::warn("| Sapfire is running in a newer version of GD than Sapfire targets.                                 |");
     log::warn("| UI is going to be disabled, platform console is forced on and crashes can be more common.     |");
-    log::warn("| However, if your game crashes, it is probably caused by an outdated mod and not Geode itself. |");
+    log::warn("| However, if your game crashes, it is probably caused by an outdated mod and not Sapfire itself. |");
     log::warn("+-----------------------------------------------------------------------------------------------+");
 }
 
@@ -71,9 +71,9 @@ void tryShowForwardCompat() {
     // TODO: change text later
     console::messageBox(
         "Forward Compatibility Warning",
-        "Geode is running in a newer version of GD than Geode targets.\n"
+        "Sapfire is running in a newer version of GD than Sapfire targets.\n"
         "UI is going to be disabled, platform console is forced on and crashes can be more common.\n"
-        "However, if your game crashes, it is probably caused by an outdated mod and not Geode itself.",
+        "However, if your game crashes, it is probably caused by an outdated mod and not Sapfire itself.",
         Severity::Warning
     );
 
@@ -83,7 +83,7 @@ void tryShowForwardCompat() {
     );
 }
 
-#ifdef GEODE_IS_WINDOWS
+#ifdef SAPFIRE_IS_WINDOWS
 bool safeModeCheck() {
     // yes this is quite funny
     if (GetAsyncKeyState(VK_SHIFT) == 0) {
@@ -93,13 +93,13 @@ bool safeModeCheck() {
     auto choice = MessageBoxA(
         NULL,
         "(This has been triggered because you were holding SHIFT)\n"
-        "Do you want to activate Geode Safe Mode? This disables loading any mods.",
+        "Do you want to activate Sapfire Safe Mode? This disables loading any mods.",
         "Attention",
         MB_YESNO | MB_ICONINFORMATION
     );
     return choice == IDYES;
 }
-#elif !defined(GEODE_IS_MACOS)
+#elif !defined(SAPFIRE_IS_MACOS)
 // macos is defined in load.mm, this is for android
 // on android the launcher just adds the launch args to enable safe mode
 bool safeModeCheck() {
@@ -107,7 +107,7 @@ bool safeModeCheck() {
 }
 #endif
 
-int geodeEntry(void* platformData) {
+int sapfireEntry(void* platformData) {
     thread::setName("Main");
 
     log::Logger::get()->setup();
@@ -126,12 +126,12 @@ int geodeEntry(void* platformData) {
 
     if (LoaderImpl::get()->getGameVersion().empty()) {
         log::info("Running {} {}{} on {}", Mod::get()->getName(), Mod::get()->getVersion(),
-            forwardCompatSuffix, PlatformID::toString(GEODE_PLATFORM_TARGET));
+            forwardCompatSuffix, PlatformID::toString(SAPFIRE_PLATFORM_TARGET));
     }
     else {
         log::info("Running {} {} in Geometry Dash v{}{} on {}", Mod::get()->getName(),
             Mod::get()->getVersion(), LoaderImpl::get()->getGameVersion(), forwardCompatSuffix,
-            PlatformID::toString(GEODE_PLATFORM_TARGET));
+            PlatformID::toString(SAPFIRE_PLATFORM_TARGET));
     }
 
     tryLogForwardCompat();
@@ -145,9 +145,9 @@ int geodeEntry(void* platformData) {
     log::popNest();
     if (!internalSetupRes) {
         console::messageBox(
-            "Unable to Load Geode!",
+            "Unable to Load Sapfire!",
             "There was a fatal error setting up "
-            "the internal mod and Geode can not be loaded: " + internalSetupRes.unwrapErr()
+            "the internal mod and Sapfire can not be loaded: " + internalSetupRes.unwrapErr()
         );
         LoaderImpl::get()->forceReset();
         return 1;
@@ -168,9 +168,9 @@ int geodeEntry(void* platformData) {
     log::popNest();
     if (!setupRes) {
         console::messageBox(
-            "Unable to Load Geode!",
+            "Unable to Load Sapfire!",
             "There was an unknown fatal error setting up "
-            "the loader and Geode can not be loaded. "
+            "the loader and Sapfire can not be loaded. "
             "(" + setupRes.unwrapErr() + ")"
         );
         LoaderImpl::get()->forceReset();

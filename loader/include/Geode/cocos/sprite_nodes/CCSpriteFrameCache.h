@@ -57,7 +57,7 @@ class CCSprite;
  */
 class CC_DLL CCSpriteFrameCache : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 protected:
 
 
@@ -152,7 +152,7 @@ public:
      *  @js getInstance
      */
     static CCSpriteFrameCache* sharedSpriteFrameCache(void);
-    static GEODE_DLL CCSpriteFrameCache* get();
+    static SAPFIRE_DLL CCSpriteFrameCache* get();
 
     /** Purges the cache. It releases all the Sprite Frames and the retained instance. */
     static void purgeSharedSpriteFrameCache(void);

@@ -1,10 +1,10 @@
-#include <Geode/binding/CCTextInputNode.hpp>
-#include <Geode/binding/TextInputDelegate.hpp>
-#include <Geode/ui/InputNode.hpp>
-#include <Geode/ui/TextInput.hpp>
-#include <Geode/utils/cocos.hpp>
+#include <Sapfire/binding/CCTextInputNode.hpp>
+#include <Sapfire/binding/TextInputDelegate.hpp>
+#include <Sapfire/ui/InputNode.hpp>
+#include <Sapfire/ui/TextInput.hpp>
+#include <Sapfire/utils/cocos.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 std::string InputNode::getString() {
     return m_input->getString();

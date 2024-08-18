@@ -12,7 +12,7 @@
 #pragma warning(push)
 #pragma warning(disable : 4275)
 
-namespace geode {
+namespace sapfire {
     class SettingNode;
     class SettingValue;
 
@@ -22,7 +22,7 @@ namespace geode {
     /**
      * A Setting for a boolean value. Represented in-game as a simple toggle
      */
-    struct GEODE_DLL BoolSetting final {
+    struct SAPFIRE_DLL BoolSetting final {
         using ValueType = bool;
 
         std::optional<std::string> name;
@@ -36,7 +36,7 @@ namespace geode {
      * A Setting for an integer value. The value can be limited using the min 
      * and max options
      */
-    struct GEODE_DLL IntSetting final {
+    struct SAPFIRE_DLL IntSetting final {
         using ValueType = int64_t;
 
         std::optional<std::string> name;
@@ -61,7 +61,7 @@ namespace geode {
      * A Setting for a float value. The value can be limited using the min 
      * and max options
      */
-    struct GEODE_DLL FloatSetting final {
+    struct SAPFIRE_DLL FloatSetting final {
         using ValueType = double;
 
         std::optional<std::string> name;
@@ -85,7 +85,7 @@ namespace geode {
     /**
      * A Setting for a string value
      */
-    struct GEODE_DLL StringSetting final {
+    struct SAPFIRE_DLL StringSetting final {
         using ValueType = std::string;
 
         std::optional<std::string> name;
@@ -126,7 +126,7 @@ namespace geode {
      * A Setting for a file input. Lets the user select a file from their 
      * local device
      */
-    struct GEODE_DLL FileSetting final {
+    struct SAPFIRE_DLL FileSetting final {
         using ValueType = std::filesystem::path;
         using Filter = utils::file::FilePickOptions::Filter;
 
@@ -144,7 +144,7 @@ namespace geode {
      * A Setting for an RGB color. See ColorAlphaSetting for a setting that 
      * also allows customizing alpha
      */
-    struct GEODE_DLL ColorSetting final {
+    struct SAPFIRE_DLL ColorSetting final {
         using ValueType = cocos2d::ccColor3B;
 
         std::optional<std::string> name;
@@ -158,7 +158,7 @@ namespace geode {
      * A Setting for an RGBA color. See ColorSetting for a setting that doesn't 
      * have alpha
      */
-    struct GEODE_DLL ColorAlphaSetting final {
+    struct SAPFIRE_DLL ColorAlphaSetting final {
         using ValueType = cocos2d::ccColor4B;
 
         std::optional<std::string> name;
@@ -173,7 +173,7 @@ namespace geode {
      * [the tutorial page](https://docs.geode-sdk.org/mods/settings) for more 
      * information about how to create custom settings
      */
-    struct GEODE_DLL CustomSetting final {
+    struct SAPFIRE_DLL CustomSetting final {
         std::shared_ptr<ModJson> json;
     };
 
@@ -197,7 +197,7 @@ namespace geode {
      * @see SettingValue
      * @see SettingNode
      */
-    struct GEODE_DLL Setting final {
+    struct SAPFIRE_DLL Setting final {
     private:
         std::string m_key;
         std::string m_modID;
@@ -237,7 +237,7 @@ namespace geode {
      * [the tutorial page](https://docs.geode-sdk.org/mods/settings) for more 
      * information, and how to create custom settings
      */
-    class GEODE_DLL SettingValue {
+    class SAPFIRE_DLL SettingValue {
     protected:
         std::string m_key;
         std::string m_modID;
@@ -257,7 +257,7 @@ namespace geode {
     };
 
     template<class T>
-    class GeodeSettingValue final : public SettingValue {
+    class SapfireSettingValue final : public SettingValue {
     public:
         using ValueType = typename T::ValueType;
 
@@ -267,10 +267,10 @@ namespace geode {
 
         using Valid = std::pair<ValueType, std::optional<std::string>>;
 
-        GEODE_DLL Valid toValid(ValueType const& value) const;
+        SAPFIRE_DLL Valid toValid(ValueType const& value) const;
 
     public:
-        GeodeSettingValue(std::string const& key, std::string const& modID, T const& definition)
+        SapfireSettingValue(std::string const& key, std::string const& modID, T const& definition)
           : SettingValue(key, modID),
             m_definition(definition),
             m_value(definition.defaultValue) {}
@@ -278,7 +278,7 @@ namespace geode {
         bool load(matjson::Value const& json) override;
         bool save(matjson::Value& json) const;
 
-        GEODE_DLL SettingNode* createNode(float width) override;
+        SAPFIRE_DLL SettingNode* createNode(float width) override;
         T castDefinition() const {
             return m_definition;
         }
@@ -289,33 +289,33 @@ namespace geode {
         ValueType getValue() const {
             return m_value;
         }
-        GEODE_DLL void setValue(ValueType const& value);
-        GEODE_DLL Result<> validate(ValueType const& value) const;
+        SAPFIRE_DLL void setValue(ValueType const& value);
+        SAPFIRE_DLL Result<> validate(ValueType const& value) const;
     };
 
-    using BoolSettingValue       = GeodeSettingValue<BoolSetting>;
-    using IntSettingValue        = GeodeSettingValue<IntSetting>;
-    using FloatSettingValue      = GeodeSettingValue<FloatSetting>;
-    using StringSettingValue     = GeodeSettingValue<StringSetting>;
-    using FileSettingValue       = GeodeSettingValue<FileSetting>;
-    using ColorSettingValue      = GeodeSettingValue<ColorSetting>;
-    using ColorAlphaSettingValue = GeodeSettingValue<ColorAlphaSetting>;
+    using BoolSettingValue       = SapfireSettingValue<BoolSetting>;
+    using IntSettingValue        = SapfireSettingValue<IntSetting>;
+    using FloatSettingValue      = SapfireSettingValue<FloatSetting>;
+    using StringSettingValue     = SapfireSettingValue<StringSetting>;
+    using FileSettingValue       = SapfireSettingValue<FileSetting>;
+    using ColorSettingValue      = SapfireSettingValue<ColorSetting>;
+    using ColorAlphaSettingValue = SapfireSettingValue<ColorAlphaSetting>;
 
     template<class T>
-    struct GEODE_DLL SettingValueSetter {
+    struct SAPFIRE_DLL SettingValueSetter {
         static T get(SettingValue* setting);
         static void set(SettingValue* setting, T const& value);
     };
 
     template<class T>
-    bool GeodeSettingValue<T>::load(matjson::Value const& json) {
+    bool SapfireSettingValue<T>::load(matjson::Value const& json) {
         if (!json.is<ValueType>()) return false;
         m_value = json.as<ValueType>();
         return true;
     }
 
     template<class T>
-    bool GeodeSettingValue<T>::save(matjson::Value& json) const {
+    bool SapfireSettingValue<T>::save(matjson::Value& json) const {
         json = m_value;
         return true;
     }

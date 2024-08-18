@@ -52,7 +52,7 @@ enum TargetPlatform
 
 class CC_DLL CCApplicationProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
 
     virtual ~CCApplicationProtocol() {}

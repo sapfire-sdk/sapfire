@@ -2,7 +2,7 @@
 
 #include <cocos2d.h>
 
-namespace geode {
+namespace sapfire {
     enum class TextAlignment {
         Begin,
         Center,
@@ -48,7 +48,7 @@ namespace geode {
      * static rich text -area though this can prove
      * useful. Used in MDTextArea.
      */
-    class GEODE_DLL TextRenderer : public cocos2d::CCObject {
+    class SAPFIRE_DLL TextRenderer : public cocos2d::CCObject {
     public:
         /**
          * Represents a label. As CCLabelBMFont and

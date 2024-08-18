@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Geode/utils/VersionInfo.hpp>
+#include <Sapfire/utils/VersionInfo.hpp>
 
 namespace about {
-    GEODE_DLL geode::VersionInfo getLoaderVersion();
-    GEODE_DLL const char* getLoaderVersionStr();
-    GEODE_DLL const char* getLoaderCommitHash();
-    GEODE_DLL const char* getBindingsCommitHash();
-    GEODE_DLL const char* getLoaderModJson();
+    SAPFIRE_DLL sapfire::VersionInfo getLoaderVersion();
+    SAPFIRE_DLL const char* getLoaderVersionStr();
+    SAPFIRE_DLL const char* getLoaderCommitHash();
+    SAPFIRE_DLL const char* getBindingsCommitHash();
+    SAPFIRE_DLL const char* getLoaderModJson();
 };

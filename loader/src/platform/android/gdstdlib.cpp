@@ -1,11 +1,11 @@
-#include <Geode/c++stl/gdstdlib.hpp>
+#include <Sapfire/c++stl/gdstdlib.hpp>
 #include "../../c++stl/string-impl.hpp"
 #include "internalString.hpp"
 #include <assert.h>
 
-#if defined(GEODE_IS_ANDROID32)
+#if defined(SAPFIRE_IS_ANDROID32)
 static auto constexpr NEW_SYM = "_Znwj";
-#elif defined(GEODE_IS_ANDROID64)
+#elif defined(SAPFIRE_IS_ANDROID64)
 static auto constexpr NEW_SYM = "_Znwm";
 #endif
 
@@ -16,7 +16,7 @@ static void* getLibHandle() {
     return handle;
 }
 
-namespace geode::base {
+namespace sapfire::base {
     uintptr_t get() {
         static std::uintptr_t basePtr = 0u;
         if (basePtr == 0u) {
@@ -47,7 +47,7 @@ void gd::operatorDelete(void* ptr) {
     return fnPtr(ptr);
 }
 
-using namespace geode::stl;
+using namespace sapfire::stl;
 
 void* g_ourInternalString = nullptr;
 
@@ -80,7 +80,7 @@ void setEmptyInternalString(gd::string* str) {
     }
 }
 
-namespace geode::stl {
+namespace sapfire::stl {
     void StringImpl::setEmpty() {
         data.m_data = emptyInternalString();
     }

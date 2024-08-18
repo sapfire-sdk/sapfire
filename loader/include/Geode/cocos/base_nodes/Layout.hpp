@@ -3,7 +3,7 @@
 #include "../include/ccMacros.h"
 #include "../cocoa/CCAffineTransform.h"
 #include "../cocoa/CCArray.h"
-#include <Geode/platform/platform.hpp>
+#include <Sapfire/platform/platform.hpp>
 #include <optional>
 #include <memory>
 
@@ -17,11 +17,11 @@ class CCNode;
 /**
  * Layouts automatically handle the positioning of nodes. Use CCNode::setLayout 
  * to apply a layout to a node, and then use CCNode::updateLayout to apply 
- * the layout's positioning. Geode comes with a few default layouts like 
+ * the layout's positioning. Sapfire comes with a few default layouts like 
  * RowLayout, ColumnLayout, and GridLayout, but if you need a different kind 
  * of layout you can inherit from the Layout class.
  */
-class GEODE_DLL Layout : public CCObject {
+class SAPFIRE_DLL Layout : public CCObject {
 protected:
     CCArray* getNodesToPosition(CCNode* forNode) const;
 
@@ -48,7 +48,7 @@ public:
     virtual ~Layout() = default;
 };
 
-class GEODE_DLL LayoutOptions : public CCObject {
+class SAPFIRE_DLL LayoutOptions : public CCObject {
 public:
     virtual ~LayoutOptions() = default;
 };
@@ -96,7 +96,7 @@ constexpr int AXISLAYOUT_DEFAULT_PRIORITY = 0;
  * );
  * someNodeWithALayout->addChild(node);
  */
-class GEODE_DLL AxisLayoutOptions : public LayoutOptions {
+class SAPFIRE_DLL AxisLayoutOptions : public LayoutOptions {
 protected:
     class Impl;
 
@@ -230,7 +230,7 @@ public:
  * menu->addChild(...);
  * menu->updateLayout();
  */
-class GEODE_DLL AxisLayout : public Layout {
+class SAPFIRE_DLL AxisLayout : public Layout {
 protected:
     class Impl;
 
@@ -330,7 +330,7 @@ public:
 /**
  * Simple layout for arranging nodes in a row (horizontal line)
  */
-class GEODE_DLL RowLayout : public AxisLayout {
+class SAPFIRE_DLL RowLayout : public AxisLayout {
 protected:
     RowLayout();
 
@@ -346,7 +346,7 @@ public:
 /**
  * Simple layout for arranging nodes in a column (vertical line)
  */
-class GEODE_DLL ColumnLayout : public AxisLayout {
+class SAPFIRE_DLL ColumnLayout : public AxisLayout {
 protected:
     ColumnLayout();
 
@@ -377,7 +377,7 @@ enum class Anchor {
 /**
  * Options for customizing a node's position in an AnchorLayout
  */
-class GEODE_DLL AnchorLayoutOptions : public LayoutOptions {
+class SAPFIRE_DLL AnchorLayoutOptions : public LayoutOptions {
 protected:
     Anchor m_anchor = Anchor::Center;
     CCPoint m_offset = CCPointZero;
@@ -398,7 +398,7 @@ public:
  * for example for popups, where a popup using `AnchorLayout` can be 
  * automatically resized without needing to manually shuffle nodes around
  */
-class GEODE_DLL AnchorLayout : public Layout {
+class SAPFIRE_DLL AnchorLayout : public Layout {
 public:
     static AnchorLayout* create();
 
@@ -421,7 +421,7 @@ public:
  * Basically main use case is for FLAlertLayers (setting the size of the 
  * background and `m_buttonMenu` based on `m_mainLayer`)
  */
-class GEODE_DLL CopySizeLayout : public cocos2d::AnchorLayout {
+class SAPFIRE_DLL CopySizeLayout : public cocos2d::AnchorLayout {
 protected:
     cocos2d::CCArray* m_targets;
 

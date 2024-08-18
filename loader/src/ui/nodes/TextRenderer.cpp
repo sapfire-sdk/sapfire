@@ -1,9 +1,9 @@
-#include <Geode/ui/TextRenderer.hpp>
-#include <Geode/utils/casts.hpp>
-#include <Geode/utils/cocos.hpp>
-#include <Geode/utils/string.hpp>
+#include <Sapfire/ui/TextRenderer.hpp>
+#include <Sapfire/utils/casts.hpp>
+#include <Sapfire/utils/cocos.hpp>
+#include <Sapfire/utils/string.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 using namespace std::string_literals;
 
 bool TextDecorationWrapper::init(

@@ -6,7 +6,7 @@
 #include <tuple>
 #include "../utils/Result.hpp"
 
-namespace geode {
+namespace sapfire {
     enum class VersionCompare {
         LessEq,
         Exact,
@@ -121,7 +121,7 @@ namespace geode {
      * identifiers are restricted to a few predefined ones, and only one 
      * identifier is allowed. See VersionTag for details
      */
-    class GEODE_DLL VersionInfo final {
+    class SAPFIRE_DLL VersionInfo final {
     protected:
         size_t m_major = 1;
         size_t m_minor = 0;
@@ -191,10 +191,10 @@ namespace geode {
         std::string toVString(bool includeTag = true) const;
         std::string toNonVString(bool includeTag = true) const;
  
-        friend GEODE_DLL std::string format_as(VersionInfo const& version);
+        friend SAPFIRE_DLL std::string format_as(VersionInfo const& version);
     };
 
-    class GEODE_DLL ComparableVersionInfo final {
+    class SAPFIRE_DLL ComparableVersionInfo final {
     protected:
         VersionInfo m_version;
         VersionCompare m_compare = VersionCompare::Exact;
@@ -249,14 +249,14 @@ namespace geode {
         }
 
         std::string toString() const;
-        friend GEODE_DLL std::string format_as(ComparableVersionInfo const& version);
+        friend SAPFIRE_DLL std::string format_as(ComparableVersionInfo const& version);
     };
 
-    bool GEODE_DLL semverCompare(VersionInfo const& current, VersionInfo const& target);
+    bool SAPFIRE_DLL semverCompare(VersionInfo const& current, VersionInfo const& target);
 }
 
 template <class V>
-requires std::is_same_v<V, geode::VersionInfo> || std::is_same_v<V, geode::ComparableVersionInfo>
+requires std::is_same_v<V, sapfire::VersionInfo> || std::is_same_v<V, sapfire::ComparableVersionInfo>
 struct matjson::Serialize<V> {
     static matjson::Value to_json(V const& info) {
         return info.toString();

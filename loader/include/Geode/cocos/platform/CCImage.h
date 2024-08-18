@@ -40,13 +40,13 @@ class CCFreeTypeFont;
 
 class CC_DLL CCImage : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      @js ctor
      */
     CCImage();
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCImage, CCObject)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCImage, CCObject)
     /**
      * @js NA
      * @lua NA

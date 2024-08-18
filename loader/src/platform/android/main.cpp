@@ -1,15 +1,15 @@
-#include <Geode/DefaultInclude.hpp>
+#include <Sapfire/DefaultInclude.hpp>
 
 #include "../load.hpp"
 #include <jni.h>
-#include <Geode/cocos/platform/android/jni/JniHelper.h>
+#include <Sapfire/cocos/platform/android/jni/JniHelper.h>
 #include "internalString.hpp"
 #include <cocos2d.h>
-#include <Geode/loader/Log.hpp>
+#include <Sapfire/loader/Log.hpp>
 #include <filesystem>
-#include <Geode/loader/Dirs.hpp>
+#include <Sapfire/loader/Dirs.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // idk where to put this
 #include <EGL/egl.h>
@@ -20,7 +20,7 @@ PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArraysOESEXT = 0;
 namespace {
     bool reportPlatformCapability(std::string id) {
         JniMethodInfo t;
-        if (JniHelper::getStaticMethodInfo(t, "com/geode/launcher/utils/GeodeUtils", "reportPlatformCapability", "(Ljava/lang/String;)Z")) {
+        if (JniHelper::getStaticMethodInfo(t, "com/sapfire/launcher/utils/SapfireUtils", "reportPlatformCapability", "(Ljava/lang/String;)Z")) {
             jstring stringArg1 = t.env->NewStringUTF(id.c_str());
 
             auto r = t.env->CallStaticBooleanMethod(t.classID, t.methodID, stringArg1);
@@ -47,11 +47,11 @@ extern "C" [[gnu::visibility("default")]] jint JNI_OnLoad(JavaVM* vm, void* rese
     glBindVertexArrayOESEXT = (PFNGLBINDVERTEXARRAYOESPROC)eglGetProcAddress("glBindVertexArrayOES");
     glDeleteVertexArraysOESEXT = (PFNGLDELETEVERTEXARRAYSOESPROC)eglGetProcAddress("glDeleteVertexArraysOES");
 
-    auto updatePath = geode::dirs::getGameDir() / "update";
+    auto updatePath = sapfire::dirs::getGameDir() / "update";
     std::error_code ec;
     std::filesystem::remove_all(updatePath, ec);
     if (ec) {
-        geode::log::warn("Failed to remove update directory: {}", ec.message());
+        sapfire::log::warn("Failed to remove update directory: {}", ec.message());
     }
 
     {
@@ -64,7 +64,7 @@ extern "C" [[gnu::visibility("default")]] jint JNI_OnLoad(JavaVM* vm, void* rese
 
     reportPlatformCapability("extended_input");
 
-    geodeEntry(nullptr);
+    sapfireEntry(nullptr);
     return JNI_VERSION_1_6;
 }
 

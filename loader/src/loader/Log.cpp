@@ -1,24 +1,24 @@
 #include "console.hpp"
 #include "LogImpl.hpp"
 
-#include <Geode/loader/Dirs.hpp>
-#include <Geode/loader/Log.hpp>
-#include <Geode/loader/Mod.hpp>
-#include <Geode/utils/casts.hpp>
-#include <Geode/utils/general.hpp>
+#include <Sapfire/loader/Dirs.hpp>
+#include <Sapfire/loader/Log.hpp>
+#include <Sapfire/loader/Mod.hpp>
+#include <Sapfire/utils/casts.hpp>
+#include <Sapfire/utils/general.hpp>
 #include <fmt/chrono.h>
 #include <fmt/format.h>
 #include <iomanip>
 #include <memory>
 #include <utility>
 
-using namespace geode::prelude;
-using namespace geode::log;
+using namespace sapfire::prelude;
+using namespace sapfire::log;
 using namespace cocos2d;
 
 // Parse overloads
 
-std::string geode::format_as(Mod* mod) {
+std::string sapfire::format_as(Mod* mod) {
     if (mod) {
         return fmt::format("{{ Mod, {} }}", mod->getName());
     }
@@ -27,7 +27,7 @@ std::string geode::format_as(Mod* mod) {
     }
 }
 
-std::string geode::format_as(CCObject const* obj) {
+std::string sapfire::format_as(CCObject const* obj) {
     if (obj) {
         // TODO: try catch incase typeid fails
         return fmt::format("{{ {}, {} }}", typeid(*obj).name(), fmt::ptr(obj));
@@ -37,7 +37,7 @@ std::string geode::format_as(CCObject const* obj) {
     }
 }
 
-std::string geode::format_as(CCNode* obj) {
+std::string sapfire::format_as(CCNode* obj) {
     if (obj) {
         auto bb = obj->boundingBox();
         return fmt::format(
@@ -55,7 +55,7 @@ std::string geode::format_as(CCNode* obj) {
     }
 }
 
-std::string geode::format_as(CCArray* arr) {
+std::string sapfire::format_as(CCArray* arr) {
     std::string out = "[";
 
     if (arr && arr->count()) {
@@ -212,7 +212,7 @@ Logger* Logger::get() {
 }
 
 void Logger::setup() {
-    m_logStream = std::ofstream(dirs::getGeodeLogDir() / log::generateLogName());
+    m_logStream = std::ofstream(dirs::getSapfireLogDir() / log::generateLogName());
 }
 
 std::mutex& getLogMutex() {
@@ -247,8 +247,8 @@ void Logger::clear() {
 
 // Misc
 
-std::string geode::log::generateLogName() {
-    return fmt::format("Geode {:%F %H.%M.%S}.log", convertTime(log_clock::now()));
+std::string sapfire::log::generateLogName() {
+    return fmt::format("Sapfire {:%F %H.%M.%S}.log", convertTime(log_clock::now()));
 }
 
 void log::pushNest(Mod* mod) {

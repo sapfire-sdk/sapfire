@@ -40,7 +40,7 @@
 #include "Layout.hpp"
 #include "../../loader/Event.hpp"
 
-#ifndef GEODE_IS_MEMBER_TEST
+#ifndef SAPFIRE_IS_MEMBER_TEST
 #include <matjson.hpp>
 #endif
 
@@ -134,7 +134,7 @@ enum {
 
 class CC_DLL CCNode : public CCObject
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /// @{
     /// @name Constructor, Distructor and Initializers
@@ -144,7 +144,7 @@ public:
      * @js ctor
      */
     CCNode(void);
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCNode, CCObject)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCNode, CCObject)
     
     /**
      * Default destructor
@@ -842,7 +842,7 @@ public:
      * and the previous UserObject (if existed) will be relese.
      * The UserObject will be released in CCNode's destructure.
      * 
-     * @note In Geode, this actually sets the user object with the ID "" 
+     * @note In Sapfire, this actually sets the user object with the ID "" 
      * (empty string)
      *
      * @param A user assigned CCObject
@@ -854,72 +854,72 @@ public:
      * have multiple user objects. Objects should be prefixed with the mod ID. 
      * Assigning a null removes the user object with the ID
      * 
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void setUserObject(std::string const& id, CCObject* object);
+    SAPFIRE_DLL void setUserObject(std::string const& id, CCObject* object);
 
     /**
      * Get a user-assigned CCObject with the specific ID
      * 
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL CCObject* getUserObject(std::string const& id);
+    SAPFIRE_DLL CCObject* getUserObject(std::string const& id);
     
     /// @} end of Tag & User Data
     
 private:
-    friend class geode::modifier::FieldContainer;
+    friend class sapfire::modifier::FieldContainer;
 
     [[deprecated("Will be removed, it's an ABI break")]]
-    GEODE_DLL geode::modifier::FieldContainer* getFieldContainer();
-    GEODE_DLL geode::modifier::FieldContainer* getFieldContainer(char const* forClass);
-    GEODE_DLL void addEventListenerInternal(
+    SAPFIRE_DLL sapfire::modifier::FieldContainer* getFieldContainer();
+    SAPFIRE_DLL sapfire::modifier::FieldContainer* getFieldContainer(char const* forClass);
+    SAPFIRE_DLL void addEventListenerInternal(
         std::string const& id,
-        geode::EventListenerProtocol* protocol
+        sapfire::EventListenerProtocol* protocol
     );
 
-#ifdef GEODE_EXPORTING
+#ifdef SAPFIRE_EXPORTING
     [[deprecated("Will be removed, it's an ABI break")]]
-    GEODE_DLL std::optional<matjson::Value> getAttributeInternal(std::string const& attribute);
+    SAPFIRE_DLL std::optional<matjson::Value> getAttributeInternal(std::string const& attribute);
 #endif
 
 public:
-#ifdef GEODE_EXPORTING
+#ifdef SAPFIRE_EXPORTING
     [[deprecated("Will be removed, it's an ABI break")]]
-    GEODE_DLL void setAttribute(std::string const& attribute, matjson::Value const& value);
+    SAPFIRE_DLL void setAttribute(std::string const& attribute, matjson::Value const& value);
 #endif
 
     /**
      * Get the string ID of this node
      * @returns The ID, or an empty string if the node has no ID.
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL std::string getID();
+    SAPFIRE_DLL std::string getID();
     /**
-     * Set the string ID of this node. String IDs are a Geode addition 
+     * Set the string ID of this node. String IDs are a Sapfire addition 
      * that are much safer to use to get nodes than absolute indexes
      * @param id The ID of the node, recommended to be in kebab case 
      * without any spaces or uppercase letters. If the node is added 
      * by a mod, use the _spr literal to append the mod ID to it
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void setID(std::string const& id);
+    SAPFIRE_DLL void setID(std::string const& id);
 
     /**
      * Get a child by its string ID
      * @param id ID of the child
      * @returns The child, or nullptr if none was found
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL CCNode* getChildByID(std::string const& id);
+    SAPFIRE_DLL CCNode* getChildByID(std::string const& id);
 
     /**
      * Get a child by its string ID. Recursively searches all the children
      * @param id ID of the child
      * @returns The child, or nullptr if none was found
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL CCNode* getChildByIDRecursive(std::string const& id);
+    SAPFIRE_DLL CCNode* getChildByIDRecursive(std::string const& id);
 
     /**
      * Get a child based on a query. Searches the child tree for a matching 
@@ -935,14 +935,14 @@ public:
      * ->getChildByID("mod.id/epic-button")`
      * @returns The first matching node, or nullptr if none was found
      */
-    GEODE_DLL CCNode* querySelector(std::string const& query);
+    SAPFIRE_DLL CCNode* querySelector(std::string const& query);
 
     /** 
      * Removes a child from the container by its ID.
      * @param id The ID of the node
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void removeChildByID(std::string const& id);
+    SAPFIRE_DLL void removeChildByID(std::string const& id);
 
     /**
      * Add a child before a specified existing child
@@ -951,9 +951,9 @@ public:
      * @param before The child the node is added before of. If this is null or 
      * not a child of this node, the new child will be placed at the start of the 
      * child list
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void insertBefore(CCNode* child, CCNode* before);
+    SAPFIRE_DLL void insertBefore(CCNode* child, CCNode* before);
 
     /**
      * Add a child after an specified existing child
@@ -962,9 +962,9 @@ public:
      * @param after The child the node is added after of. If this is null or 
      * not a child of this node, the new child will be placed at the end of the 
      * child list
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void insertAfter(CCNode* child, CCNode* after);
+    SAPFIRE_DLL void insertAfter(CCNode* child, CCNode* after);
 
     /**
      * Check if this node's parent or its parents' parent is the given node
@@ -972,9 +972,9 @@ public:
      * nullptr, returns true if the node is in the current scene, otherwise 
      * false.
      * @returns True if ancestor is an ancestor of this node
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL bool hasAncestor(CCNode* ancestor);
+    SAPFIRE_DLL bool hasAncestor(CCNode* ancestor);
 
     /**
      * Set the Layout for this node. Used to automatically position children, 
@@ -987,36 +987,36 @@ public:
      * are automatically moved to match where they should be positioned. 
      * Visually, this should result in no difference; however, when dealing with 
      * CCLayers / CCMenus, this will change where the children are located
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void setLayout(Layout* layout, bool apply = true, bool respectAnchor = true);
+    SAPFIRE_DLL void setLayout(Layout* layout, bool apply = true, bool respectAnchor = true);
     /**
      * Get the Layout for this node
      * @returns The current layout, or nullptr if no layout is set
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL Layout* getLayout();
+    SAPFIRE_DLL Layout* getLayout();
     /**
      * Update the layout of this node using the current Layout. If no layout is 
      * set, nothing happens
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void updateLayout(bool updateChildOrder = true);
+    SAPFIRE_DLL void updateLayout(bool updateChildOrder = true);
     /**
      * Set the layout options for this node. Layout options can be used to 
      * control how this node is positioned in its parent's Layout, for example 
      * setting the grow size for a flex layout
      * @param options The layout options
      * @param apply Whether to update the layout of the parent node
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void setLayoutOptions(LayoutOptions* options, bool apply = true);
+    SAPFIRE_DLL void setLayoutOptions(LayoutOptions* options, bool apply = true);
     /**
      * Get the layout options for this node
      * @returns The current layout options, or nullptr if no options are set
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL LayoutOptions* getLayoutOptions();
+    SAPFIRE_DLL LayoutOptions* getLayoutOptions();
     /**
      * Adds a child at an anchored position with an offset. The node is placed 
      * in its parent where the anchor specifies, and then the offset is used to 
@@ -1026,9 +1026,9 @@ public:
      * @param offset Where to place the child relative to the anchor
      * @param useAnchorLayout If true, sets this node's layout to `AnchorLayout` 
      * if no other layout is already specified
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void addChildAtPosition(CCNode* child, Anchor anchor, CCPoint const& offset = CCPointZero, bool useAnchorLayout = true);
+    SAPFIRE_DLL void addChildAtPosition(CCNode* child, Anchor anchor, CCPoint const& offset = CCPointZero, bool useAnchorLayout = true);
     /**
      * Adds a child at an anchored position with an offset. The node is placed 
      * in its parent where the anchor specifies, and then the offset is used to 
@@ -1039,9 +1039,9 @@ public:
      * @param nodeAnchor The child's anchor position
      * @param useAnchorLayout If true, sets this node's layout to `AnchorLayout` 
      * if no other layout is already specified
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void addChildAtPosition(
+    SAPFIRE_DLL void addChildAtPosition(
         CCNode* child,
         Anchor anchor,
         CCPoint const& offset,
@@ -1054,9 +1054,9 @@ public:
      * are updated, otherwise nothing is done
      * @param anchor Where the place the child relative to its parent
      * @param offset Where to place the child relative to the anchor
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void updateAnchoredPosition(Anchor anchor, CCPoint const& offset = CCPointZero);
+    SAPFIRE_DLL void updateAnchoredPosition(Anchor anchor, CCPoint const& offset = CCPointZero);
     /**
      * Updates the anchored position of a child. Requires the child to already 
      * have a parent; if the child already has AnchorLayoutOptions set, those 
@@ -1064,9 +1064,9 @@ public:
      * @param anchor Where the place the child relative to its parent
      * @param offset Where to place the child relative to the anchor
      * @param nodeAnchor The child's anchor position
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void updateAnchoredPosition(
+    SAPFIRE_DLL void updateAnchoredPosition(
         Anchor anchor,
         CCPoint const& offset,
         CCPoint const& nodeAnchor
@@ -1076,53 +1076,53 @@ public:
      * Swap two children
      * @param first One of the nodes to swap
      * @param second One of the nodes to swap
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void swapChildIndices(CCNode* first, CCNode* second);
+    SAPFIRE_DLL void swapChildIndices(CCNode* first, CCNode* second);
 
     /**
      * @note Make sure to set the scale first!
-     * @note Geode addition
+     * @note Sapfire addition
      */
-    GEODE_DLL void setScaledContentSize(CCSize const& size);
-    // @note Geode addition
-    GEODE_DLL void setContentWidth(float width);
-    // @note Geode addition
-    GEODE_DLL void setContentHeight(float width);
-    // @note Geode addition
-    GEODE_DLL float getContentWidth() const;
-    // @note Geode addition
-    GEODE_DLL float getContentHeight() const;
-    // @note Geode addition
-    GEODE_DLL float getScaledContentWidth() const;
-    // @note Geode addition
-    GEODE_DLL float getScaledContentHeight() const;
+    SAPFIRE_DLL void setScaledContentSize(CCSize const& size);
+    // @note Sapfire addition
+    SAPFIRE_DLL void setContentWidth(float width);
+    // @note Sapfire addition
+    SAPFIRE_DLL void setContentHeight(float width);
+    // @note Sapfire addition
+    SAPFIRE_DLL float getContentWidth() const;
+    // @note Sapfire addition
+    SAPFIRE_DLL float getContentHeight() const;
+    // @note Sapfire addition
+    SAPFIRE_DLL float getScaledContentWidth() const;
+    // @note Sapfire addition
+    SAPFIRE_DLL float getScaledContentHeight() const;
 
     template <class Filter, class... Args>
-    geode::EventListenerProtocol* addEventListener(
+    sapfire::EventListenerProtocol* addEventListener(
         std::string const& id,
-        geode::utils::MiniFunction<typename Filter::Callback> callback,
+        sapfire::utils::MiniFunction<typename Filter::Callback> callback,
         Args&&... args
     ) {
-        auto listener = new geode::EventListener<Filter>(
+        auto listener = new sapfire::EventListener<Filter>(
             callback, Filter(this, std::forward<Args>(args)...)
         );
         this->addEventListenerInternal(id, listener);
         return listener;
     }
     template <class Filter, class... Args>
-    geode::EventListenerProtocol* addEventListener(
-        geode::utils::MiniFunction<typename Filter::Callback> callback,
+    sapfire::EventListenerProtocol* addEventListener(
+        sapfire::utils::MiniFunction<typename Filter::Callback> callback,
         Args&&... args
     ) {
         return this->template addEventListener<Filter, Args...>(
             "", callback, std::forward<Args>(args)...
         );
     }
-    GEODE_DLL void removeEventListener(geode::EventListenerProtocol* listener);
-    GEODE_DLL void removeEventListener(std::string const& id);
-    GEODE_DLL geode::EventListenerProtocol* getEventListener(std::string const& id);
-    GEODE_DLL size_t getEventListenerCount();
+    SAPFIRE_DLL void removeEventListener(sapfire::EventListenerProtocol* listener);
+    SAPFIRE_DLL void removeEventListener(std::string const& id);
+    SAPFIRE_DLL sapfire::EventListenerProtocol* getEventListener(std::string const& id);
+    SAPFIRE_DLL size_t getEventListenerCount();
     
     /// @{
     /// @name Shader Program
@@ -1814,13 +1814,13 @@ protected:
  */
 class CC_DLL CCNodeRGBA : public CCNode, public CCRGBAProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     /**
      *  @js ctor
      */
     CCNodeRGBA();
-    GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCNodeRGBA, CCNode)
+    SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCNodeRGBA, CCNode)
     /**
      *  @js NA
      *  @lua NA
@@ -1866,9 +1866,9 @@ protected:
 
 NS_CC_END
 
-#ifndef GEODE_IS_MEMBER_TEST
-namespace geode {
-    struct GEODE_DLL UserObjectSetEvent final : public Event {
+#ifndef SAPFIRE_IS_MEMBER_TEST
+namespace sapfire {
+    struct SAPFIRE_DLL UserObjectSetEvent final : public Event {
         cocos2d::CCNode* node;
         const std::string id;
         cocos2d::CCObject* value;
@@ -1876,7 +1876,7 @@ namespace geode {
         UserObjectSetEvent(cocos2d::CCNode* node, std::string const& id, cocos2d::CCObject* value);
     };
 
-    class GEODE_DLL AttributeSetFilter final : public EventFilter<UserObjectSetEvent> {
+    class SAPFIRE_DLL AttributeSetFilter final : public EventFilter<UserObjectSetEvent> {
 	public:
 		using Callback = void(UserObjectSetEvent*);
     

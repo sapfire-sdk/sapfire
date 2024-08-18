@@ -8,7 +8,7 @@
 // https://gist.github.com/absoIute/ebe5da42d118109a03632c9751d86e19
 
 static auto const& getGDVersionTimestampMap() {
-    // don't add versions here until Geode actually supports them,
+    // don't add versions here until Sapfire actually supports them,
     // this is used for toggling forward compat mode
     static std::unordered_map<uint32_t, std::string_view> map = {
         { 1419173053, "1.900" },

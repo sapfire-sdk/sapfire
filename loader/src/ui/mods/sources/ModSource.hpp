@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Geode/loader/Mod.hpp>
+#include <Sapfire/loader/Mod.hpp>
 #include <server/Server.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 struct ModSuggestion final {
     ModMetadata suggestion;

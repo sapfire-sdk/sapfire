@@ -1,15 +1,15 @@
 #pragma once
 
-#include <Geode/ui/Popup.hpp>
-#include <Geode/ui/MDTextArea.hpp>
+#include <Sapfire/ui/Popup.hpp>
+#include <Sapfire/ui/MDTextArea.hpp>
 #include "../sources/ModSource.hpp"
-#include "../GeodeStyle.hpp"
+#include "../SapfireStyle.hpp"
 #include "../UpdateModListState.hpp"
 #include <server/DownloadManager.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
-class ModPopup : public GeodePopup<ModSource&&> {
+class ModPopup : public SapfirePopup<ModSource&&> {
 public:
     enum class Tab {
         Details,
@@ -34,7 +34,7 @@ protected:
     ButtonSprite* m_restartRequiredLabel;
     CCNode* m_rightColumn;
     CCNode* m_currentTabPage = nullptr;
-    std::unordered_map<Tab, std::pair<GeodeTabSprite*, Ref<CCNode>>> m_tabs;
+    std::unordered_map<Tab, std::pair<SapfireTabSprite*, Ref<CCNode>>> m_tabs;
     EventListener<server::ServerRequest<server::ServerModMetadata>> m_statsListener;
     EventListener<server::ServerRequest<std::unordered_set<std::string>>> m_tagsListener;
     EventListener<server::ServerRequest<std::optional<server::ServerModUpdate>>> m_checkUpdateListener;

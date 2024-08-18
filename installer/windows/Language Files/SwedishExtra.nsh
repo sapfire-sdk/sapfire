@@ -7,10 +7,10 @@ ${LangFileString} MUI_UNTEXT_WELCOME_INFO_TEXT "Denna guide tar dig igenom avins
 
 ; installer
 
-${LangFileString} GEODE_TEXT_GD_MISSING "$\r$\n$\r$\nDen valda mappen innehåller ingen installation av Geometry Dash."
-${LangFileString} GEODE_TEXT_GD_OLD "$\r$\n$\r$\nDin version av Geometry Dash är för gammal för denna versionen av Geode!"
-${LangFileString} GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED "Den valda versionen av Geometry Dash har andra mod redan installerad!$\r$\nDom ska skrivs över av Geode. (the dll trademark)"
+${LangFileString} SAPFIRE_TEXT_GD_MISSING "$\r$\n$\r$\nDen valda mappen innehåller ingen installation av Geometry Dash."
+${LangFileString} SAPFIRE_TEXT_GD_OLD "$\r$\n$\r$\nDin version av Geometry Dash är för gammal för denna versionen av Sapfire!"
+${LangFileString} SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED "Den valda versionen av Geometry Dash har andra mod redan installerad!$\r$\nDom ska skrivs över av Sapfire. (the dll trademark)"
 
 ; uninstaller
 
-${LangFileString} GEODE_UNTEXT_GEODE_MISSING "Den valda mappen innehåller ingen installation av Geode."
+${LangFileString} SAPFIRE_UNTEXT_SAPFIRE_MISSING "Den valda mappen innehåller ingen installation av Sapfire."

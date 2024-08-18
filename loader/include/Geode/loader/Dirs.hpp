@@ -3,57 +3,57 @@
 #include <filesystem>
 #include "../DefaultInclude.hpp"
 
-namespace geode::dirs {
+namespace sapfire::dirs {
     /**
      * Directory where Geometry Dash is
      */
-    GEODE_DLL std::filesystem::path getGameDir();
+    SAPFIRE_DLL std::filesystem::path getGameDir();
     /**
      * Directory where GD saves its files
      */
-    GEODE_DLL std::filesystem::path getSaveDir();
+    SAPFIRE_DLL std::filesystem::path getSaveDir();
     /**
-     * Directory where Geode is
+     * Directory where Sapfire is
      */
-    GEODE_DLL std::filesystem::path getGeodeDir();
+    SAPFIRE_DLL std::filesystem::path getSapfireDir();
     /**
-     * Directory where Geode saves its files
+     * Directory where Sapfire saves its files
      */
-    GEODE_DLL std::filesystem::path getGeodeSaveDir();
+    SAPFIRE_DLL std::filesystem::path getSapfireSaveDir();
     /**
-     * Directory where Geode's resources are stored
+     * Directory where Sapfire's resources are stored
      */
-    GEODE_DLL std::filesystem::path getGeodeResourcesDir();
+    SAPFIRE_DLL std::filesystem::path getSapfireResourcesDir();
     /**
-     * Directory where Geode's resources are stored
+     * Directory where Sapfire's resources are stored
      */
-    GEODE_DLL std::filesystem::path getGeodeLogDir();
+    SAPFIRE_DLL std::filesystem::path getSapfireLogDir();
     /**
      * Directory to store temporary files
      */
-    GEODE_DLL std::filesystem::path getTempDir();
+    SAPFIRE_DLL std::filesystem::path getTempDir();
     /**
      * Directory where mods are stored by default
      */
-    GEODE_DLL std::filesystem::path getModsDir();
+    SAPFIRE_DLL std::filesystem::path getModsDir();
     /**
      * Directory where mods' save data is stored
      */
-    GEODE_DLL std::filesystem::path getModsSaveDir();
+    SAPFIRE_DLL std::filesystem::path getModsSaveDir();
     /**
      * Directory where mods' unzipped packages are stored at runtime
      */
-    GEODE_DLL std::filesystem::path getModRuntimeDir();
+    SAPFIRE_DLL std::filesystem::path getModRuntimeDir();
     /**
      * Directory where mods' config files lie
      */
-    GEODE_DLL std::filesystem::path getModConfigDir();
+    SAPFIRE_DLL std::filesystem::path getModConfigDir();
     /**
-     * Directory where Geode stores the cached index
+     * Directory where Sapfire stores the cached index
      */
-    GEODE_DLL std::filesystem::path getIndexDir();
+    SAPFIRE_DLL std::filesystem::path getIndexDir();
     /**
      * Directory where crashlogs are stored
      */
-    GEODE_DLL std::filesystem::path getCrashlogsDir();
+    SAPFIRE_DLL std::filesystem::path getCrashlogsDir();
 }

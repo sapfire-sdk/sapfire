@@ -26,7 +26,7 @@ THE SOFTWARE.
 #ifndef __CC_PLATFORM_CONFIG_H__
 #define __CC_PLATFORM_CONFIG_H__
 
-#include <Geode/platform/cplatform.h>
+#include <Sapfire/platform/cplatform.h>
 
 /**
 Config of cocos2d-x project, per target platform.

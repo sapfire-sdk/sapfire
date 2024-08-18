@@ -2,11 +2,11 @@
     #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #endif
 
-#include <Geode/utils/VersionInfo.hpp>
-#include <Geode/utils/general.hpp>
+#include <Sapfire/utils/VersionInfo.hpp>
+#include <Sapfire/utils/general.hpp>
 #include <matjson.hpp>
 
-using namespace geode::prelude;
+using namespace sapfire::prelude;
 
 // VersionTag
 
@@ -103,7 +103,7 @@ Result<VersionInfo> VersionInfo::parse(std::string const& string) {
     std::optional<VersionTag> tag;
     if (str.peek() == '-') {
         str.get();
-        GEODE_UNWRAP_INTO(tag, VersionTag::parse(str));
+        SAPFIRE_UNWRAP_INTO(tag, VersionTag::parse(str));
     }
 
     if (!str.eof()) {
@@ -130,7 +130,7 @@ std::string VersionInfo::toNonVString(bool includeTag) const {
     return fmt::format("{}.{}.{}", m_major, m_minor, m_patch);
 }
 
-std::string geode::format_as(VersionInfo const& version) {
+std::string sapfire::format_as(VersionInfo const& version) {
     return version.toVString();
 }
 
@@ -168,7 +168,7 @@ Result<ComparableVersionInfo> ComparableVersionInfo::parse(std::string const& ra
         compare = VersionCompare::MoreEq;
     }
 
-    GEODE_UNWRAP_INTO(auto version, VersionInfo::parse(string));
+    SAPFIRE_UNWRAP_INTO(auto version, VersionInfo::parse(string));
     return Ok(ComparableVersionInfo(version, compare));
 }
 
@@ -185,11 +185,11 @@ std::string ComparableVersionInfo::toString() const {
     return prefix + m_version.toVString();
 }
 
-std::string geode::format_as(ComparableVersionInfo const& version) {
+std::string sapfire::format_as(ComparableVersionInfo const& version) {
     return version.toString();
 }
 
-bool geode::semverCompare(VersionInfo const& current, VersionInfo const& target) {
+bool sapfire::semverCompare(VersionInfo const& current, VersionInfo const& target) {
     if (target.getMajor() != current.getMajor()) {
         return false;
     }

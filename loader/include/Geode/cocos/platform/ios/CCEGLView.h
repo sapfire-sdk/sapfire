@@ -34,7 +34,7 @@ NS_CC_BEGIN
 
 class CC_DLL CCEGLView : public CCEGLViewProtocol
 {
-    GEODE_FRIEND_MODIFY
+    SAPFIRE_FRIEND_MODIFY
 public:
     CCEGLView();
    ~CCEGLView();
@@ -50,7 +50,7 @@ public:
     
     static CCEGLView* sharedOpenGLView();
     
-    static GEODE_DLL CCEGLView* get();
+    static SAPFIRE_DLL CCEGLView* get();
 
 };
 

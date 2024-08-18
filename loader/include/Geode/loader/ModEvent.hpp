@@ -4,7 +4,7 @@
 
 #include <optional>
 
-namespace geode {
+namespace sapfire {
     class Mod;
     Mod* getMod();
 
@@ -20,7 +20,7 @@ namespace geode {
     /**
      * Event that is fired when a mod is loaded / unloaded / enabled / disabled
      */
-    class GEODE_DLL ModStateEvent final : public Event {
+    class SAPFIRE_DLL ModStateEvent final : public Event {
     protected:
         ModEventType m_type;
         Mod* m_mod;
@@ -34,7 +34,7 @@ namespace geode {
     /**
      * Listener for mod load/enable/disable/unload/data save events
      */
-    class GEODE_DLL ModStateFilter final : public EventFilter<ModStateEvent> {
+    class SAPFIRE_DLL ModStateFilter final : public EventFilter<ModStateEvent> {
     public:
         using Callback = void(ModStateEvent*);
 
@@ -59,14 +59,14 @@ namespace geode {
 // clang-format off
 #define $on_mod(type) \
 template<class>                                                        \
-void GEODE_CONCAT(geodeExecFunction, __LINE__)(geode::ModStateEvent*); \
+void SAPFIRE_CONCAT(sapfireExecFunction, __LINE__)(sapfire::ModStateEvent*); \
 namespace {                                                            \
-	struct GEODE_CONCAT(ExecFuncUnique, __LINE__) {};                  \
+	struct SAPFIRE_CONCAT(ExecFuncUnique, __LINE__) {};                  \
 }                                                                      \
-static inline auto GEODE_CONCAT(Exec, __LINE__) = (new geode::EventListener(  \
-            &GEODE_CONCAT(geodeExecFunction, __LINE__)<GEODE_CONCAT(ExecFuncUnique, __LINE__)>, \
-            geode::ModStateFilter(geode::getMod(), geode::ModEventType::type) \
+static inline auto SAPFIRE_CONCAT(Exec, __LINE__) = (new sapfire::EventListener(  \
+            &SAPFIRE_CONCAT(sapfireExecFunction, __LINE__)<SAPFIRE_CONCAT(ExecFuncUnique, __LINE__)>, \
+            sapfire::ModStateFilter(sapfire::getMod(), sapfire::ModEventType::type) \
         ), 0);                                                         \
 template<class>                                                        \
-void GEODE_CONCAT(geodeExecFunction, __LINE__)(geode::ModStateEvent*)
+void SAPFIRE_CONCAT(sapfireExecFunction, __LINE__)(sapfire::ModStateEvent*)
 // clang-format on

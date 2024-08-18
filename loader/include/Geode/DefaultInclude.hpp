@@ -1,38 +1,38 @@
 #pragma once
 
-#include <Geode/Prelude.hpp>
-#include <Geode/c++stl/gdstdlib.hpp>
-#include <Geode/platform/platform.hpp>
+#include <Sapfire/Prelude.hpp>
+#include <Sapfire/c++stl/gdstdlib.hpp>
+#include <Sapfire/platform/platform.hpp>
 #include <variant>
 
-#define GEODE_STATIC_PTR(type, name)          \
+#define SAPFIRE_STATIC_PTR(type, name)          \
     static type* s_##name;                    \
     inline type* name() {                     \
         if (!s_##name) s_##name = new type(); \
         return s_##name;                      \
     }
 
-#define GEODE_STATIC_VAR(type, name) \
+#define SAPFIRE_STATIC_VAR(type, name) \
     inline type& name() {            \
         static type s_##name;        \
         return s_##name;             \
     }
 
-#define GEODE_WRAPPER_CONCAT(x, y) x##y
-#define GEODE_CONCAT(x, y) GEODE_WRAPPER_CONCAT(x, y)
+#define SAPFIRE_WRAPPER_CONCAT(x, y) x##y
+#define SAPFIRE_CONCAT(x, y) SAPFIRE_WRAPPER_CONCAT(x, y)
 
-#define GEODE_WRAPPER_STR(...) #__VA_ARGS__
-#define GEODE_STR(...) GEODE_WRAPPER_STR(__VA_ARGS__)
+#define SAPFIRE_WRAPPER_STR(...) #__VA_ARGS__
+#define SAPFIRE_STR(...) SAPFIRE_WRAPPER_STR(__VA_ARGS__)
 
-#define GEODE_PAD(size) uint8_t GEODE_CONCAT(__pad, __LINE__)[size]
-#define GEODE_UNIMPLEMENTED_PAD private:
+#define SAPFIRE_PAD(size) uint8_t SAPFIRE_CONCAT(__pad, __LINE__)[size]
+#define SAPFIRE_UNIMPLEMENTED_PAD private:
 
-#define GEODE_NONINHERITED_MEMBERS private:
+#define SAPFIRE_NONINHERITED_MEMBERS private:
 
-#define GEODE_EXPAND(x) x
-#define GEODE_INVOKE(macro, ...) GEODE_EXPAND(macro(__VA_ARGS__))
+#define SAPFIRE_EXPAND(x) x
+#define SAPFIRE_INVOKE(macro, ...) SAPFIRE_EXPAND(macro(__VA_ARGS__))
 
-namespace geode {
+namespace sapfire {
     struct ZeroConstructorType {};
 
     static constexpr auto ZeroConstructor = ZeroConstructorType();
@@ -42,80 +42,80 @@ namespace geode {
     static constexpr auto CutoffConstructor = CutoffConstructorType();
 }
 
-#define GEODE_CUSTOM_CONSTRUCTOR_BEGIN(Class_) \
-    GEODE_ZERO_CONSTRUCTOR_BEGIN(Class_)       \
-    GEODE_CUTOFF_CONSTRUCTOR_BEGIN(Class_)
+#define SAPFIRE_CUSTOM_CONSTRUCTOR_BEGIN(Class_) \
+    SAPFIRE_ZERO_CONSTRUCTOR_BEGIN(Class_)       \
+    SAPFIRE_CUTOFF_CONSTRUCTOR_BEGIN(Class_)
 
-#define GEODE_CUSTOM_CONSTRUCTOR_COCOS(Class_, Base_) \
-    GEODE_ZERO_CONSTRUCTOR(Class_, Base_)             \
-    GEODE_CUTOFF_CONSTRUCTOR_COCOS(Class_, Base_)
+#define SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(Class_, Base_) \
+    SAPFIRE_ZERO_CONSTRUCTOR(Class_, Base_)             \
+    SAPFIRE_CUTOFF_CONSTRUCTOR_COCOS(Class_, Base_)
 
-#define GEODE_CUSTOM_CONSTRUCTOR_GD(Class_, Base_) \
-    GEODE_ZERO_CONSTRUCTOR(Class_, Base_)          \
-    GEODE_CUTOFF_CONSTRUCTOR_GD(Class_, Base_)
+#define SAPFIRE_CUSTOM_CONSTRUCTOR_GD(Class_, Base_) \
+    SAPFIRE_ZERO_CONSTRUCTOR(Class_, Base_)          \
+    SAPFIRE_CUTOFF_CONSTRUCTOR_GD(Class_, Base_)
 
-#define GEODE_CUSTOM_CONSTRUCTOR_CUTOFF(Class_, Base_) \
-    GEODE_ZERO_CONSTRUCTOR(Class_, Base_)              \
-    GEODE_CUTOFF_CONSTRUCTOR_CUTOFF(Class_, Base_)
+#define SAPFIRE_CUSTOM_CONSTRUCTOR_CUTOFF(Class_, Base_) \
+    SAPFIRE_ZERO_CONSTRUCTOR(Class_, Base_)              \
+    SAPFIRE_CUTOFF_CONSTRUCTOR_CUTOFF(Class_, Base_)
 
-#define GEODE_ZERO_CONSTRUCTOR_BEGIN(Class_)                                              \
-    Class_(geode::ZeroConstructorType, void*) {}                                          \
-    Class_(geode::ZeroConstructorType, size_t fill) :                                     \
-        Class_(geode::ZeroConstructor, std::memset(static_cast<void*>(this), 0, fill)) {} \
-    Class_(geode::ZeroConstructorType) : Class_(geode::ZeroConstructor, nullptr) {}
+#define SAPFIRE_ZERO_CONSTRUCTOR_BEGIN(Class_)                                              \
+    Class_(sapfire::ZeroConstructorType, void*) {}                                          \
+    Class_(sapfire::ZeroConstructorType, size_t fill) :                                     \
+        Class_(sapfire::ZeroConstructor, std::memset(static_cast<void*>(this), 0, fill)) {} \
+    Class_(sapfire::ZeroConstructorType) : Class_(sapfire::ZeroConstructor, nullptr) {}
 
-#define GEODE_ZERO_CONSTRUCTOR(Class_, Base_)                                                \
-    Class_(geode::ZeroConstructorType, size_t fill) : Base_(geode::ZeroConstructor, fill) {} \
-    Class_(geode::ZeroConstructorType) : Base_(geode::ZeroConstructor, sizeof(Class_)) {}
+#define SAPFIRE_ZERO_CONSTRUCTOR(Class_, Base_)                                                \
+    Class_(sapfire::ZeroConstructorType, size_t fill) : Base_(sapfire::ZeroConstructor, fill) {} \
+    Class_(sapfire::ZeroConstructorType) : Base_(sapfire::ZeroConstructor, sizeof(Class_)) {}
 
-#define GEODE_FILL_CONSTRUCTOR(Class_, Offset_)                                          \
-    Class_(geode::CutoffConstructorType, size_t fill) :                                  \
+#define SAPFIRE_FILL_CONSTRUCTOR(Class_, Offset_)                                          \
+    Class_(sapfire::CutoffConstructorType, size_t fill) :                                  \
         Class_(                                                                          \
-            geode::CutoffConstructor,                                                    \
+            sapfire::CutoffConstructor,                                                    \
             std::memset(reinterpret_cast<std::byte*>(this) + Offset_, 0, fill - Offset_) \
         ) {}                                                                             \
-    Class_(geode::CutoffConstructorType, void*)
+    Class_(sapfire::CutoffConstructorType, void*)
 
-#define GEODE_CUTOFF_CONSTRUCTOR_BEGIN(Class_)                      \
-    GEODE_MACOS(GEODE_FILL_CONSTRUCTOR(Class_, 0){})                \
-    GEODE_IOS(GEODE_FILL_CONSTRUCTOR(Class_, 0){})                  \
-    GEODE_WINDOWS(Class_(geode::CutoffConstructorType, size_t fill) \
+#define SAPFIRE_CUTOFF_CONSTRUCTOR_BEGIN(Class_)                      \
+    SAPFIRE_MACOS(SAPFIRE_FILL_CONSTRUCTOR(Class_, 0){})                \
+    SAPFIRE_IOS(SAPFIRE_FILL_CONSTRUCTOR(Class_, 0){})                  \
+    SAPFIRE_WINDOWS(Class_(sapfire::CutoffConstructorType, size_t fill) \
                   : Class_() {})                                    \
-    GEODE_ANDROID(GEODE_FILL_CONSTRUCTOR(Class_, 0){})
+    SAPFIRE_ANDROID(SAPFIRE_FILL_CONSTRUCTOR(Class_, 0){})
 
-#define GEODE_CUTOFF_CONSTRUCTOR_COCOS(Class_, Base_)               \
-    GEODE_MACOS(Class_(geode::CutoffConstructorType, size_t fill)   \
-                : Base_(geode::CutoffConstructor, fill){})          \
-    GEODE_IOS(Class_(geode::CutoffConstructorType, size_t fill)     \
-              : Base_(geode::CutoffConstructor, fill){})            \
-    GEODE_WINDOWS(Class_(geode::CutoffConstructorType, size_t fill) \
+#define SAPFIRE_CUTOFF_CONSTRUCTOR_COCOS(Class_, Base_)               \
+    SAPFIRE_MACOS(Class_(sapfire::CutoffConstructorType, size_t fill)   \
+                : Base_(sapfire::CutoffConstructor, fill){})          \
+    SAPFIRE_IOS(Class_(sapfire::CutoffConstructorType, size_t fill)     \
+              : Base_(sapfire::CutoffConstructor, fill){})            \
+    SAPFIRE_WINDOWS(Class_(sapfire::CutoffConstructorType, size_t fill) \
                   : Class_() {})                                    \
-    GEODE_ANDROID(Class_(geode::CutoffConstructorType, size_t fill)   \
-                : Base_(geode::CutoffConstructor, fill){})
+    SAPFIRE_ANDROID(Class_(sapfire::CutoffConstructorType, size_t fill)   \
+                : Base_(sapfire::CutoffConstructor, fill){})
 
-#define GEODE_CUTOFF_CONSTRUCTOR_GD(Class_, Base_)                  \
-    GEODE_WINDOWS(Class_(geode::CutoffConstructorType, size_t fill) \
-                  : Base_(geode::CutoffConstructor, fill){})        \
-    GEODE_MACOS(Class_(geode::CutoffConstructorType, size_t fill)   \
-                : Base_(geode::CutoffConstructor, fill){})          \
-    GEODE_IOS(Class_(geode::CutoffConstructorType, size_t fill)     \
-              : Base_(geode::CutoffConstructor, fill){})            \
-    GEODE_ANDROID(Class_(geode::CutoffConstructorType, size_t fill) \
-              : Base_(geode::CutoffConstructor, fill){})
+#define SAPFIRE_CUTOFF_CONSTRUCTOR_GD(Class_, Base_)                  \
+    SAPFIRE_WINDOWS(Class_(sapfire::CutoffConstructorType, size_t fill) \
+                  : Base_(sapfire::CutoffConstructor, fill){})        \
+    SAPFIRE_MACOS(Class_(sapfire::CutoffConstructorType, size_t fill)   \
+                : Base_(sapfire::CutoffConstructor, fill){})          \
+    SAPFIRE_IOS(Class_(sapfire::CutoffConstructorType, size_t fill)     \
+              : Base_(sapfire::CutoffConstructor, fill){})            \
+    SAPFIRE_ANDROID(Class_(sapfire::CutoffConstructorType, size_t fill) \
+              : Base_(sapfire::CutoffConstructor, fill){})
 
-#define GEODE_CUTOFF_CONSTRUCTOR_CUTOFF(Class_, Base_)                       \
-    GEODE_WINDOWS(GEODE_FILL_CONSTRUCTOR(Class_, sizeof(Base_)) : Base_(){}) \
-    GEODE_ANDROID(Class_(geode::CutoffConstructorType, size_t fill)          \
-                : Base_(geode::CutoffConstructor, fill){})                   \
-    GEODE_MACOS(Class_(geode::CutoffConstructorType, size_t fill)            \
-                : Base_(geode::CutoffConstructor, fill){})                   \
-    GEODE_IOS(Class_(geode::CutoffConstructorType, size_t fill)              \
-              : Base_(geode::CutoffConstructor, fill){})
+#define SAPFIRE_CUTOFF_CONSTRUCTOR_CUTOFF(Class_, Base_)                       \
+    SAPFIRE_WINDOWS(SAPFIRE_FILL_CONSTRUCTOR(Class_, sizeof(Base_)) : Base_(){}) \
+    SAPFIRE_ANDROID(Class_(sapfire::CutoffConstructorType, size_t fill)          \
+                : Base_(sapfire::CutoffConstructor, fill){})                   \
+    SAPFIRE_MACOS(Class_(sapfire::CutoffConstructorType, size_t fill)            \
+                : Base_(sapfire::CutoffConstructor, fill){})                   \
+    SAPFIRE_IOS(Class_(sapfire::CutoffConstructorType, size_t fill)              \
+              : Base_(sapfire::CutoffConstructor, fill){})
 
-#define GEODE_NUMBER_OF_ARGS(...) \
-    GEODE_EXPAND(GEODE_NUMBER_OF_ARGS_(__VA_ARGS__, GEODE_NUMBER_SEQUENCE(), ))
-#define GEODE_NUMBER_OF_ARGS_(...) GEODE_EXPAND(GEODE_NUMBER_OF_ARGS_N(__VA_ARGS__))
-#define GEODE_NUMBER_OF_ARGS_N( \
+#define SAPFIRE_NUMBER_OF_ARGS(...) \
+    SAPFIRE_EXPAND(SAPFIRE_NUMBER_OF_ARGS_(__VA_ARGS__, SAPFIRE_NUMBER_SEQUENCE(), ))
+#define SAPFIRE_NUMBER_OF_ARGS_(...) SAPFIRE_EXPAND(SAPFIRE_NUMBER_OF_ARGS_N(__VA_ARGS__))
+#define SAPFIRE_NUMBER_OF_ARGS_N( \
     _1,                         \
     _2,                         \
     _3,                         \
@@ -183,24 +183,24 @@ namespace geode {
     ...                         \
 )                               \
     N
-#define GEODE_NUMBER_SEQUENCE()                                                                 \
+#define SAPFIRE_NUMBER_SEQUENCE()                                                                 \
     63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, \
         40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, \
         18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 
 #define $execute                                                                                  \
     template <class>                                                                              \
-    void GEODE_CONCAT(geodeExecFunction, __LINE__)();                                             \
+    void SAPFIRE_CONCAT(sapfireExecFunction, __LINE__)();                                             \
     namespace {                                                                                   \
-        struct GEODE_CONCAT(ExecFuncUnique, __LINE__) {};                                         \
+        struct SAPFIRE_CONCAT(ExecFuncUnique, __LINE__) {};                                         \
     }                                                                                             \
-    static inline auto GEODE_CONCAT(Exec, __LINE__) =                                             \
-        (GEODE_CONCAT(geodeExecFunction, __LINE__) < GEODE_CONCAT(ExecFuncUnique, __LINE__) > (), \
+    static inline auto SAPFIRE_CONCAT(Exec, __LINE__) =                                             \
+        (SAPFIRE_CONCAT(sapfireExecFunction, __LINE__) < SAPFIRE_CONCAT(ExecFuncUnique, __LINE__) > (), \
          0);                                                                                      \
     template <class>                                                                              \
-    void GEODE_CONCAT(geodeExecFunction, __LINE__)()
+    void SAPFIRE_CONCAT(sapfireExecFunction, __LINE__)()
 
-#define GEODE_FORWARD_COMPAT_DISABLE_HOOKS_INNER(message) \
+#define SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS_INNER(message) \
     if (Loader::get()->isForwardCompatMode()) {           \
         if (strlen(message)) {                            \
             log::warn("[Forward Compat] " message);       \
@@ -209,7 +209,7 @@ namespace geode {
             hook->setAutoEnable(false);                   \
         }                                                 \
     }
-#define GEODE_FORWARD_COMPAT_ENABLE_HOOKS_INNER(message)  \
+#define SAPFIRE_FORWARD_COMPAT_ENABLE_HOOKS_INNER(message)  \
     if (!Loader::get()->isForwardCompatMode()) {          \
         if (strlen(message)) {                            \
             log::warn("[Forward Compat] " message);       \
@@ -218,90 +218,90 @@ namespace geode {
             hook->setAutoEnable(false);                   \
         }                                                 \
     }
-#define GEODE_FORWARD_COMPAT_DISABLE_HOOKS(message)       \
+#define SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS(message)       \
     static void onModify(const auto& self) {              \
-        GEODE_FORWARD_COMPAT_DISABLE_HOOKS_INNER(message) \
+        SAPFIRE_FORWARD_COMPAT_DISABLE_HOOKS_INNER(message) \
     }
-#define GEODE_FORWARD_COMPAT_ENABLE_HOOKS(message)        \
+#define SAPFIRE_FORWARD_COMPAT_ENABLE_HOOKS(message)        \
     static void onModify(const auto& self) {              \
-        GEODE_FORWARD_COMPAT_ENABLE_HOOKS_INNER(message)  \
+        SAPFIRE_FORWARD_COMPAT_ENABLE_HOOKS_INNER(message)  \
     }
 
-// #define GEODE_NEST1(macro, begin)           \
-// macro(GEODE_CONCAT(begin, 0)),                        \
-// macro(GEODE_CONCAT(begin, 1)),                        \
-// macro(GEODE_CONCAT(begin, 2)),                        \
-// macro(GEODE_CONCAT(begin, 3)),                        \
-// macro(GEODE_CONCAT(begin, 4)),                        \
-// macro(GEODE_CONCAT(begin, 5)),                        \
-// macro(GEODE_CONCAT(begin, 6)),                        \
-// macro(GEODE_CONCAT(begin, 7)),                        \
-// macro(GEODE_CONCAT(begin, 8)),                        \
-// macro(GEODE_CONCAT(begin, 9)),                        \
-// macro(GEODE_CONCAT(begin, a)),                        \
-// macro(GEODE_CONCAT(begin, b)),                        \
-// macro(GEODE_CONCAT(begin, c)),                        \
-// macro(GEODE_CONCAT(begin, d)),                        \
-// macro(GEODE_CONCAT(begin, e)),                        \
-// macro(GEODE_CONCAT(begin, f))
+// #define SAPFIRE_NEST1(macro, begin)           \
+// macro(SAPFIRE_CONCAT(begin, 0)),                        \
+// macro(SAPFIRE_CONCAT(begin, 1)),                        \
+// macro(SAPFIRE_CONCAT(begin, 2)),                        \
+// macro(SAPFIRE_CONCAT(begin, 3)),                        \
+// macro(SAPFIRE_CONCAT(begin, 4)),                        \
+// macro(SAPFIRE_CONCAT(begin, 5)),                        \
+// macro(SAPFIRE_CONCAT(begin, 6)),                        \
+// macro(SAPFIRE_CONCAT(begin, 7)),                        \
+// macro(SAPFIRE_CONCAT(begin, 8)),                        \
+// macro(SAPFIRE_CONCAT(begin, 9)),                        \
+// macro(SAPFIRE_CONCAT(begin, a)),                        \
+// macro(SAPFIRE_CONCAT(begin, b)),                        \
+// macro(SAPFIRE_CONCAT(begin, c)),                        \
+// macro(SAPFIRE_CONCAT(begin, d)),                        \
+// macro(SAPFIRE_CONCAT(begin, e)),                        \
+// macro(SAPFIRE_CONCAT(begin, f))
 
-// #define GEODE_NEST2(macro, begin)           \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 0)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 1)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 2)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 3)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 4)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 5)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 6)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 7)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 8)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, 9)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, a)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, b)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, c)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, d)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, e)), \
-// GEODE_NEST1(macro, GEODE_CONCAT(begin, f))
+// #define SAPFIRE_NEST2(macro, begin)           \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 0)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 1)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 2)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 3)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 4)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 5)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 6)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 7)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 8)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, 9)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, a)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, b)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, c)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, d)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, e)), \
+// SAPFIRE_NEST1(macro, SAPFIRE_CONCAT(begin, f))
 
-// #define GEODE_NEST3(macro, begin)           \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 0)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 1)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 2)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 3)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 4)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 5)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 6)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 7)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 8)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, 9)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, a)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, b)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, c)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, d)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, e)), \
-// GEODE_NEST2(macro, GEODE_CONCAT(begin, f))
+// #define SAPFIRE_NEST3(macro, begin)           \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 0)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 1)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 2)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 3)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 4)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 5)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 6)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 7)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 8)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, 9)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, a)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, b)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, c)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, d)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, e)), \
+// SAPFIRE_NEST2(macro, SAPFIRE_CONCAT(begin, f))
 
-// #define GEODE_NEST4(macro, begin)           \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 0)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 1)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 2)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 3)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 4)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 5)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 6)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 7)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 8)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, 9)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, a)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, b)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, c)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, d)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, e)), \
-// GEODE_NEST3(macro, GEODE_CONCAT(begin, f))
+// #define SAPFIRE_NEST4(macro, begin)           \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 0)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 1)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 2)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 3)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 4)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 5)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 6)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 7)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 8)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, 9)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, a)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, b)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, c)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, d)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, e)), \
+// SAPFIRE_NEST3(macro, SAPFIRE_CONCAT(begin, f))
 
-// #define GEODE_ENUM_OFFSETS_DEFINE(hex) GEODE_CONCAT($, hex)
-// #define GEODE_ENUM_OFFSETS_SET() GEODE_NEST4(GEODE_ENUM_OFFSETS_DEFINE, 0x)
+// #define SAPFIRE_ENUM_OFFSETS_DEFINE(hex) SAPFIRE_CONCAT($, hex)
+// #define SAPFIRE_ENUM_OFFSETS_SET() SAPFIRE_NEST4(SAPFIRE_ENUM_OFFSETS_DEFINE, 0x)
 
 // enum class PrinterOffsets {
-//    GEODE_ENUM_OFFSETS_SET()
+//    SAPFIRE_ENUM_OFFSETS_SET()
 // };

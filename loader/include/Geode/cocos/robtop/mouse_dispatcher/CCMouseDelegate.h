@@ -23,7 +23,7 @@ public:
 class CC_DLL CCMouseHandler : public CCObject
 {
 public:
-	GEODE_CUSTOM_CONSTRUCTOR_COCOS(CCMouseHandler, CCObject)
+	SAPFIRE_CUSTOM_CONSTRUCTOR_COCOS(CCMouseHandler, CCObject)
 	inline CCMouseHandler() = default;
 	
 	virtual ~CCMouseHandler();

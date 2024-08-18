@@ -4,8 +4,8 @@
     !include WinMessages.nsh
 
 ; settings
-    Name "Geode"
-    OutFile "geode-installer-win.exe"
+    Name "Sapfire"
+    OutFile "sapfire-installer-win.exe"
     Unicode true
     InstallDir "$PROGRAMFILES32\Steam\steamapps\common\Geometry Dash\" ; set default path to the most common one
     XPStyle on
@@ -42,29 +42,29 @@
     !insertmacro MUI_UNPAGE_FINISH
 
 ; languages
-    !macro GEODE_LANGUAGE NSFID
+    !macro SAPFIRE_LANGUAGE NSFID
         !insertmacro MUI_LANGUAGE ${NSFID}
         !insertmacro LANGFILE_INCLUDE "Language Files\${NSFID}Extra.nsh"
     !macroend
 
     ; TODO: add the commented out languages (other available languages are listed here: https://nsis.sourceforge.io/Examples/Modern%20UI/MultiLanguage.nsi)
-    !insertmacro GEODE_LANGUAGE "English"
-    !insertmacro GEODE_LANGUAGE "French"
-    !insertmacro GEODE_LANGUAGE "Spanish"
-    !insertmacro GEODE_LANGUAGE "SpanishInternational"
-    !insertmacro GEODE_LANGUAGE "Swedish"
-    !insertmacro GEODE_LANGUAGE "Greek"
-    !insertmacro GEODE_LANGUAGE "Finnish"
-    !insertmacro GEODE_LANGUAGE "Polish"
-    !insertmacro GEODE_LANGUAGE "Russian"
-    !insertmacro GEODE_LANGUAGE "PortugueseBR"
-    !insertmacro GEODE_LANGUAGE "Ukrainian"
-    !insertmacro GEODE_LANGUAGE "Czech"
-    !insertmacro GEODE_LANGUAGE "Turkish"
-    !insertmacro GEODE_LANGUAGE "Japanese"
-    !insertmacro GEODE_LANGUAGE "SimpChinese"
-    !insertmacro GEODE_LANGUAGE "TradChinese"
-    !insertmacro GEODE_LANGUAGE "Korean"
+    !insertmacro SAPFIRE_LANGUAGE "English"
+    !insertmacro SAPFIRE_LANGUAGE "French"
+    !insertmacro SAPFIRE_LANGUAGE "Spanish"
+    !insertmacro SAPFIRE_LANGUAGE "SpanishInternational"
+    !insertmacro SAPFIRE_LANGUAGE "Swedish"
+    !insertmacro SAPFIRE_LANGUAGE "Greek"
+    !insertmacro SAPFIRE_LANGUAGE "Finnish"
+    !insertmacro SAPFIRE_LANGUAGE "Polish"
+    !insertmacro SAPFIRE_LANGUAGE "Russian"
+    !insertmacro SAPFIRE_LANGUAGE "PortugueseBR"
+    !insertmacro SAPFIRE_LANGUAGE "Ukrainian"
+    !insertmacro SAPFIRE_LANGUAGE "Czech"
+    !insertmacro SAPFIRE_LANGUAGE "Turkish"
+    !insertmacro SAPFIRE_LANGUAGE "Japanese"
+    !insertmacro SAPFIRE_LANGUAGE "SimpChinese"
+    !insertmacro SAPFIRE_LANGUAGE "TradChinese"
+    !insertmacro SAPFIRE_LANGUAGE "Korean"
 
     !insertmacro MUI_RESERVEFILE_LANGDLL
 
@@ -335,7 +335,7 @@
 
 ; installer
 
-Var geode.DirectoryPage.ErrorText
+Var sapfire.DirectoryPage.ErrorText
 
 Var GamePath
 Function FindGamePath
@@ -390,13 +390,13 @@ FunctionEnd
 
 Function DirectoryPageShow
     System::Call 'USER32::CreateWindowEx(i${__NSD_Label_EXSTYLE}, t"${__NSD_Label_CLASS}", t"", i${__NSD_Label_STYLE}, i0, i70, i400, i40, p$mui.DirectoryPage, p0, p0, p0)p.s'
-    Pop $geode.DirectoryPage.ErrorText
-    ShowWindow $geode.DirectoryPage.ErrorText 0
+    Pop $sapfire.DirectoryPage.ErrorText
+    ShowWindow $sapfire.DirectoryPage.ErrorText 0
     SendMessage $mui.DirectoryPage ${WM_GETFONT} 0 0 $0
-    SendMessage $geode.DirectoryPage.ErrorText ${WM_SETFONT} $0 1
-    SetCtlColors $geode.DirectoryPage.ErrorText ff0000 transparent
+    SendMessage $sapfire.DirectoryPage.ErrorText ${WM_SETFONT} $0 1
+    SetCtlColors $sapfire.DirectoryPage.ErrorText ff0000 transparent
     ; place the label at the top
-    System::Call 'USER32::SetWindowPos(p$geode.DirectoryPage.ErrorText, p0, i0, i0, i0, i0, i3)i'
+    System::Call 'USER32::SetWindowPos(p$sapfire.DirectoryPage.ErrorText, p0, i0, i0, i0, i0, i3)i'
     Pop $0
 FunctionEnd
 
@@ -412,8 +412,8 @@ Function .onVerifyInstDir
     IfFileExists $INSTDIR\pthreadVC3.dll 0 versionIssueImo
     IfFileExists $INSTDIR\libcrypto-3-x64.dll 0 versionIssueImo
 
-    ; check if geode is already installed
-    IfFileExists $INSTDIR\Geode.dll valid
+    ; check if sapfire is already installed
+    IfFileExists $INSTDIR\Sapfire.dll valid
 
     ; check mod loaders/mod menus
     IfFileExists $INSTDIR\hackpro.dll other_hackpro
@@ -421,15 +421,15 @@ Function .onVerifyInstDir
 
     ; all checks passed
     valid:
-        ShowWindow $geode.DirectoryPage.ErrorText 0
+        ShowWindow $sapfire.DirectoryPage.ErrorText 0
         LockWindow off
         Return
 
     noGameNoLife:
-        SendMessage $geode.DirectoryPage.ErrorText ${WM_SETTEXT} "" "STR:$(GEODE_TEXT_GD_MISSING)"
+        SendMessage $sapfire.DirectoryPage.ErrorText ${WM_SETTEXT} "" "STR:$(SAPFIRE_TEXT_GD_MISSING)"
         Goto error
     versionIssueImo:
-        SendMessage $geode.DirectoryPage.ErrorText ${WM_SETTEXT} "" "STR:$(GEODE_TEXT_GD_OLD)"
+        SendMessage $sapfire.DirectoryPage.ErrorText ${WM_SETTEXT} "" "STR:$(SAPFIRE_TEXT_GD_OLD)"
         Goto error
     other_hackpro:
         StrCpy $0 "hackpro.dll"
@@ -438,31 +438,31 @@ Function .onVerifyInstDir
         StrCpy $0 "XInput1_4.dll"
         Goto other
     other:
-        ${StrRep} $0 $(GEODE_TEXT_MOD_LOADER_ALREADY_INSTALLED) "the dll trademark" $0
-        SendMessage $geode.DirectoryPage.ErrorText ${WM_SETTEXT} "" "STR:$0"
-        SetCtlColors $geode.DirectoryPage.ErrorText e25402 transparent
+        ${StrRep} $0 $(SAPFIRE_TEXT_MOD_LOADER_ALREADY_INSTALLED) "the dll trademark" $0
+        SendMessage $sapfire.DirectoryPage.ErrorText ${WM_SETTEXT} "" "STR:$0"
+        SetCtlColors $sapfire.DirectoryPage.ErrorText e25402 transparent
         LockWindow off
         Return
 
     error:
-        ShowWindow $geode.DirectoryPage.ErrorText 1
-        SetCtlColors $geode.DirectoryPage.ErrorText ff0000 transparent
+        ShowWindow $sapfire.DirectoryPage.ErrorText 1
+        SetCtlColors $sapfire.DirectoryPage.ErrorText ff0000 transparent
         LockWindow off
         Abort
         Return
 FunctionEnd
 
-SectionGroup "Geode"
+SectionGroup "Sapfire"
     Section "Loader" LOADER_SECTION
         SetOutPath $INSTDIR
 
-        File ${BINDIR}\Geode.dll
-        File ${BINDIR}\Geode.pdb
-        File ${BINDIR}\GeodeUpdater.exe
+        File ${BINDIR}\Sapfire.dll
+        File ${BINDIR}\Sapfire.pdb
+        File ${BINDIR}\SapfireUpdater.exe
         File ${BINDIR}\XInput1_4.dll
 
-        RMdir /r $INSTDIR\geode\update
-        RMdir /r $INSTDIR\geode\index
+        RMdir /r $INSTDIR\sapfire\update
+        RMdir /r $INSTDIR\sapfire\index
         Delete "$INSTDIR\xinput9_1_0.dll"
         Delete "$INSTDIR\xinput9_1_0.lib"
         Delete "$INSTDIR\xinput9_1_0.pdb"
@@ -474,12 +474,12 @@ SectionGroup "Geode"
         Delete "$INSTDIR\vcruntime140.dll"
         Delete "$INSTDIR\vcruntime140d.dll"
 
-        WriteUninstaller "GeodeUninstaller.exe"
+        WriteUninstaller "SapfireUninstaller.exe"
     SectionEnd
 
     Section "Resources"
-        CreateDirectory $INSTDIR\geode\resources\geode.loader
-        SetOutPath $INSTDIR\geode\resources\geode.loader
+        CreateDirectory $INSTDIR\sapfire\resources\sapfire.loader
+        SetOutPath $INSTDIR\sapfire\resources\sapfire.loader
         File /r ${BINDIR}\resources\*
     SectionEnd
 SectionGroupEnd
@@ -524,28 +524,28 @@ Function un.onInit
     IfFileExists $INSTDIR\*.exe 0 invalid
     IfFileExists $INSTDIR\libcocos2d.dll 0 invalid
 
-    ; check if xinput and geode exist
+    ; check if xinput and sapfire exist
     IfFileExists $INSTDIR\XInput1_4.dll 0 invalid
-    IfFileExists $INSTDIR\Geode.dll 0 invalid
+    IfFileExists $INSTDIR\Sapfire.dll 0 invalid
         Return
 
     invalid:
-        MessageBox MB_ICONSTOP|MB_OK $(GEODE_UNTEXT_GEODE_MISSING)
+        MessageBox MB_ICONSTOP|MB_OK $(SAPFIRE_UNTEXT_SAPFIRE_MISSING)
         Abort
 FunctionEnd
 Section "Uninstall"
-    DeleteRegKey /ifempty HKCU "Software\Geode"
-    Delete $INSTDIR\GeodeUninstaller.exe
-    Delete $INSTDIR\Geode.dll
-    Delete $INSTDIR\Geode.pdb
-    Delete $INSTDIR\Geode.lib
-    Delete $INSTDIR\GeodeUpdater.exe
+    DeleteRegKey /ifempty HKCU "Software\Sapfire"
+    Delete $INSTDIR\SapfireUninstaller.exe
+    Delete $INSTDIR\Sapfire.dll
+    Delete $INSTDIR\Sapfire.pdb
+    Delete $INSTDIR\Sapfire.lib
+    Delete $INSTDIR\SapfireUpdater.exe
     Delete $INSTDIR\XInput1_4.dll
 
     # default value of DATA is an empty string
     # if DATA is empty, keep user data
-    # otherwise, delete the entire geode and DATA\geode\mods dirs
-    # the reason we're deleting DATA\geode\mods instead of just passing
+    # otherwise, delete the entire sapfire and DATA\sapfire\mods dirs
+    # the reason we're deleting DATA\sapfire\mods instead of just passing
     # that dir directly to DATA is so that in case someone (either accidentally or maliciously)
     # passes the wrong directory, the uninstaller doesn't just blindly clear it
     # it will also check for the presence of CCGameManager.dat and CCLocalLevels.dat in DATA
@@ -558,24 +558,24 @@ Section "Uninstall"
 
     keep_data:
         # keep configs, mods, logs and crash logs
-        RMdir /r $INSTDIR\geode\index
-        RMdir /r $INSTDIR\geode\resources
-        RMdir /r $INSTDIR\geode\temp
-        RMdir /r $INSTDIR\geode\unzipped
-        RMdir /r $INSTDIR\geode\update
+        RMdir /r $INSTDIR\sapfire\index
+        RMdir /r $INSTDIR\sapfire\resources
+        RMdir /r $INSTDIR\sapfire\temp
+        RMdir /r $INSTDIR\sapfire\unzipped
+        RMdir /r $INSTDIR\sapfire\update
         Return
 
     remove_data:
-        RMdir /r $INSTDIR\geode
+        RMdir /r $INSTDIR\sapfire
         IfFileExists $0\CCGameManager.dat 0 invalid
         IfFileExists $0\CCLocalLevels.dat 0 invalid
-        RMdir /r $0\geode\mods ; delete DATA\geode\mods
-        RMdir $0\geode ; then delete DATA\geode non-recursively, assuming mods is the only directory in DATA\geode
+        RMdir /r $0\sapfire\mods ; delete DATA\sapfire\mods
+        RMdir $0\sapfire ; then delete DATA\sapfire non-recursively, assuming mods is the only directory in DATA\sapfire
         Return
 
     invalid:
         # this message doesnt rly need translatable as
-        # its only supposed to be used internally by geode itself
+        # its only supposed to be used internally by sapfire itself
         MessageBox MB_ICONSTOP|MB_OK "The path passed to DATA is not a valid Geometry Dash data folder!"
         Abort
 
